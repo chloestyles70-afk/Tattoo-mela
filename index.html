@@ -344,7 +344,26 @@
 
     <!-- MUSIC -->
     <audio id="song" preload="metadata" loop></audio>
+<div class="modal" id="whenModal" aria-hidden="true">
+  <div class="modal-inner" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
 
+    <button
+      class="close"
+      id="closeModal"
+      type="button"
+      aria-label="Close letter"
+    >
+      ×
+    </button>
+
+    <p class="eyebrow">A letter for you</p>
+
+    <h2 id="modalTitle"></h2>
+
+    <p id="modalText"></p>
+
+  </div>
+</div>
   </div>
 
   <script src="app.js"></script>
