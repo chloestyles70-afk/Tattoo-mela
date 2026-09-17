@@ -1,1 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#0d0b10"/>
 
+  <circle
+    cx="256"
+    cy="256"
+    r="190"
+    fill="none"
+    stroke="#d8a7b1"
+    stroke-width="5"
+    opacity="0.35"
+  />
+
+  <path
+    d="M256 365
+       C238 348 145 292 145 215
+       C145 169 178 139 217 139
+       C238 139 251 150 256 167
+       C261 150 274 139 295 139
+       C334 139 367 169 367 215
+       C367 292 274 348 256 365Z"
+    fill="#d8a7b1"
+  />
+
+  <text
+    x="256"
+    y="414"
+    text-anchor="middle"
+    fill="#f8eef1"
+    font-family="Georgia, serif"
+    font-size="38"
+    letter-spacing="8"
+  >TATTOO</text>
+</svg>
