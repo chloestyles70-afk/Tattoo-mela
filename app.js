@@ -16,13 +16,14 @@ const home = document.getElementById('homeBtn');
 let index = 0;
 
 
-/* MUSIC */
+/* =========================
+   MUSIC
+========================= */
 
 song.src = 'audio/v09044g40000cbal4n3c77ufcrd3qlg0.m4a';
 song.loop = true;
 song.preload = 'metadata';
 song.load();
-
 
 async function startMusic() {
   try {
@@ -39,7 +40,9 @@ async function startMusic() {
 }
 
 
-/* VIDEO AUTOPLAY */
+/* =========================
+   VIDEO AUTOPLAY
+========================= */
 
 function stopAllVideos() {
   document.querySelectorAll('.chapter video').forEach(video => {
@@ -47,7 +50,6 @@ function stopAllVideos() {
     video.currentTime = 0;
   });
 }
-
 
 function playChapterVideos() {
   const activeChapter = chapters[index];
@@ -65,7 +67,9 @@ function playChapterVideos() {
 }
 
 
-/* CHAPTERS */
+/* =========================
+   CHAPTERS
+========================= */
 
 const chapterNames = [
   'Chapter 01',
@@ -76,7 +80,6 @@ const chapterNames = [
   'A letter',
   'Open when…'
 ];
-
 
 function showChapter(newIndex) {
 
@@ -113,7 +116,9 @@ function showChapter(newIndex) {
 }
 
 
-/* BEGIN */
+/* =========================
+   BEGIN
+========================= */
 
 begin.addEventListener('click', async () => {
 
@@ -128,7 +133,9 @@ begin.addEventListener('click', async () => {
 });
 
 
-/* NEXT */
+/* =========================
+   NEXT
+========================= */
 
 next.addEventListener('click', () => {
 
@@ -141,7 +148,9 @@ next.addEventListener('click', () => {
 });
 
 
-/* BACK */
+/* =========================
+   BACK
+========================= */
 
 prev.addEventListener('click', () => {
 
@@ -152,7 +161,9 @@ prev.addEventListener('click', () => {
 });
 
 
-/* HOME */
+/* =========================
+   HOME
+========================= */
 
 home.addEventListener('click', () => {
 
@@ -171,7 +182,9 @@ home.addEventListener('click', () => {
 });
 
 
-/* MUSIC BUTTON */
+/* =========================
+   MUSIC BUTTON
+========================= */
 
 music.addEventListener('click', async () => {
 
@@ -189,6 +202,7 @@ music.addEventListener('click', async () => {
       'aria-label',
       'Play music'
     );
+
   }
 
 });
@@ -266,18 +280,23 @@ And if you’re still not smiling after this… then I guess I’ll have to come
 };
 
 
-/* OPEN MESSAGE */
+/* =========================
+   OPEN LETTER
+========================= */
 
-document.querySelectorAll('.when-list button').forEach(button => {
+document.querySelectorAll('.when-card').forEach(button => {
 
   button.addEventListener('click', () => {
 
     const message = button.dataset.message;
 
-    modalTitle.textContent = message;
+    if (!messages[message]) {
+      console.log('No message found for:', message);
+      return;
+    }
 
-    modalText.textContent =
-      messages[message];
+    modalTitle.textContent = message;
+    modalText.textContent = messages[message];
 
     modal.classList.add('open');
 
@@ -291,7 +310,9 @@ document.querySelectorAll('.when-list button').forEach(button => {
 });
 
 
-/* CLOSE MESSAGE */
+/* =========================
+   CLOSE LETTER
+========================= */
 
 function closeWhenModal() {
 
@@ -304,14 +325,15 @@ function closeWhenModal() {
 
 }
 
-
 closeModal.addEventListener(
   'click',
   closeWhenModal
 );
 
 
-/* TAP OUTSIDE TO CLOSE */
+/* =========================
+   TAP OUTSIDE
+========================= */
 
 modal.addEventListener('click', event => {
 
@@ -322,7 +344,9 @@ modal.addEventListener('click', event => {
 });
 
 
-/* KEYBOARD */
+/* =========================
+   KEYBOARD
+========================= */
 
 document.addEventListener('keydown', event => {
 
@@ -341,6 +365,8 @@ document.addEventListener('keydown', event => {
 });
 
 
-/* INITIAL STATE */
+/* =========================
+   INITIAL STATE
+========================= */
 
 showChapter(0);
