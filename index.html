@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d0b10" />
+  <title>TATTOO — for Mela</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <section class="screen opening active" id="opening">
+      <div class="glow"></div>
+      <div class="opening-content">
+        <p class="eyebrow">A little place I made for you</p>
+        <h1>Mela.</h1>
+        <p class="sweet">There are things I could say in a message…<br>but some things deserve their own little world.</p>
+        <p class="signature">— Alfred</p>
+        <button class="primary" id="beginBtn">Begin</button>
+      </div>
+    </section>
+
+    <main class="story" id="story" aria-hidden="true">
+      <header class="topbar">
+        <button class="icon-btn" id="homeBtn" aria-label="Back to opening">⌂</button>
+        <span id="chapterLabel">Chapter 01</span>
+        <button class="icon-btn" id="musicBtn" aria-label="Toggle music">♫</button>
+      </header>
+
+      <div class="progress"><span id="progressBar"></span></div>
+
+      <section class="chapter active" data-index="0">
+        <p class="eyebrow">Chapter 01</p>
+        <h2>The beginning.</h2>
+        <p>Some stories don't arrive with a warning. They simply become part of you before you realise how much they matter.</p>
+        <div class="memory-card">Your first memory goes here.</div>
+      </section>
+
+      <section class="chapter" data-index="1">
+        <p class="eyebrow">Chapter 02</p>
+        <h2>The little things.</h2>
+        <p>It's the small moments that stay: the conversations, the laughs, the looks, and all the ordinary moments that somehow became special.</p>
+        <div class="memory-card">Photo / video memory goes here.</div>
+      </section>
+
+      <section class="chapter" data-index="2">
+        <p class="eyebrow">Chapter 03</p>
+        <h2>Us.</h2>
+        <p>Not perfect. Not always easy. Just real—and worth remembering.</p>
+        <div class="memory-card">Photo / video memory goes here.</div>
+      </section>
+
+      <section class="chapter" data-index="3">
+        <p class="eyebrow">Chapter 04</p>
+        <h2>What I want you to know.</h2>
+        <p>You matter to me in ways that are difficult to fit into a screen. This little world is my way of making space for those words.</p>
+        <div class="memory-card">A personal message goes here.</div>
+      </section>
+
+      <section class="chapter" data-index="4">
+        <p class="eyebrow">Chapter 05</p>
+        <h2>Still writing.</h2>
+        <p>Maybe the best part is that the story isn't finished. There are still places to go, memories to make, and pages we haven't written.</p>
+        <div class="memory-card">Final memory goes here.</div>
+      </section>
+
+      <section class="chapter final" data-index="5">
+        <p class="eyebrow">A letter</p>
+        <h2>For Mela.</h2>
+        <p>Thank you for being part of my story. Whatever the next pages look like, I will always be grateful for the moments that brought us here.</p>
+        <p class="signature">Love,<br>Alfred</p>
+      </section>
+
+      <section class="chapter open-when" data-index="6">
+        <p class="eyebrow">Open when…</p>
+        <h2>you need a little reminder.</h2>
+        <div class="when-list">
+          <button data-message="When you miss me">Open this one</button>
+          <button data-message="When you're having a hard day">Open this one</button>
+          <button data-message="When you need a smile">Open this one</button>
+        </div>
+        <div class="modal" id="whenModal" aria-hidden="true">
+          <div class="modal-inner">
+            <button class="close" id="closeModal">×</button>
+            <p class="eyebrow" id="modalTitle"></p>
+            <p id="modalText">This message will become one of the private little notes inside TATTOO.</p>
+          </div>
+        </div>
+      </section>
+
+      <nav class="nav-controls">
+        <button class="secondary" id="prevBtn">Back</button>
+        <button class="primary small" id="nextBtn">Next</button>
+      </nav>
+    </main>
+
+    <audio id="song" preload="metadata" loop></audio>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
