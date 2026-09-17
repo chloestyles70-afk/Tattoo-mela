@@ -1830,6 +1830,36 @@
 
     async function loadMessages() {
 
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("chat_messages")
+    .select(
+      "id, room_id, sender_id, sender_name, content, message_type, media_path, created_at, read_at"
+    )
+    .eq("room_id", ROOM_ID)
+    .order("created_at", {
+      ascending: true
+    })
+    .limit(100);
+
+  if (error) {
+    console.error("Load messages error:", error);
+    return;
+  }
+
+  messages.innerHTML = "";
+
+  data.forEach(message => {
+    renderMessage(message);
+  });
+
+  requestAnimationFrame(() => {
+    scrollToBottom();
+  });
+}
+
       const {
         data,
         error
