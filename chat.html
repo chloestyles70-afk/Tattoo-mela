@@ -42,8 +42,14 @@
       overflow: hidden;
     }
 
+    button,
+    input {
+      font: inherit;
+    }
 
-    /* APP */
+    button {
+      -webkit-tap-highlight-color: transparent;
+    }
 
     .app {
       height: 100svh;
@@ -54,85 +60,58 @@
       background: var(--bg);
     }
 
-
     /* HEADER */
 
     .header {
       height: 72px;
       flex-shrink: 0;
-
       display: flex;
       align-items: center;
-
       padding: 10px 15px;
-
       border-bottom: 1px solid var(--line);
-
       background: rgba(13,11,16,.94);
-
       backdrop-filter: blur(18px);
+      z-index: 10;
     }
-
 
     .back {
       width: 40px;
       height: 40px;
-
       border: 0;
       background: transparent;
-
       color: var(--text);
-
-      font-size: 25px;
-
+      font-size: 28px;
       cursor: pointer;
     }
-
 
     .profile {
       display: flex;
       align-items: center;
       gap: 11px;
-
       flex: 1;
       min-width: 0;
+      cursor: pointer;
     }
-
 
     .avatar {
       width: 43px;
       height: 43px;
-
       flex-shrink: 0;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       border-radius: 50%;
-
-      background:
-        linear-gradient(
-          135deg,
-          #e9a8c4,
-          #8f6077
-        );
-
+      background: linear-gradient(135deg,#e9a8c4,#8f6077);
       color: #241720;
-
       font-family: Georgia, serif;
       font-size: 18px;
       font-weight: bold;
-
-      box-shadow:
-        0 0 0 3px rgba(233,168,196,.08);
+      box-shadow: 0 0 0 3px rgba(233,168,196,.08);
     }
-
 
     .profile-info {
       min-width: 0;
     }
-
 
     .profile-name {
       font-family: Georgia, serif;
@@ -140,447 +119,403 @@
       white-space: nowrap;
     }
 
-
     .status {
       margin-top: 3px;
-
       display: flex;
       align-items: center;
       gap: 5px;
-
       color: #8fc7a1;
-
       font-size: 11px;
     }
-
 
     .online-dot {
       width: 7px;
       height: 7px;
-
       border-radius: 50%;
-
       background: #78c991;
-
-      box-shadow:
-        0 0 8px rgba(120,201,145,.7);
+      box-shadow: 0 0 8px rgba(120,201,145,.7);
     }
-
 
     .header-actions {
       display: flex;
       gap: 3px;
     }
 
-
     .header-btn {
       width: 38px;
       height: 38px;
-
       border: 0;
-
       background: transparent;
-
       color: var(--muted);
-
       border-radius: 50%;
-
-      font-size: 18px;
-
+      font-size: 19px;
       cursor: pointer;
     }
-
 
     .header-btn:active {
       background: var(--panel);
     }
 
-
     /* MESSAGES */
 
     .messages {
       flex: 1;
-
       overflow-y: auto;
-
       padding: 18px 14px 105px;
-
       scroll-behavior: smooth;
     }
 
-
     .date {
       text-align: center;
-
       margin: 4px 0 20px;
-
       color: #716871;
-
       font-size: 10px;
-
       letter-spacing: 1px;
     }
 
-
     .row {
       display: flex;
-
       margin-bottom: 6px;
     }
-
 
     .row.me {
       justify-content: flex-end;
     }
 
-
     .row.them {
       justify-content: flex-start;
     }
 
-
     .bubble {
       position: relative;
-
       max-width: min(72%, 500px);
-
       padding: 9px 13px 7px;
-
       border-radius: 18px;
-
       font-family: Georgia, serif;
-
       font-size: 15px;
-
       line-height: 1.45;
-
       word-wrap: break-word;
+      white-space: pre-wrap;
     }
-
 
     .them .bubble {
       background: var(--panel2);
-
       border: 1px solid var(--line);
-
       border-bottom-left-radius: 5px;
     }
 
-
     .me .bubble {
       background: #d995b3;
-
       color: #241720;
-
       border-bottom-right-radius: 5px;
     }
 
-
     .time {
       display: inline-block;
-
       margin-left: 8px;
-
       font-family: Arial, sans-serif;
-
       font-size: 9px;
-
       opacity: .55;
-
       vertical-align: bottom;
     }
 
-
     .read {
       margin-left: 3px;
-
       font-size: 10px;
-
       opacity: .7;
     }
 
-
-    /* MESSAGE GROUPS */
-
-    .group-gap {
-      margin-top: 13px;
-    }
-
-
-    /* TYPING */
-
     .typing-row {
       display: none;
-
       margin: 5px 0 13px;
     }
-
 
     .typing-row.show {
       display: flex;
     }
 
-
     .typing {
       display: flex;
-
       align-items: center;
-
       gap: 4px;
-
       padding: 11px 14px;
-
       border-radius: 18px;
-
       border-bottom-left-radius: 5px;
-
       background: var(--panel2);
-
       border: 1px solid var(--line);
     }
-
 
     .typing span {
       width: 5px;
       height: 5px;
-
       border-radius: 50%;
-
       background: var(--muted);
-
       animation: bounce 1.2s infinite;
     }
-
 
     .typing span:nth-child(2) {
       animation-delay: .15s;
     }
 
-
     .typing span:nth-child(3) {
       animation-delay: .3s;
     }
 
-
     @keyframes bounce {
-
-      0%,
-      60%,
-      100% {
+      0%,60%,100% {
         transform: translateY(0);
       }
 
       30% {
         transform: translateY(-4px);
       }
-
     }
-
 
     /* COMPOSER */
 
     .composer-area {
       position: fixed;
-
       left: 0;
       right: 0;
       bottom: 0;
-
       z-index: 20;
-
-      padding:
-        9px
-        12px
-        calc(9px + env(safe-area-inset-bottom));
-
+      padding: 9px 12px calc(9px + env(safe-area-inset-bottom));
       background: rgba(13,11,16,.96);
-
       border-top: 1px solid var(--line);
-
       backdrop-filter: blur(18px);
     }
 
-
     .composer {
       max-width: 900px;
-
       margin: auto;
-
       display: flex;
-
       align-items: flex-end;
-
       gap: 7px;
     }
-
 
     .attach {
       width: 40px;
       height: 44px;
-
       flex-shrink: 0;
-
       border: 0;
-
       background: transparent;
-
       color: var(--muted);
-
-      font-size: 21px;
-
+      font-size: 23px;
       cursor: pointer;
     }
 
-
     .input-box {
       flex: 1;
-
       min-width: 0;
-
       display: flex;
-
       align-items: center;
-
       min-height: 44px;
-
       border-radius: 23px;
-
       background: var(--panel);
-
       border: 1px solid var(--line);
-
       padding: 0 5px 0 15px;
     }
-
 
     .input-box:focus-within {
       border-color: rgba(233,168,196,.45);
     }
 
-
     #messageInput {
       flex: 1;
-
       min-width: 0;
-
       height: 42px;
-
       border: 0;
-
       outline: 0;
-
       background: transparent;
-
       color: var(--text);
-
       font-family: Georgia, serif;
-
       font-size: 15px;
     }
-
 
     #messageInput::placeholder {
       color: #776d75;
     }
 
-
     .emoji {
       width: 36px;
       height: 36px;
-
       border: 0;
-
       background: transparent;
-
       color: var(--muted);
-
       font-size: 18px;
-
       cursor: pointer;
     }
-
 
     .send {
       width: 43px;
       height: 43px;
-
       flex-shrink: 0;
-
       border: 0;
-
       border-radius: 50%;
-
       background: var(--accent);
-
       color: #241720;
-
       font-size: 18px;
-
       cursor: pointer;
-
       transition: transform .15s;
     }
-
 
     .send:active {
       transform: scale(.9);
     }
 
-
-    /* EMOJI POPUP */
+    /* EMOJI */
 
     .emoji-panel {
       position: fixed;
-
       right: 15px;
       bottom: 72px;
-
       display: none;
-
       padding: 10px;
-
       border-radius: 17px;
-
       background: #1d1821;
-
       border: 1px solid var(--line);
-
       box-shadow: 0 15px 35px rgba(0,0,0,.4);
-
       z-index: 30;
     }
 
-
     .emoji-panel.show {
       display: grid;
-
-      grid-template-columns:
-        repeat(5, 1fr);
-
+      grid-template-columns: repeat(5, 1fr);
       gap: 7px;
     }
-
 
     .emoji-panel button {
       width: 35px;
       height: 35px;
-
       border: 0;
-
       background: transparent;
-
       border-radius: 9px;
-
       font-size: 20px;
-
       cursor: pointer;
     }
-
 
     .emoji-panel button:active {
       background: rgba(255,255,255,.07);
     }
 
+    /* POPUPS */
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(8px);
+      z-index: 50;
+    }
+
+    .overlay.show {
+      display: flex;
+    }
+
+    .popup {
+      width: min(420px, 100%);
+      max-height: 80vh;
+      overflow-y: auto;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    }
+
+    .popup h2 {
+      margin: 0 0 8px;
+      font-family: Georgia, serif;
+      font-weight: normal;
+    }
+
+    .popup p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .popup-close {
+      float: right;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 23px;
+      cursor: pointer;
+    }
+
+    .menu-button {
+      width: 100%;
+      padding: 13px 12px;
+      margin-top: 8px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--panel2);
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .menu-button:active {
+      background: #29222d;
+    }
+
+    /* SEARCH */
+
+    .search-input {
+      width: 100%;
+      height: 45px;
+      margin: 14px 0;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      outline: none;
+      background: var(--panel2);
+      color: var(--text);
+    }
+
+    .search-result {
+      padding: 10px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ATTACHMENT PREVIEW */
+
+    .preview {
+      display: none;
+      margin-bottom: 8px;
+      padding: 8px;
+      border-radius: 13px;
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .preview.show {
+      display: block;
+    }
+
+    .preview button {
+      float: right;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .attachment {
+      display: block;
+      max-width: 240px;
+      max-height: 260px;
+      margin-top: 6px;
+      border-radius: 12px;
+    }
 
     /* MOBILE */
 
@@ -618,21 +553,23 @@
 
 <div class="app">
 
-
   <!-- HEADER -->
 
   <header class="header">
 
     <button
       class="back"
-      onclick="location.href='index.html'"
+      id="backBtn"
       aria-label="Back"
     >
       ‹
     </button>
 
 
-    <div class="profile">
+    <div
+      class="profile"
+      id="profileBtn"
+    >
 
       <div class="avatar">
         M
@@ -645,11 +582,8 @@
         </div>
 
         <div class="status">
-
           <span class="online-dot"></span>
-
           Online
-
         </div>
 
       </div>
@@ -661,13 +595,15 @@
 
       <button
         class="header-btn"
-        title="Search"
+        id="searchBtn"
+        title="Search messages"
       >
         ⌕
       </button>
 
       <button
         class="header-btn"
+        id="moreBtn"
         title="More"
       >
         ⋯
@@ -689,9 +625,6 @@
       TODAY
     </div>
 
-
-    <!-- MELA -->
-
     <div class="row them">
 
       <div class="bubble">
@@ -706,8 +639,6 @@
 
     </div>
 
-
-    <!-- YOU -->
 
     <div class="row me">
 
@@ -747,19 +678,15 @@
     </div>
 
 
-    <!-- TYPING -->
-
     <div
       class="typing-row"
       id="typing"
     >
 
       <div class="typing">
-
         <span></span>
         <span></span>
         <span></span>
-
       </div>
 
     </div>
@@ -767,7 +694,7 @@
   </main>
 
 
-  <!-- EMOJI PANEL -->
+  <!-- EMOJI -->
 
   <div
     class="emoji-panel"
@@ -784,6 +711,137 @@
     <button>💕</button>
     <button>🫶</button>
     <button>😊</button>
+    <button>😚</button>
+    <button>💗</button>
+    <button>💋</button>
+    <button>🥰</button>
+    <button>😌</button>
+
+  </div>
+
+
+  <!-- SEARCH POPUP -->
+
+  <div
+    class="overlay"
+    id="searchOverlay"
+  >
+
+    <div class="popup">
+
+      <button
+        class="popup-close"
+        data-close="searchOverlay"
+      >
+        ×
+      </button>
+
+      <h2>
+        Search messages
+      </h2>
+
+      <input
+        class="search-input"
+        id="searchInput"
+        type="text"
+        placeholder="Search our conversation..."
+        autocomplete="off"
+      >
+
+      <div id="searchResults"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- MORE POPUP -->
+
+  <div
+    class="overlay"
+    id="moreOverlay"
+  >
+
+    <div class="popup">
+
+      <button
+        class="popup-close"
+        data-close="moreOverlay"
+      >
+        ×
+      </button>
+
+      <h2>
+        Chat options
+      </h2>
+
+      <button
+        class="menu-button"
+        id="latestBtn"
+      >
+        ↓ Jump to latest message
+      </button>
+
+      <button
+        class="menu-button"
+        id="saveBtn"
+      >
+        Save conversation
+      </button>
+
+      <button
+        class="menu-button"
+        id="clearBtn"
+      >
+        Clear my messages
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- PROFILE POPUP -->
+
+  <div
+    class="overlay"
+    id="profileOverlay"
+  >
+
+    <div class="popup">
+
+      <button
+        class="popup-close"
+        data-close="profileOverlay"
+      >
+        ×
+      </button>
+
+      <div style="text-align:center">
+
+        <div
+          class="avatar"
+          style="margin:0 auto 12px"
+        >
+          M
+        </div>
+
+        <h2>
+          Mela
+        </h2>
+
+        <p>
+          Our little world.
+        </p>
+
+        <p>
+          This is our private space to talk,
+          remember and keep building memories.
+        </p>
+
+      </div>
+
+    </div>
 
   </div>
 
@@ -792,15 +850,40 @@
 
   <div class="composer-area">
 
+    <div
+      class="preview"
+      id="attachmentPreview"
+    >
+
+      <button id="removeAttachment">
+        ×
+      </button>
+
+      <span id="attachmentName">
+        Attachment selected
+      </span>
+
+    </div>
+
+
     <form
       class="composer"
       id="chatForm"
     >
 
+      <input
+        type="file"
+        id="fileInput"
+        accept="image/*,video/*"
+        hidden
+      >
+
+
       <button
         class="attach"
         type="button"
-        title="Attach"
+        id="attachBtn"
+        title="Attach photo or video"
       >
         ＋
       </button>
@@ -859,6 +942,93 @@
   const emojiPanel =
     document.getElementById("emojiPanel");
 
+  const typing =
+    document.getElementById("typing");
+
+  const fileInput =
+    document.getElementById("fileInput");
+
+  const attachmentPreview =
+    document.getElementById("attachmentPreview");
+
+  const attachmentName =
+    document.getElementById("attachmentName");
+
+  let selectedFile = null;
+
+
+  /* STORAGE */
+
+  function saveMessages() {
+
+    const rows =
+      [...messages.querySelectorAll(".row")];
+
+    const data =
+      rows.map(function(row) {
+
+        return {
+          type: row.classList.contains("me")
+            ? "me"
+            : "them",
+
+          text:
+            row.querySelector(".bubble")
+              ?.childNodes[0]
+              ?.textContent
+              ?.trim() || ""
+        };
+
+      });
+
+    localStorage.setItem(
+      "tattoo-chat-messages",
+      JSON.stringify(data)
+    );
+
+  }
+
+
+  function loadMessages() {
+
+    const saved =
+      localStorage.getItem(
+        "tattoo-chat-messages"
+      );
+
+    if (!saved) return;
+
+    try {
+
+      const data =
+        JSON.parse(saved);
+
+      messages
+        .querySelectorAll(".row")
+        .forEach(function(row) {
+          row.remove();
+        });
+
+      data.forEach(function(message) {
+
+        addMessage(
+          message.text,
+          message.type === "me",
+          false
+        );
+
+      });
+
+    } catch (error) {
+
+      console.log(
+        "Could not load messages."
+      );
+
+    }
+
+  }
+
 
   /* TIME */
 
@@ -875,15 +1045,21 @@
   }
 
 
-  /* ADD MESSAGE */
+  /* SEND MESSAGE */
 
-  function addMessage(text) {
+  function addMessage(
+    text,
+    isMe = true,
+    save = true
+  ) {
 
     const row =
       document.createElement("div");
 
     row.className =
-      "row me";
+      isMe
+        ? "row me"
+        : "row them";
 
 
     const bubble =
@@ -907,39 +1083,49 @@
       getTime();
 
 
-    const read =
-      document.createElement("span");
-
-    read.className =
-      "read";
-
-    read.textContent =
-      "✓✓";
-
-
     bubble.appendChild(textNode);
 
     bubble.appendChild(time);
 
-    bubble.appendChild(read);
+
+    if (isMe) {
+
+      const read =
+        document.createElement("span");
+
+      read.className =
+        "read";
+
+      read.textContent =
+        "✓✓";
+
+      bubble.appendChild(read);
+
+    }
+
 
     row.appendChild(bubble);
 
-    messages.appendChild(row);
+    messages.insertBefore(
+      row,
+      typing
+    );
 
 
     messages.scrollTo({
-
       top: messages.scrollHeight,
-
       behavior: "smooth"
-
     });
+
+
+    if (save) {
+      saveMessages();
+    }
 
   }
 
 
-  /* SEND */
+  /* FORM */
 
   form.addEventListener(
     "submit",
@@ -950,9 +1136,34 @@
       const text =
         input.value.trim();
 
-      if (!text) return;
+      if (!text && !selectedFile) {
+        return;
+      }
 
-      addMessage(text);
+
+      if (selectedFile) {
+
+        addAttachmentMessage(
+          selectedFile
+        );
+
+        selectedFile = null;
+
+        fileInput.value = "";
+
+        attachmentPreview.classList.remove(
+          "show"
+        );
+
+      }
+
+
+      if (text) {
+
+        addMessage(text);
+
+      }
+
 
       input.value = "";
 
@@ -962,7 +1173,7 @@
   );
 
 
-  /* ENTER */
+  /* ENTER SEND */
 
   input.addEventListener(
     "keydown",
@@ -987,9 +1198,13 @@
 
   emojiBtn.addEventListener(
     "click",
-    function() {
+    function(event) {
 
-      emojiPanel.classList.toggle("show");
+      event.stopPropagation();
+
+      emojiPanel.classList.toggle(
+        "show"
+      );
 
     }
   );
@@ -1003,11 +1218,14 @@
         "click",
         function() {
 
-          input.value += button.textContent;
+          input.value +=
+            button.textContent;
 
           input.focus();
 
-          emojiPanel.classList.remove("show");
+          emojiPanel.classList.remove(
+            "show"
+          );
 
         }
       );
@@ -1015,18 +1233,22 @@
     });
 
 
-  /* CLOSE EMOJI PANEL */
+  /* CLOSE EMOJI */
 
   document.addEventListener(
     "click",
     function(event) {
 
       if (
-        !emojiPanel.contains(event.target) &&
+        !emojiPanel.contains(
+          event.target
+        ) &&
         event.target !== emojiBtn
       ) {
 
-        emojiPanel.classList.remove("show");
+        emojiPanel.classList.remove(
+          "show"
+        );
 
       }
 
@@ -1034,7 +1256,554 @@
   );
 
 
-  /* START AT BOTTOM */
+  /* BACK */
+
+  document
+    .getElementById("backBtn")
+    .addEventListener(
+      "click",
+      function() {
+
+        window.location.href =
+          "index.html";
+
+      }
+    );
+
+
+  /* PROFILE */
+
+  document
+    .getElementById("profileBtn")
+    .addEventListener(
+      "click",
+      function() {
+
+        document
+          .getElementById("profileOverlay")
+          .classList.add("show");
+
+      }
+    );
+
+
+  /* SEARCH */
+
+  document
+    .getElementById("searchBtn")
+    .addEventListener(
+      "click",
+      function() {
+
+        document
+          .getElementById("searchOverlay")
+          .classList.add("show");
+
+        setTimeout(
+          function() {
+
+            document
+              .getElementById("searchInput")
+              .focus();
+
+          },
+          100
+        );
+
+      }
+    );
+
+
+  const searchInput =
+    document.getElementById(
+      "searchInput"
+    );
+
+  const searchResults =
+    document.getElementById(
+      "searchResults"
+    );
+
+
+  searchInput.addEventListener(
+    "input",
+    function() {
+
+      const query =
+        searchInput.value
+          .trim()
+          .toLowerCase();
+
+      searchResults.innerHTML = "";
+
+      if (!query) return;
+
+
+      const bubbles =
+        [
+          ...messages.querySelectorAll(
+            ".bubble"
+          )
+        ];
+
+
+      let found = 0;
+
+
+      bubbles.forEach(function(bubble) {
+
+        const text =
+          bubble.textContent
+            .toLowerCase();
+
+        if (text.includes(query)) {
+
+          const result =
+            document.createElement(
+              "div"
+            );
+
+          result.className =
+            "search-result";
+
+          result.textContent =
+            bubble.textContent.trim();
+
+          searchResults.appendChild(
+            result
+          );
+
+          found++;
+
+        }
+
+      });
+
+
+      if (!found) {
+
+        searchResults.innerHTML =
+          '<div class="search-result">No messages found.</div>';
+
+      }
+
+    }
+  );
+
+
+  /* MORE */
+
+  document
+    .getElementById("moreBtn")
+    .addEventListener(
+      "click",
+      function() {
+
+        document
+          .getElementById("moreOverlay")
+          .classList.add("show");
+
+      }
+    );
+
+
+  /* LATEST */
+
+  document
+    .getElementById("latestBtn")
+    .addEventListener(
+      "click",
+      function() {
+
+        messages.scrollTo({
+          top: messages.scrollHeight,
+          behavior: "smooth"
+        });
+
+        closeOverlay(
+          "moreOverlay"
+        );
+
+      }
+    );
+
+
+  /* SAVE CONVERSATION */
+
+  document
+    .getElementById("saveBtn")
+    .addEventListener(
+      "click",
+      function() {
+
+        const text =
+          [
+            ...messages.querySelectorAll(
+              ".row"
+            )
+          ]
+          .map(function(row) {
+
+            const who =
+              row.classList.contains("me")
+                ? "You"
+                : "Mela";
+
+            return (
+              who +
+              ": " +
+              row
+                .querySelector(".bubble")
+                .textContent
+                .trim()
+            );
+
+          })
+          .join("\n\n");
+
+
+        const blob =
+          new Blob(
+            [text],
+            {
+              type: "text/plain"
+            }
+          );
+
+
+        const url =
+          URL.createObjectURL(blob);
+
+
+        const link =
+          document.createElement("a");
+
+        link.href = url;
+
+        link.download =
+          "our-little-world-chat.txt";
+
+        link.click();
+
+        URL.revokeObjectURL(url);
+
+        closeOverlay(
+          "moreOverlay"
+        );
+
+      }
+    );
+
+
+  /* CLEAR */
+
+  document
+    .getElementById("clearBtn")
+    .addEventListener(
+      "click",
+      function() {
+
+        const confirmed =
+          confirm(
+            "Clear all your messages from this device?"
+          );
+
+        if (!confirmed) return;
+
+
+        messages
+          .querySelectorAll(".row.me")
+          .forEach(function(row) {
+
+            row.remove();
+
+          });
+
+
+        saveMessages();
+
+        closeOverlay(
+          "moreOverlay"
+        );
+
+      }
+    );
+
+
+  /* ATTACHMENT */
+
+  document
+    .getElementById("attachBtn")
+    .addEventListener(
+      "click",
+      function() {
+
+        fileInput.click();
+
+      }
+    );
+
+
+  fileInput.addEventListener(
+    "change",
+    function() {
+
+      const file =
+        fileInput.files[0];
+
+      if (!file) return;
+
+      selectedFile = file;
+
+      attachmentName.textContent =
+        file.name;
+
+      attachmentPreview.classList.add(
+        "show"
+      );
+
+    }
+  );
+
+
+  document
+    .getElementById("removeAttachment")
+    .addEventListener(
+      "click",
+      function() {
+
+        selectedFile = null;
+
+        fileInput.value = "";
+
+        attachmentPreview.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+
+  /* ATTACHMENT MESSAGE */
+
+  function addAttachmentMessage(file) {
+
+    const row =
+      document.createElement("div");
+
+    row.className =
+      "row me";
+
+
+    const bubble =
+      document.createElement("div");
+
+    bubble.className =
+      "bubble";
+
+
+    if (file.type.startsWith("image/")) {
+
+      const image =
+        document.createElement("img");
+
+      image.className =
+        "attachment";
+
+      image.src =
+        URL.createObjectURL(file);
+
+      bubble.appendChild(image);
+
+    } else if (
+      file.type.startsWith("video/")
+    ) {
+
+      const video =
+        document.createElement("video");
+
+      video.className =
+        "attachment";
+
+      video.controls = true;
+
+      video.src =
+        URL.createObjectURL(file);
+
+      bubble.appendChild(video);
+
+    }
+
+
+    const time =
+      document.createElement("span");
+
+    time.className =
+      "time";
+
+    time.textContent =
+      getTime();
+
+
+    const read =
+      document.createElement("span");
+
+    read.className =
+      "read";
+
+    read.textContent =
+      "✓✓";
+
+
+    bubble.appendChild(time);
+
+    bubble.appendChild(read);
+
+    row.appendChild(bubble);
+
+    messages.insertBefore(
+      row,
+      typing
+    );
+
+
+    messages.scrollTo({
+      top: messages.scrollHeight,
+      behavior: "smooth"
+    });
+
+  }
+
+
+  /* POPUP CLOSING */
+
+  function closeOverlay(id) {
+
+    document
+      .getElementById(id)
+      .classList.remove("show");
+
+  }
+
+
+  document
+    .querySelectorAll(
+      "[data-close]"
+    )
+    .forEach(function(button) {
+
+      button.addEventListener(
+        "click",
+        function() {
+
+          closeOverlay(
+            button.dataset.close
+          );
+
+        }
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(".overlay")
+    .forEach(function(overlay) {
+
+      overlay.addEventListener(
+        "click",
+        function(event) {
+
+          if (
+            event.target === overlay
+          ) {
+
+            overlay.classList.remove(
+              "show"
+            );
+
+          }
+
+        }
+      );
+
+    });
+
+
+  /* ESC */
+
+  document.addEventListener(
+    "keydown",
+    function(event) {
+
+      if (event.key !== "Escape") {
+        return;
+      }
+
+      document
+        .querySelectorAll(".overlay.show")
+        .forEach(function(overlay) {
+
+          overlay.classList.remove(
+            "show"
+          );
+
+        });
+
+      emojiPanel.classList.remove(
+        "show"
+      );
+
+    }
+  );
+
+
+  /* TYPING EFFECT */
+
+  input.addEventListener(
+    "input",
+    function() {
+
+      if (!input.value.trim()) {
+
+        typing.classList.remove(
+          "show"
+        );
+
+        return;
+
+      }
+
+      typing.classList.add(
+        "show"
+      );
+
+
+      clearTimeout(
+        window.typingTimer
+      );
+
+
+      window.typingTimer =
+        setTimeout(
+          function() {
+
+            typing.classList.remove(
+              "show"
+            );
+
+          },
+          1200
+        );
+
+    }
+  );
+
+
+  /* LOAD */
+
+  loadMessages();
+
 
   messages.scrollTop =
     messages.scrollHeight;
