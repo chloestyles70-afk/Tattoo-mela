@@ -882,3 +882,14 @@ h2 {
   }
 
 }
+.story {
+  overflow-y: auto;
+  height: 100dvh;
+}
+
+.chapter {
+  height: auto;
+  min-height: 100%;
+  overflow: visible;
+  padding-bottom: 120px;
+}
