@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
 <head>
- <head>
   <meta charset="UTF-8" />
 
   <meta
@@ -13,7 +12,7 @@
 
   <meta
     name="description"
-    content="A little world made especially for Mela."
+    content="A little place made especially for Mela."
   />
 
   <meta name="mobile-web-app-capable" content="yes" />
@@ -55,17 +54,24 @@
 
   <link rel="stylesheet" href="style.css" />
 </head>
-</head>
 
 <body>
+
   <div id="app">
 
-    <!-- OPENING -->
+    <!-- =========================
+         OPENING
+    ========================== -->
+
     <section class="screen opening active" id="opening">
+
       <div class="glow"></div>
 
       <div class="opening-content">
-        <p class="eyebrow">A little place I made for you</p>
+
+        <p class="eyebrow">
+          A little place I made for you
+        </p>
 
         <h1>Mela.</h1>
 
@@ -74,34 +80,85 @@
           but some things deserve their own little world.
         </p>
 
-        <p class="signature">— Alfred</p>
+        <p class="signature">
+          — Alfred
+        </p>
 
-        <button class="primary" id="beginBtn">Begin</button>
+        <button
+          class="primary"
+          id="beginBtn"
+          type="button"
+        >
+          Begin
+        </button>
+
       </div>
+
     </section>
 
 
-    <!-- STORY -->
-    <main class="story" id="story" aria-hidden="true">
+    <!-- =========================
+         STORY
+    ========================== -->
+
+    <main
+      class="story"
+      id="story"
+      aria-hidden="true"
+    >
+
+      <!-- TOP BAR -->
 
       <header class="topbar">
-        <button class="icon-btn" id="homeBtn" aria-label="Back to opening">⌂</button>
 
-        <span id="chapterLabel">Chapter 01</span>
+        <button
+          class="icon-btn"
+          id="homeBtn"
+          type="button"
+          aria-label="Back to opening"
+        >
+          ⌂
+        </button>
 
-        <button class="icon-btn" id="musicBtn" aria-label="Toggle music">♫</button>
+        <span id="chapterLabel">
+          Chapter 01
+        </span>
+
+        <button
+          class="icon-btn"
+          id="musicBtn"
+          type="button"
+          aria-label="Toggle music"
+        >
+          ♫
+        </button>
+
       </header>
+
+
+      <!-- PROGRESS -->
 
       <div class="progress">
         <span id="progressBar"></span>
       </div>
 
 
-      <!-- CHAPTER 1 -->
-      <section class="chapter active" data-index="0">
-        <p class="eyebrow">Chapter 01</p>
+      <!-- =========================
+           CHAPTER 1
+      ========================== -->
 
-        <h2>The beginning.</h2>
+      <section
+        class="chapter active"
+        data-index="0"
+      >
+
+        <p class="eyebrow">
+          Chapter 01
+        </p>
+
+        <h2>
+          The beginning.
+        </h2>
 
         <p>
           Some stories don't arrive with a warning.
@@ -110,23 +167,37 @@
         </p>
 
         <div class="media-card">
+
           <img
             src="media/IMG_8884.jpeg"
             alt="A memory of Mela"
           />
+
         </div>
 
         <p class="media-caption">
           And somehow, this became part of my story.
         </p>
+
       </section>
 
 
-      <!-- CHAPTER 2 -->
-      <section class="chapter" data-index="1">
-        <p class="eyebrow">Chapter 02</p>
+      <!-- =========================
+           CHAPTER 2
+      ========================== -->
 
-        <h2>The little things.</h2>
+      <section
+        class="chapter"
+        data-index="1"
+      >
+
+        <p class="eyebrow">
+          Chapter 02
+        </p>
+
+        <h2>
+          The little things.
+        </h2>
 
         <p>
           It's the small moments that stay:
@@ -135,23 +206,37 @@
         </p>
 
         <div class="media-card">
+
           <img
             src="media/c1cf6e0f-3262-482b-9db9-1574b2c92e5d.jpeg"
             alt="Another memory of Mela"
           />
+
         </div>
 
         <p class="media-caption">
           Little moments. Big memories.
         </p>
+
       </section>
 
 
-      <!-- CHAPTER 3 -->
-      <section class="chapter" data-index="2">
-        <p class="eyebrow">Chapter 03</p>
+      <!-- =========================
+           CHAPTER 3
+      ========================== -->
 
-        <h2>Us.</h2>
+      <section
+        class="chapter"
+        data-index="2"
+      >
+
+        <p class="eyebrow">
+          Chapter 03
+        </p>
+
+        <h2>
+          Us.
+        </h2>
 
         <p>
           Not perfect. Not always easy.
@@ -159,30 +244,47 @@
         </p>
 
         <div class="media-card video-card">
+
           <video
             controls
             playsinline
             preload="metadata"
           >
+
             <source
-  src="media/6F8C5336-33B2-4CD9-A7C4-6F1FE5FA0312.mp4"
-  type="video/mp4"
-/>
+              src="media/6F8C5336-33B2-4CD9-A7C4-6F1FE5FA0312.mp4"
+              type="video/mp4"
+            />
+
             Your browser does not support this video.
+
           </video>
+
         </div>
 
         <p class="media-caption">
           One more memory I never want to forget.
         </p>
+
       </section>
 
 
-      <!-- CHAPTER 4 -->
-      <section class="chapter" data-index="3">
-        <p class="eyebrow">Chapter 04</p>
+      <!-- =========================
+           CHAPTER 4
+      ========================== -->
 
-        <h2>What I want you to know.</h2>
+      <section
+        class="chapter"
+        data-index="3"
+      >
+
+        <p class="eyebrow">
+          Chapter 04
+        </p>
+
+        <h2>
+          What I want you to know.
+        </h2>
 
         <p>
           You matter to me in ways that are difficult
@@ -191,26 +293,43 @@
         </p>
 
         <div class="media-card video-card">
+
           <video
             controls
             playsinline
             preload="metadata"
           >
+
             <source
               src="media/copy_B7E86F70-ED63-4426-9A21-75A2BD85EF15.mov"
               type="video/quicktime"
             />
+
             Your browser does not support this video.
+
           </video>
+
         </div>
+
       </section>
 
 
-      <!-- CHAPTER 5 -->
-      <section class="chapter" data-index="4">
-        <p class="eyebrow">Chapter 05</p>
+      <!-- =========================
+           CHAPTER 5
+      ========================== -->
 
-        <h2>Still writing.</h2>
+      <section
+        class="chapter"
+        data-index="4"
+      >
+
+        <p class="eyebrow">
+          Chapter 05
+        </p>
+
+        <h2>
+          Still writing.
+        </h2>
 
         <p>
           Maybe the best part is that the story isn't finished.
@@ -221,42 +340,65 @@
         <div class="media-stack">
 
           <div class="media-card video-card">
+
             <video
               controls
               playsinline
               preload="metadata"
             >
+
               <source
                 src="media/fc272acb-c472-45c8-a748-3d5944e8c52e.mov"
                 type="video/quicktime"
               />
+
               Your browser does not support this video.
+
             </video>
+
           </div>
 
+
           <div class="media-card video-card">
+
             <video
               controls
               playsinline
               preload="metadata"
             >
+
               <source
                 src="media/filtered-2BC15C3E-9666-4DD9-9D1D-4308159D99EE.mov"
                 type="video/quicktime"
               />
+
               Your browser does not support this video.
+
             </video>
+
           </div>
 
         </div>
+
       </section>
 
 
-      <!-- LETTER -->
-      <section class="chapter final" data-index="5">
-        <p class="eyebrow">A letter</p>
+      <!-- =========================
+           LETTER
+      ========================== -->
 
-        <h2>For Mela.</h2>
+      <section
+        class="chapter final"
+        data-index="5"
+      >
+
+        <p class="eyebrow">
+          A letter
+        </p>
+
+        <h2>
+          For Mela.
+        </h2>
 
         <p>
           Thank you for being part of my story.
@@ -266,128 +408,227 @@
         </p>
 
         <div class="media-card video-card">
+
           <video
             controls
             playsinline
             preload="metadata"
           >
+
             <source
               src="media/filtered-40A0EFE6-1B3F-4306-94A2-9279CDBC20FC.mov"
               type="video/quicktime"
             />
+
             Your browser does not support this video.
+
           </video>
+
         </div>
 
         <p class="signature">
           Love,<br>
           Alfred
         </p>
+
       </section>
 
 
-      <!-- OPEN WHEN -->
-      <section class="chapter open-when-chapter">
+      <!-- =========================
+           OPEN WHEN
+      ========================== -->
 
-  <div class="chapter-intro">
-    <p class="eyebrow">A little something for you</p>
+      <section
+        class="chapter open-when-chapter"
+        data-index="6"
+      >
 
-    <h2>Open When…</h2>
+        <div class="chapter-intro">
 
-    <p class="chapter-description">
-      Little letters for the moments when you need me.
-    </p>
-  </div>
+          <p class="eyebrow">
+            A little something for you
+          </p>
 
-  <div class="when-list">
+          <h2>
+            Open When…
+          </h2>
 
-    <button
-      class="when-card"
-      type="button"
-      data-message="When you miss me"
-    >
-      <span class="envelope-icon" aria-hidden="true">
-        <span class="envelope-flap"></span>
-      </span>
+          <p class="chapter-description">
+            Little letters for the moments when you need me.
+          </p>
 
-      <span class="when-card-content">
-        <span class="when-card-label">Open when…</span>
-
-        <strong>When you miss me</strong>
-
-        <small>
-          Open when you’re missing me.
-        </small>
-      </span>
-
-      <span class="when-card-arrow" aria-hidden="true">→</span>
-    </button>
+        </div>
 
 
-    <button
-      class="when-card"
-      type="button"
-      data-message="When you're having a hard day"
-    >
-      <span class="envelope-icon" aria-hidden="true">
-        <span class="envelope-flap"></span>
-      </span>
-
-      <span class="when-card-content">
-        <span class="when-card-label">Open when…</span>
-
-        <strong>When you're having a hard day</strong>
-
-        <small>
-          Open when today feels a little too heavy.
-        </small>
-      </span>
-
-      <span class="when-card-arrow" aria-hidden="true">→</span>
-    </button>
+        <div class="when-list">
 
 
-    <button
-      class="when-card"
-      type="button"
-      data-message="When you need a smile"
-    >
-      <span class="envelope-icon" aria-hidden="true">
-        <span class="envelope-flap"></span>
-      </span>
+          <!-- MISS ME -->
 
-      <span class="when-card-content">
-        <span class="when-card-label">Open when…</span>
+          <button
+            class="when-card"
+            type="button"
+            data-message="When you miss me"
+          >
 
-        <strong>When you need a smile</strong>
+            <span
+              class="envelope-icon"
+              aria-hidden="true"
+            >
+              <span class="envelope-flap"></span>
+            </span>
 
-        <small>
-          Open when you need a little smile.
-        </small>
-      </span>
+            <span class="when-card-content">
 
-      <span class="when-card-arrow" aria-hidden="true">→</span>
-    </button>
+              <span class="when-card-label">
+                Open when…
+              </span>
 
-  </div>
-  </div>
+              <strong>
+                When you miss me
+              </strong>
 
-<!-- CHAT BUTTON -->
-<div class="chat-next">
-  <p>And now, let's keep talking.</p>
+              <small>
+                Open when you’re missing me.
+              </small>
 
-  <a href="./chat.html" class="chat-button">
-    💬 Chat with me
-  </a>
-</div>
-      <!-- NAVIGATION -->
+            </span>
+
+            <span
+              class="when-card-arrow"
+              aria-hidden="true"
+            >
+              →
+            </span>
+
+          </button>
+
+
+          <!-- HARD DAY -->
+
+          <button
+            class="when-card"
+            type="button"
+            data-message="When you're having a hard day"
+          >
+
+            <span
+              class="envelope-icon"
+              aria-hidden="true"
+            >
+              <span class="envelope-flap"></span>
+            </span>
+
+            <span class="when-card-content">
+
+              <span class="when-card-label">
+                Open when…
+              </span>
+
+              <strong>
+                When you're having a hard day
+              </strong>
+
+              <small>
+                Open when today feels a little too heavy.
+              </small>
+
+            </span>
+
+            <span
+              class="when-card-arrow"
+              aria-hidden="true"
+            >
+              →
+            </span>
+
+          </button>
+
+
+          <!-- NEED A SMILE -->
+
+          <button
+            class="when-card"
+            type="button"
+            data-message="When you need a smile"
+          >
+
+            <span
+              class="envelope-icon"
+              aria-hidden="true"
+            >
+              <span class="envelope-flap"></span>
+            </span>
+
+            <span class="when-card-content">
+
+              <span class="when-card-label">
+                Open when…
+              </span>
+
+              <strong>
+                When you need a smile
+              </strong>
+
+              <small>
+                Open when you need a little smile.
+              </small>
+
+            </span>
+
+            <span
+              class="when-card-arrow"
+              aria-hidden="true"
+            >
+              →
+            </span>
+
+          </button>
+
+        </div>
+
+
+        <!-- =========================
+             CHAT BUTTON
+        ========================== -->
+
+        <div class="chat-next">
+
+          <p>
+            And now, let's keep talking.
+          </p>
+
+          <a
+            href="chat.html"
+            class="chat-button"
+          >
+            💬 Chat with me
+          </a>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           NAVIGATION
+      ========================== -->
+
       <nav class="nav-controls">
 
-        <button class="secondary" id="prevBtn">
+        <button
+          class="secondary"
+          id="prevBtn"
+          type="button"
+        >
           Back
         </button>
 
-        <button class="primary small" id="nextBtn">
+        <button
+          class="primary small"
+          id="nextBtn"
+          type="button"
+        >
           Next
         </button>
 
@@ -396,31 +637,61 @@
     </main>
 
 
-    <!-- MUSIC -->
-    <audio id="song" preload="metadata" loop></audio>
-<div class="modal" id="whenModal" aria-hidden="true">
-  <div class="modal-inner" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <!-- =========================
+         MUSIC
+    ========================== -->
 
-    <button
-      class="close"
-      id="closeModal"
-      type="button"
-      aria-label="Close letter"
+    <audio
+      id="song"
+      preload="metadata"
+      loop
+    ></audio>
+
+
+    <!-- =========================
+         OPEN WHEN MODAL
+    ========================== -->
+
+    <div
+      class="modal"
+      id="whenModal"
+      aria-hidden="true"
     >
-      ×
-    </button>
 
-    <p class="eyebrow">A letter for you</p>
+      <div
+        class="modal-inner"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+      >
 
-    <h2 id="modalTitle"></h2>
+        <button
+          class="close"
+          id="closeModal"
+          type="button"
+          aria-label="Close letter"
+        >
+          ×
+        </button>
 
-    <p id="modalText"></p>
+        <p class="eyebrow">
+          A letter for you
+        </p>
+
+        <h2 id="modalTitle"></h2>
+
+        <p id="modalText"></p>
+
+      </div>
+
+    </div>
 
   </div>
-</div>
-  </div>
+
+
+  <!-- APP JAVASCRIPT -->
 
   <script src="app.js"></script>
+
 </body>
 </html>
-
