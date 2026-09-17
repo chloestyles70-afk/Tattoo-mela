@@ -1877,68 +1877,42 @@
 
     async function sendText() {
 
-      const text =
-        messageInput.value.trim();
+  const text = messageInput.value.trim();
 
+  if (!text) {
+    return;
+  }
 
-      if (!text) {
-        return;
-      }
+  stopTyping();
 
+  const {
+    error
+  } = await supabaseClient
+    .from("chat_messages")
+    .insert({
+      room_id: ROOM_ID,
+      sender_id: currentUser,
+      sender_name: USER_NAMES[currentUser],
+      content: text,
+      message_type: "text"
+    });
 
-      messageInput.value = "";
+  if (error) {
 
-      stopTyping();
+    console.error("Send error:", error);
 
+    alert(
+      "Send error: " +
+      error.message
+    );
 
-      const {
-        error
-      } =
-        await supabaseClient
-          .from(
-            "chat_messages"
-          )
-          .insert({
+    return;
+  }
 
-            room_id:
-              ROOM_ID,
+  // Only clear after successful send
+  messageInput.value = "";
 
-            sender_id:
-              currentUser,
-
-            sender_name:
-              USER_NAMES[
-                currentUser
-              ],
-
-            content:
-              text,
-
-            message_type:
-              "text"
-
-          });
-
-
-      if (error) {
-
-        console.error(
-          "Send error:",
-          error
-        );
-
-        alert(
-          "Send error: " +
-          error.message
-        );
-
-        messageInput.value =
-          text;
-
-      }
-
-    }
-
+}
 
     /*
       ==========================================
