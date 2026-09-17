@@ -1946,116 +1946,46 @@
       ==========================================
     */
 
-    async function sendAttachment() {
+    async function sendText() {
 
-      if (!selectedAttachment) {
-        return;
-      }
+  const text = messageInput.value.trim();
 
+  if (!text) {
+    return;
+  }
 
-      const file =
-        selectedAttachment;
+  messageInput.value = "";
+  stopTyping();
 
+  const {
+    error
+  } = await supabaseClient
+    .from("chat_messages")
+    .insert({
+      room_id: ROOM_ID,
+      sender_id: currentUser,
+      sender_name: USER_NAMES[currentUser],
+      content: text,
+      message_type: "text"
+    });
 
-      try {
+  if (error) {
 
-        const extension =
-          file.name
-            .split(".")
-            .pop()
-            .toLowerCase();
+    console.error(
+      "Send error:",
+      error
+    );
 
+    alert(
+      "Send error: " +
+      error.message
+    );
 
-        const path =
-          `${currentUser}/${crypto.randomUUID()}.${extension}`;
+    messageInput.value = text;
 
-
-        const {
-          error:
-            uploadError
-        } =
-          await supabaseClient
-            .storage
-            .from(
-              "tattoo-chat-media"
-            )
-            .upload(
-              path,
-              file,
-              {
-                upsert: false,
-                contentType:
-                  file.type
-              }
-            );
-
-
-        if (uploadError) {
-          throw uploadError;
-        }
-
-
-        const type =
-          file.type.startsWith(
-            "video/"
-          )
-            ? "video"
-            : "image";
-
-
-        const {
-          error:
-            insertError
-        } =
-          await supabaseClient
-            .from(
-              "chat_messages"
-            )
-            .insert({
-
-              room_id:
-                ROOM_ID,
-
-              sender_id:
-                currentUser,
-
-              sender_name:
-                USER_NAMES[
-                  currentUser
-                ],
-
-              content:
-                "",
-
-              message_type:
-                type,
-
-              media_path:
-                path
-
-            });
-
-
-        if (insertError) {
-          throw insertError;
-        }
-
-
-        clearAttachment();
-
-      } catch (error) {
-
-        console.error(
-          "Attachment error:",
-          error
-        );
-
-        alert(
-          "Attachment error: " +
-          error.message
-        );
-
-      }
+    return;
+  }
+}
 
     }
 
