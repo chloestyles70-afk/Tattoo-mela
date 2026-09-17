@@ -25,6 +25,11 @@
       padding: 0;
     }
 
+    html,
+    body {
+      min-height: 100%;
+    }
+
     body {
       min-height: 100vh;
       background:
@@ -39,7 +44,8 @@
     }
 
     button,
-    input {
+    input,
+    textarea {
       font: inherit;
     }
 
@@ -79,6 +85,7 @@
 
       background: rgba(23,19,27,.94);
       backdrop-filter: blur(18px);
+
       border-bottom: 1px solid var(--line);
     }
 
@@ -96,6 +103,7 @@
       place-items: center;
 
       font-size: 18px;
+
       transition: .2s;
     }
 
@@ -163,7 +171,7 @@
 
     .message-list {
       min-height: 100vh;
-      padding: 90px 16px 120px;
+      padding: 90px 16px 130px;
       overflow-y: auto;
     }
 
@@ -190,8 +198,6 @@
       justify-content: flex-start;
     }
 
-    /* CUTE BUBBLES */
-
     .bubble {
       position: relative;
 
@@ -216,8 +222,6 @@
       transform: translateY(-1px);
     }
 
-    /* MELA */
-
     .row.them .bubble {
       background: #211a23;
       color: var(--text);
@@ -226,27 +230,6 @@
 
       border-bottom-left-radius: 6px;
     }
-
-    .row.them .bubble::after {
-      content: "";
-
-      position: absolute;
-      left: -6px;
-      bottom: 2px;
-
-      width: 12px;
-      height: 12px;
-
-      background: #211a23;
-
-      clip-path: polygon(
-        100% 0,
-        0 100%,
-        100% 100%
-      );
-    }
-
-    /* YOU */
 
     .row.me .bubble {
       background:
@@ -260,27 +243,6 @@
 
       border-bottom-right-radius: 6px;
     }
-
-    .row.me .bubble::after {
-      content: "";
-
-      position: absolute;
-      right: -6px;
-      bottom: 2px;
-
-      width: 12px;
-      height: 12px;
-
-      background: #d98faf;
-
-      clip-path: polygon(
-        0 0,
-        100% 100%,
-        0 100%
-      );
-    }
-
-    /* MESSAGE META */
 
     .message-meta {
       display: flex;
@@ -301,6 +263,26 @@
 
     .checks {
       letter-spacing: -3px;
+    }
+
+    /* MEDIA */
+
+    .media-bubble {
+      padding: 4px;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .media-bubble img,
+    .media-bubble video {
+      display: block;
+
+      max-width: 240px;
+      max-height: 300px;
+
+      border-radius: 16px;
+
+      object-fit: cover;
     }
 
     /* TYPING */
@@ -344,26 +326,6 @@
 
     .typing-bubble span:nth-child(3) {
       animation-delay: .3s;
-    }
-
-    /* MEDIA */
-
-    .media-bubble {
-      padding: 4px;
-      overflow: hidden;
-      border-radius: 20px;
-    }
-
-    .media-bubble img,
-    .media-bubble video {
-      display: block;
-
-      max-width: 240px;
-      max-height: 300px;
-
-      border-radius: 16px;
-
-      object-fit: cover;
     }
 
     /* COMPOSER */
@@ -473,7 +435,7 @@
       color: var(--accent);
     }
 
-    /* EMOJI PANEL */
+    /* EMOJI */
 
     .emoji-panel {
       display: none;
@@ -520,7 +482,53 @@
       background: rgba(233,168,196,.12);
     }
 
-    /* OVERLAY */
+    /* ATTACHMENT */
+
+    #fileInput {
+      display: none;
+    }
+
+    .attachment-preview {
+      display: none;
+
+      margin-bottom: 8px;
+
+      padding: 8px;
+
+      background: #211a23;
+
+      border-radius: 14px;
+    }
+
+    .attachment-preview.show {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .attachment-preview img,
+    .attachment-preview video {
+      width: 55px;
+      height: 55px;
+
+      object-fit: cover;
+
+      border-radius: 10px;
+    }
+
+    .remove-file {
+      margin-left: auto;
+
+      border: none;
+
+      background: transparent;
+
+      color: #d99ab5;
+
+      font-size: 18px;
+    }
+
+    /* POPUPS */
 
     .overlay {
       display: none;
@@ -608,50 +616,41 @@
       color: var(--text);
     }
 
-    /* ATTACHMENT */
-
-    #fileInput {
-      display: none;
+    .popup-list {
+      display: grid;
+      gap: 8px;
     }
 
-    .attachment-preview {
-      display: none;
-
-      margin-bottom: 8px;
-
-      padding: 8px;
-
-      background: #211a23;
-
-      border-radius: 14px;
-    }
-
-    .attachment-preview.show {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .attachment-preview img,
-    .attachment-preview video {
-      width: 55px;
-      height: 55px;
-
-      object-fit: cover;
-
-      border-radius: 10px;
-    }
-
-    .remove-file {
-      margin-left: auto;
+    .popup-list button {
+      width: 100%;
+      padding: 13px;
 
       border: none;
+      border-radius: 14px;
 
-      background: transparent;
+      background: rgba(255,255,255,.06);
+      color: var(--text);
 
-      color: #d99ab5;
+      text-align: left;
+    }
 
-      font-size: 18px;
+    .popup-list button:hover {
+      background: rgba(233,168,196,.12);
+    }
+
+    /* EMPTY */
+
+    .empty {
+      text-align: center;
+      padding: 80px 25px;
+      color: var(--muted);
+    }
+
+    .empty strong {
+      display: block;
+      color: var(--text);
+      font-size: 20px;
+      margin-bottom: 8px;
     }
 
     /* ANIMATIONS */
@@ -692,10 +691,7 @@
       }
     }
 
-    /* MOBILE */
-
     @media (max-width: 600px) {
-
       .bubble {
         max-width: 82%;
         font-size: 14px;
@@ -709,6 +705,7 @@
 
       .emoji-panel {
         width: calc(100% - 24px);
+        right: 12px;
       }
     }
   </style>
@@ -716,250 +713,186 @@
 
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <!-- HEADER -->
+  <!-- HEADER -->
+  <header class="topbar">
 
-    <header class="topbar">
+    <button
+      class="icon-btn"
+      id="backButton"
+      title="Back"
+    >
+      ←
+    </button>
 
-      <button
-        class="icon-btn"
-        id="backBtn"
-        aria-label="Back"
-      >
-        ←
-      </button>
-
-      <div
-        class="profile"
-        id="profileBtn"
-      >
-
-        <div class="avatar">
-          M
-        </div>
-
-        <div class="profile-info">
-
-          <strong>Mela</strong>
-
-          <div class="status">
-            <span class="online-dot"></span>
-            Online
-          </div>
-
-        </div>
-
+    <div
+      class="profile"
+      id="profileButton"
+    >
+      <div class="avatar">
+        M
       </div>
 
-      <button
-        class="icon-btn"
-        id="searchBtn"
-        aria-label="Search"
-      >
-        🔍
-      </button>
+      <div class="profile-info">
+        <strong>Mela</strong>
+
+        <div class="status">
+          <span class="online-dot"></span>
+          <span id="statusText">Our little chat</span>
+        </div>
+      </div>
+    </div>
+
+    <button
+      class="icon-btn"
+      id="searchButton"
+      title="Search"
+    >
+      ⌕
+    </button>
+
+    <button
+      class="icon-btn"
+      id="moreButton"
+      title="More"
+    >
+      ⋯
+    </button>
+
+  </header>
+
+
+  <!-- MESSAGES -->
+  <main
+    class="message-list"
+    id="messageList"
+  >
+
+    <div
+      class="date-divider"
+      id="dateDivider"
+    >
+      OUR LITTLE WORLD
+    </div>
+
+    <div
+      class="empty"
+      id="emptyState"
+    >
+      <strong>Just us.</strong>
+      <span>Start the conversation.</span>
+    </div>
+
+    <div
+      class="typing-row"
+      id="typingRow"
+    >
+      <div class="typing-bubble">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+  </main>
+
+
+  <!-- COMPOSER -->
+  <div class="composer">
+
+    <div
+      class="attachment-preview"
+      id="attachmentPreview"
+    >
+      <div id="attachmentContent"></div>
 
       <button
-        class="icon-btn"
-        id="moreBtn"
-        aria-label="More"
+        class="remove-file"
+        id="removeFileButton"
+        type="button"
       >
-        ⋯
+        ×
       </button>
+    </div>
 
-    </header>
-
-
-    <!-- MESSAGES -->
-
-    <main
-      class="message-list"
-      id="messageList"
+    <form
+      class="composer-inner"
+      id="messageForm"
     >
 
-      <div class="date-divider">
-        TODAY
-      </div>
-
-
-      <!-- SAMPLE MELA MESSAGE -->
-
-      <div class="row them">
-
-        <div class="bubble">
-
-          Hey ❤️
-
-          <div class="message-meta">
-            10:42 AM
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- SAMPLE USER MESSAGE -->
-
-      <div class="row me">
-
-        <div class="bubble">
-
-          Hey Mela. I made this little place for us.
-
-          <div class="message-meta">
-            10:43 AM
-            <span class="checks">✓✓</span>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- SAMPLE MELA MESSAGE -->
-
-      <div class="row them">
-
-        <div class="bubble">
-
-          I actually love it 🥹💗
-
-          <div class="message-meta">
-            10:44 AM
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- TYPING -->
-
-      <div
-        class="typing-row"
-        id="typingRow"
+      <button
+        class="small-btn"
+        type="button"
+        id="attachmentButton"
+        title="Photo or video"
       >
+        +
+      </button>
 
-        <div class="typing-bubble">
-
-          <span></span>
-          <span></span>
-          <span></span>
-
-        </div>
-
-      </div>
-
-    </main>
-
-
-    <!-- COMPOSER -->
-
-    <div class="composer">
-
-      <div
-        class="attachment-preview"
-        id="attachmentPreview"
-      >
-
-        <div id="attachmentContent"></div>
-
-        <button
-          class="remove-file"
-          id="removeFile"
-        >
-          ×
-        </button>
-
-      </div>
-
-
-      <form
-        class="composer-inner"
-        id="messageForm"
-      >
-
-        <button
-          type="button"
-          class="small-btn"
-          id="attachmentBtn"
-          title="Attach"
-        >
-          ＋
-        </button>
+      <div class="input-wrap">
 
         <input
-          type="file"
-          id="fileInput"
-          accept="image/*,video/*"
+          id="messageInput"
+          type="text"
+          autocomplete="off"
+          placeholder="Write something..."
         >
 
+        <button
+          class="small-btn"
+          type="button"
+          id="emojiButton"
+          title="Emoji"
+        >
+          ♡
+        </button>
 
-        <div class="input-wrap">
+        <button
+          class="send-btn"
+          type="submit"
+          id="sendButton"
+          title="Send"
+        >
+          ➤
+        </button>
 
-          <input
-            type="text"
-            id="messageInput"
-            placeholder="Message Mela..."
-            autocomplete="off"
-          >
+      </div>
 
-          <button
-            type="button"
-            class="small-btn"
-            id="emojiBtn"
-          >
-            ☺
-          </button>
-
-          <button
-            type="submit"
-            class="send-btn"
-          >
-            ↑
-          </button>
-
-        </div>
-
-      </form>
+    </form>
 
 
-      <!-- EMOJI PANEL -->
+    <!-- EMOJI PANEL -->
+    <div
+      class="emoji-panel"
+      id="emojiPanel"
+    >
 
-      <div
-        class="emoji-panel"
-        id="emojiPanel"
-      >
+      <div class="emoji-grid">
 
-        <div class="emoji-grid">
+        <button class="emoji">❤️</button>
+        <button class="emoji">💕</button>
+        <button class="emoji">💗</button>
+        <button class="emoji">💖</button>
+        <button class="emoji">💘</button>
+        <button class="emoji">💞</button>
+        <button class="emoji">💋</button>
 
-          <button class="emoji">❤️</button>
-          <button class="emoji">💕</button>
-          <button class="emoji">💗</button>
-          <button class="emoji">💖</button>
-          <button class="emoji">💘</button>
-          <button class="emoji">🥹</button>
-          <button class="emoji">😍</button>
+        <button class="emoji">🥹</button>
+        <button class="emoji">😍</button>
+        <button class="emoji">😘</button>
+        <button class="emoji">🥰</button>
+        <button class="emoji">😭</button>
+        <button class="emoji">😂</button>
+        <button class="emoji">🤭</button>
 
-          <button class="emoji">😘</button>
-          <button class="emoji">😊</button>
-          <button class="emoji">😂</button>
-          <button class="emoji">😭</button>
-          <button class="emoji">🥰</button>
-          <button class="emoji">😌</button>
-          <button class="emoji">🫶</button>
-
-          <button class="emoji">💋</button>
-          <button class="emoji">🌹</button>
-          <button class="emoji">✨</button>
-          <button class="emoji">🥺</button>
-          <button class="emoji">😚</button>
-          <button class="emoji">🤍</button>
-          <button class="emoji">🩷</button>
-
-        </div>
+        <button class="emoji">😚</button>
+        <button class="emoji">😌</button>
+        <button class="emoji">🫶</button>
+        <button class="emoji">🤍</button>
+        <button class="emoji">🩷</button>
+        <button class="emoji">✨</button>
+        <button class="emoji">🌹</button>
 
       </div>
 
@@ -967,107 +900,99 @@
 
   </div>
 
-
-  <!-- PROFILE POPUP -->
-
-  <div
-    class="overlay"
-    id="profileOverlay"
-  >
-
-    <div class="popup">
-
-      <h2>Mela ❤️</h2>
-
-      <p>
-        A little place for us to talk, laugh,
-        share things and keep our memories.
-      </p>
-
-      <button
-        class="popup-btn secondary"
-        data-close="profileOverlay"
-      >
-        Close
-      </button>
-
-    </div>
-
-  </div>
+</div>
 
 
-  <!-- SEARCH POPUP -->
+<!-- PROFILE POPUP -->
 
-  <div
-    class="overlay"
-    id="searchOverlay"
-  >
+<div
+  class="overlay"
+  id="profileOverlay"
+>
 
-    <div class="popup">
+  <div class="popup">
 
-      <h2>Search our chat</h2>
+    <h2>Mela</h2>
 
-      <input
-        class="popup-input"
-        id="searchInput"
-        placeholder="Search messages..."
-      >
+    <p>
+      This is our little private space.
+      Just you and me.
+    </p>
 
-      <button
-        class="popup-btn"
-        id="searchConfirm"
-      >
-        Search
-      </button>
-
-      <button
-        class="popup-btn secondary"
-        data-close="searchOverlay"
-      >
-        Close
-      </button>
-
-    </div>
+    <button
+      class="popup-btn"
+      id="closeProfile"
+    >
+      Close
+    </button>
 
   </div>
 
+</div>
 
-  <!-- MORE POPUP -->
 
-  <div
-    class="overlay"
-    id="moreOverlay"
-  >
+<!-- SEARCH POPUP -->
 
-    <div class="popup">
+<div
+  class="overlay"
+  id="searchOverlay"
+>
 
-      <h2>Chat options</h2>
+  <div class="popup">
 
-      <button
-        class="popup-btn"
-        id="jumpLatest"
-      >
+    <h2>Search our chat</h2>
+
+    <input
+      class="popup-input"
+      id="searchInput"
+      placeholder="Search messages..."
+    >
+
+    <button
+      class="popup-btn"
+      id="searchSubmit"
+    >
+      Search
+    </button>
+
+    <button
+      class="popup-btn secondary"
+      id="closeSearch"
+    >
+      Close
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- MORE POPUP -->
+
+<div
+  class="overlay"
+  id="moreOverlay"
+>
+
+  <div class="popup">
+
+    <h2>Our chat</h2>
+
+    <div class="popup-list">
+
+      <button id="jumpLatest">
         ↓ Jump to latest
       </button>
 
-      <button
-        class="popup-btn"
-        id="saveConversation"
-      >
-        Save conversation
+      <button id="saveConversation">
+        ♡ Save conversation
       </button>
 
-      <button
-        class="popup-btn secondary"
-        id="clearMessages"
-      >
+      <button id="clearMyMessages">
         Clear my messages
       </button>
 
-      <button
-        class="popup-btn secondary"
-        data-close="moreOverlay"
-      >
+      <button id="closeMore">
         Close
       </button>
 
@@ -1075,681 +1000,58 @@
 
   </div>
 
+</div>
 
-  <script>
 
-    /* ELEMENTS */
+<input
+  type="file"
+  id="fileInput"
+  accept="image/*,video/*"
+>
 
-    const messageList =
-      document.getElementById("messageList");
 
-    const messageForm =
-      document.getElementById("messageForm");
-
-    const messageInput =
-      document.getElementById("messageInput");
-
-    const typingRow =
-      document.getElementById("typingRow");
-
-    const emojiBtn =
-      document.getElementById("emojiBtn");
-
-    const emojiPanel =
-      document.getElementById("emojiPanel");
-
-    const attachmentBtn =
-      document.getElementById("attachmentBtn");
-
-    const fileInput =
-      document.getElementById("fileInput");
-
-    const attachmentPreview =
-      document.getElementById("attachmentPreview");
-
-    const attachmentContent =
-      document.getElementById("attachmentContent");
-
-    const removeFile =
-      document.getElementById("removeFile");
-
-
-    /* NAVIGATION */
-
-    document
-      .getElementById("backBtn")
-      .addEventListener("click", () => {
-        window.location.href = "index.html";
-      });
-
-
-    /* PROFILE */
-
-    document
-      .getElementById("profileBtn")
-      .addEventListener("click", () => {
-        openOverlay("profileOverlay");
-      });
-
-
-    /* SEARCH */
-
-    document
-      .getElementById("searchBtn")
-      .addEventListener("click", () => {
-
-        openOverlay("searchOverlay");
-
-        setTimeout(() => {
-          document
-            .getElementById("searchInput")
-            .focus();
-        }, 100);
-
-      });
-
-
-    document
-      .getElementById("searchConfirm")
-      .addEventListener("click", () => {
-
-        const query =
-          document
-            .getElementById("searchInput")
-            .value
-            .trim()
-            .toLowerCase();
-
-        if (!query) return;
-
-        const rows =
-          document.querySelectorAll(".row");
-
-        let found = false;
-
-        rows.forEach(row => {
-
-          const text =
-            row.innerText.toLowerCase();
-
-          if (text.includes(query)) {
-
-            row.scrollIntoView({
-              behavior: "smooth",
-              block: "center"
-            });
-
-            row.style.transform = "scale(1.04)";
-
-            setTimeout(() => {
-              row.style.transform = "";
-            }, 700);
-
-            found = true;
-
-          }
-
-        });
-
-        if (!found) {
-          alert("No message found.");
-        }
-
-      });
-
-
-    /* MORE */
-
-    document
-      .getElementById("moreBtn")
-      .addEventListener("click", () => {
-        openOverlay("moreOverlay");
-      });
-
-
-    /* JUMP LATEST */
-
-    document
-      .getElementById("jumpLatest")
-      .addEventListener("click", () => {
-
-        messageList.scrollTo({
-          top: messageList.scrollHeight,
-          behavior: "smooth"
-        });
-
-        closeOverlays();
-
-      });
-
-
-    /* SAVE CONVERSATION */
-
-    document
-      .getElementById("saveConversation")
-      .addEventListener("click", () => {
-
-        const rows =
-          document.querySelectorAll(".row");
-
-        let text = "Tattoo — Our Chat\n\n";
-
-        rows.forEach(row => {
-
-          const who =
-            row.classList.contains("me")
-              ? "You"
-              : "Mela";
-
-          text +=
-            who + ": " +
-            row.innerText.trim() +
-            "\n\n";
-
-        });
-
-        const blob =
-          new Blob([text], {
-            type: "text/plain"
-          });
-
-        const url =
-          URL.createObjectURL(blob);
-
-        const a =
-          document.createElement("a");
-
-        a.href = url;
-        a.download = "tattoo-chat.txt";
-
-        a.click();
-
-        URL.revokeObjectURL(url);
-
-      });
-
-
-    /* CLEAR MY MESSAGES */
-
-    document
-      .getElementById("clearMessages")
-      .addEventListener("click", () => {
-
-        const okay =
-          confirm(
-            "Clear all your messages from this device?"
-          );
-
-        if (!okay) return;
-
-        document
-          .querySelectorAll(".row.me")
-          .forEach(row => row.remove());
-
-        localStorage.removeItem("tattooMessages");
-
-        closeOverlays();
-
-      });
-
-
-    /* EMOJI */
-
-    emojiBtn.addEventListener("click", event => {
-
-      event.stopPropagation();
-
-      emojiPanel.classList.toggle("show");
-
-    });
-
-
-    document
-      .querySelectorAll(".emoji")
-      .forEach(button => {
-
-        button.addEventListener("click", () => {
-
-          messageInput.value +=
-            button.textContent;
-
-          messageInput.focus();
-
-        });
-
-      });
-
-
-    /* CLOSE EMOJI WHEN CLICKING OUTSIDE */
-
-    document.addEventListener("click", event => {
-
-      if (
-        !emojiPanel.contains(event.target) &&
-        event.target !== emojiBtn
-      ) {
-        emojiPanel.classList.remove("show");
-      }
-
-    });
-
-
-    /* TYPING */
-
-    let typingTimer;
-
-    messageInput.addEventListener("input", () => {
-
-      typingRow.classList.add("show");
-
-      clearTimeout(typingTimer);
-
-      typingTimer = setTimeout(() => {
-
-        typingRow.classList.remove("show");
-
-      }, 900);
-
-    });
-
-
-    /* ATTACHMENT */
-
-    attachmentBtn.addEventListener("click", () => {
-      fileInput.click();
-    });
-
-
-    fileInput.addEventListener("change", () => {
-
-      const file = fileInput.files[0];
-
-      if (!file) return;
-
-      attachmentPreview.classList.add("show");
-
-      attachmentContent.innerHTML = "";
-
-      const url =
-        URL.createObjectURL(file);
-
-      if (file.type.startsWith("image/")) {
-
-        const img =
-          document.createElement("img");
-
-        img.src = url;
-
-        attachmentContent.appendChild(img);
-
-      } else if (file.type.startsWith("video/")) {
-
-        const video =
-          document.createElement("video");
-
-        video.src = url;
-        video.controls = true;
-
-        attachmentContent.appendChild(video);
-
-      }
-
-    });
-
-
-    removeFile.addEventListener("click", () => {
-
-      fileInput.value = "";
-
-      attachmentContent.innerHTML = "";
-
-      attachmentPreview.classList.remove("show");
-
-    });
-
-
-    /* SEND MESSAGE */
-
-    messageForm.addEventListener("submit", event => {
-
-      event.preventDefault();
-
-      const text =
-        messageInput.value.trim();
-
-      const file =
-        fileInput.files[0];
-
-      if (!text && !file) return;
-
-
-      if (text) {
-
-        addMessage(
-          text,
-          "me"
-        );
-
-      }
-
-
-      if (file) {
-
-        addMediaMessage(file);
-
-      }
-
-
-      messageInput.value = "";
-
-      fileInput.value = "";
-
-      attachmentContent.innerHTML = "";
-
-      attachmentPreview.classList.remove("show");
-
-      typingRow.classList.remove("show");
-
-      emojiPanel.classList.remove("show");
-
-      scrollBottom();
-
-    });
-
-
-    /* ADD TEXT MESSAGE */
-
-    function addMessage(text, type) {
-
-      const row =
-        document.createElement("div");
-
-      row.className =
-        "row " + type;
-
-      const bubble =
-        document.createElement("div");
-
-      bubble.className =
-        "bubble";
-
-      const content =
-        document.createElement("div");
-
-      content.textContent =
-        text;
-
-      const meta =
-        document.createElement("div");
-
-      meta.className =
-        "message-meta";
-
-      const time =
-        new Date().toLocaleTimeString(
-          [],
-          {
-            hour: "numeric",
-            minute: "2-digit"
-          }
-        );
-
-      meta.innerHTML =
-        time +
-        (type === "me"
-          ? ' <span class="checks">✓✓</span>'
-          : "");
-
-      bubble.appendChild(content);
-      bubble.appendChild(meta);
-
-      row.appendChild(bubble);
-
-      messageList.insertBefore(
-        row,
-        typingRow
-      );
-
-      saveMessage(
-        text,
-        type
-      );
-
-    }
-
-
-    /* ADD MEDIA MESSAGE */
-
-    function addMediaMessage(file) {
-
-      const row =
-        document.createElement("div");
-
-      row.className =
-        "row me";
-
-      const bubble =
-        document.createElement("div");
-
-      bubble.className =
-        "bubble media-bubble";
-
-      const url =
-        URL.createObjectURL(file);
-
-      if (file.type.startsWith("image/")) {
-
-        const img =
-          document.createElement("img");
-
-        img.src = url;
-
-        bubble.appendChild(img);
-
-      } else {
-
-        const video =
-          document.createElement("video");
-
-        video.src = url;
-        video.controls = true;
-
-        bubble.appendChild(video);
-
-      }
-
-      const meta =
-        document.createElement("div");
-
-      meta.className =
-        "message-meta";
-
-      meta.innerHTML =
-        new Date().toLocaleTimeString(
-          [],
-          {
-            hour: "numeric",
-            minute: "2-digit"
-          }
-        ) +
-        ' <span class="checks">✓✓</span>';
-
-      bubble.appendChild(meta);
-
-      row.appendChild(bubble);
-
-      messageList.insertBefore(
-        row,
-        typingRow
-      );
-
-    }
-
-
-    /* LOCAL STORAGE */
-
-    function saveMessage(text, type) {
-
-      const saved =
-        JSON.parse(
-          localStorage.getItem(
-            "tattooMessages"
-          ) || "[]"
-        );
-
-      saved.push({
-        text,
-        type,
-        time: Date.now()
-      });
-
-      localStorage.setItem(
-        "tattooMessages",
-        JSON.stringify(saved)
-      );
-
-    }
-
-
-    /* SCROLL */
-
-    function scrollBottom() {
-
-      setTimeout(() => {
-
-        messageList.scrollTo({
-          top: messageList.scrollHeight,
-          behavior: "smooth"
-        });
-
-      }, 50);
-
-    }
-
-
-    /* OVERLAYS */
-
-    function openOverlay(id) {
-
-      document
-        .getElementById(id)
-        .classList.add("show");
-
-    }
-
-
-    function closeOverlays() {
-
-      document
-        .querySelectorAll(".overlay")
-        .forEach(overlay => {
-          overlay.classList.remove("show");
-        });
-
-    }
-
-
-    document
-      .querySelectorAll("[data-close]")
-      .forEach(button => {
-
-        button.addEventListener("click", () => {
-
-          const id =
-            button.dataset.close;
-
-          document
-            .getElementById(id)
-            .classList.remove("show");
-
-        });
-
-      });
-
-
-    /* CLICK OUTSIDE POPUP */
-
-    document
-      .querySelectorAll(".overlay")
-      .forEach(overlay => {
-
-        overlay.addEventListener("click", event => {
-
-          if (event.target === overlay) {
-            overlay.classList.remove("show");
-          }
-
-        });
-
-      });
-
-
-    /* ESCAPE */
-
-    document.addEventListener("keydown", event => {
-
-      if (event.key === "Escape") {
-
-        closeOverlays();
-
-        emojiPanel.classList.remove("show");
-
-      }
-
-    });
-
-
-    /* ENTER TO SEND */
-
-    messageInput.addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          event.key === "Enter" &&
-          !event.shiftKey
-        ) {
-
-          event.preventDefault();
-
-          messageForm.requestSubmit();
-
-        }
-
-      }
-    );
-
-
-    /* INITIAL SCROLL */
-
-    window.addEventListener(
-      "load",
-      scrollBottom
-    );
-
-  </script>
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-<script>
-/* ================================
-   TATTOO — YOU & MELA CHAT
-   ================================ */
 
-/* SUPABASE */
+<script>
+
+/* =====================================================
+   TATTOO CHAT
+   SUPABASE + REALTIME
+   ONLY YOU AND MELA
+===================================================== */
+
+
+/* =====================================================
+   SUPABASE CONNECTION
+===================================================== */
+
 const SUPABASE_URL =
   "https://mtlesmajgaxiaebocybz.supabase.co";
 
 const SUPABASE_KEY =
-  "Uafnj0C-CyB8SCeGggSpyg_bR9VvgQC";
+  "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
 
 const supabaseClient =
-  supabase.createClient(
+  window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
 
 
-/* ELEMENTS */
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+const ROOM_ID = "tattoo";
+
+const STORAGE_IDENTITY =
+  "tattoo_chat_identity";
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
 const messageList =
   document.getElementById("messageList");
@@ -1760,17 +1062,11 @@ const messageForm =
 const messageInput =
   document.getElementById("messageInput");
 
-const typingRow =
-  document.getElementById("typingRow");
+const sendButton =
+  document.getElementById("sendButton");
 
-const emojiBtn =
-  document.getElementById("emojiBtn");
-
-const emojiPanel =
-  document.getElementById("emojiPanel");
-
-const attachmentBtn =
-  document.getElementById("attachmentBtn");
+const attachmentButton =
+  document.getElementById("attachmentButton");
 
 const fileInput =
   document.getElementById("fileInput");
@@ -1781,802 +1077,336 @@ const attachmentPreview =
 const attachmentContent =
   document.getElementById("attachmentContent");
 
-const removeFile =
-  document.getElementById("removeFile");
+const removeFileButton =
+  document.getElementById("removeFileButton");
+
+const emojiButton =
+  document.getElementById("emojiButton");
+
+const emojiPanel =
+  document.getElementById("emojiPanel");
+
+const typingRow =
+  document.getElementById("typingRow");
+
+const emptyState =
+  document.getElementById("emptyState");
+
+const statusText =
+  document.getElementById("statusText");
 
 
-/* ================================
+/* =====================================================
    IDENTITY
-   ================================ */
+===================================================== */
 
-let myId =
-  localStorage.getItem("tattooUserId");
+let identity =
+  localStorage.getItem(STORAGE_IDENTITY);
 
-if (!myId) {
-  myId = crypto.randomUUID();
-  localStorage.setItem(
-    "tattooUserId",
-    myId
-  );
-}
+if (
+  identity !== "you" &&
+  identity !== "mela"
+) {
 
-let myName =
-  localStorage.getItem("tattooUserName");
-
-if (!myName) {
-
-  const choice =
+  const answer =
     confirm(
       "Are you Mela?\n\nOK = Mela\nCancel = You"
     );
 
-  myName = choice ? "Mela" : "You";
+  identity =
+    answer ? "mela" : "you";
 
   localStorage.setItem(
-    "tattooUserName",
-    myName
+    STORAGE_IDENTITY,
+    identity
   );
 }
 
 
-/* ================================
-   NAVIGATION
-   ================================ */
-
-document
-  .getElementById("backBtn")
-  .addEventListener("click", () => {
-    window.location.href = "index.html";
-  });
-
-
-/* ================================
-   PROFILE
-   ================================ */
-
-document
-  .getElementById("profileBtn")
-  .addEventListener("click", () => {
-    openOverlay("profileOverlay");
-  });
-
-
-/* ================================
-   SEARCH
-   ================================ */
-
-document
-  .getElementById("searchBtn")
-  .addEventListener("click", () => {
-
-    openOverlay("searchOverlay");
-
-    setTimeout(() => {
-      document
-        .getElementById("searchInput")
-        .focus();
-    }, 100);
-
-  });
-
-
-document
-  .getElementById("searchConfirm")
-  .addEventListener("click", () => {
-
-    const query =
-      document
-        .getElementById("searchInput")
-        .value
-        .trim()
-        .toLowerCase();
-
-    if (!query) return;
-
-    const rows =
-      document.querySelectorAll(".row");
-
-    let found = false;
-
-    rows.forEach(row => {
-
-      if (
-        row.innerText
-          .toLowerCase()
-          .includes(query)
-      ) {
-
-        row.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-
-        row.style.transform =
-          "scale(1.04)";
-
-        setTimeout(() => {
-          row.style.transform = "";
-        }, 700);
-
-        found = true;
-      }
-
-    });
-
-    if (!found) {
-      alert("No message found.");
-    }
-
-  });
-
-
-/* ================================
-   MORE
-   ================================ */
-
-document
-  .getElementById("moreBtn")
-  .addEventListener("click", () => {
-    openOverlay("moreOverlay");
-  });
-
-
-document
-  .getElementById("jumpLatest")
-  .addEventListener("click", () => {
-
-    scrollBottom();
-    closeOverlays();
-
-  });
-
-
-/* ================================
-   SAVE CHAT
-   ================================ */
-
-document
-  .getElementById("saveConversation")
-  .addEventListener("click", () => {
-
-    const rows =
-      document.querySelectorAll(".row");
-
-    let text =
-      "Tattoo — Our Chat\n\n";
-
-    rows.forEach(row => {
-
-      const who =
-        row.classList.contains("me")
-          ? "You"
-          : "Mela";
-
-      text +=
-        who +
-        ": " +
-        row.innerText.trim() +
-        "\n\n";
-
-    });
-
-    const blob =
-      new Blob([text], {
-        type: "text/plain"
-      });
-
-    const url =
-      URL.createObjectURL(blob);
-
-    const a =
-      document.createElement("a");
-
-    a.href = url;
-    a.download = "tattoo-chat.txt";
-
-    a.click();
-
-    URL.revokeObjectURL(url);
-
-  });
-
-
-/* ================================
-   EMOJI
-   ================================ */
-
-emojiBtn.addEventListener(
-  "click",
-  event => {
-
-    event.stopPropagation();
-
-    emojiPanel.classList.toggle(
-      "show"
-    );
-
-  }
-);
-
-
-document
-  .querySelectorAll(".emoji")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        messageInput.value +=
-          button.textContent;
-
-        messageInput.focus();
-
-      }
-    );
-
-  });
-
-
-document.addEventListener(
-  "click",
-  event => {
-
-    if (
-      !emojiPanel.contains(
-        event.target
-      ) &&
-      event.target !== emojiBtn
-    ) {
-
-      emojiPanel.classList.remove(
-        "show"
-      );
-
-    }
-
-  }
-);
-
-
-/* ================================
-   TYPING
-   ================================ */
-
-let typingTimer;
-
-messageInput.addEventListener(
-  "input",
-  () => {
-
-    typingRow.classList.add(
-      "show"
-    );
-
-    clearTimeout(typingTimer);
-
-    typingTimer =
-      setTimeout(() => {
-
-        typingRow.classList.remove(
-          "show"
-        );
-
-      }, 900);
-
-  }
-);
-
-
-/* ================================
-   ATTACHMENT
-   ================================ */
-
-attachmentBtn.addEventListener(
-  "click",
-  () => {
-    fileInput.click();
-  }
-);
-
-
-fileInput.addEventListener(
-  "change",
-  () => {
-
-    const file =
-      fileInput.files[0];
-
-    if (!file) return;
-
-    attachmentPreview.classList.add(
-      "show"
-    );
-
-    attachmentContent.innerHTML =
-      "";
-
-    const url =
-      URL.createObjectURL(file);
-
-    if (
-      file.type.startsWith("image/")
-    ) {
-
-      const img =
-        document.createElement("img");
-
-      img.src = url;
-
-      attachmentContent.appendChild(
-        img
-      );
-
-    } else if (
-      file.type.startsWith("video/")
-    ) {
-
-      const video =
-        document.createElement(
-          "video"
-        );
-
-      video.src = url;
-      video.controls = true;
-
-      attachmentContent.appendChild(
-        video
-      );
-
-    }
-
-  }
-);
-
-
-removeFile.addEventListener(
-  "click",
-  () => {
-
-    fileInput.value = "";
-
-    attachmentContent.innerHTML =
-      "";
-
-    attachmentPreview.classList.remove(
-      "show"
-    );
-
-  }
-);
-
-
-/* ================================
-   SEND MESSAGE
-   ================================ */
-
-messageForm.addEventListener(
-  "submit",
-  async event => {
-
-    event.preventDefault();
-
-    const text =
-      messageInput.value.trim();
-
-    const file =
-      fileInput.files[0];
-
-    if (!text && !file) return;
-
-
-    /* TEXT */
-
-    if (text) {
-
-      await sendTextMessage(text);
-
-    }
-
-
-    /* MEDIA */
-
-    if (file) {
-
-      await sendMediaMessage(file);
-
-    }
-
-
-    messageInput.value = "";
-
-    fileInput.value = "";
-
-    attachmentContent.innerHTML =
-      "";
-
-    attachmentPreview.classList.remove(
-      "show"
-    );
-
-    typingRow.classList.remove(
-      "show"
-    );
-
-    emojiPanel.classList.remove(
-      "show"
-    );
-
-    scrollBottom();
-
-  }
-);
-
-
-/* ================================
-   SEND TEXT TO SUPABASE
-   ================================ */
-
-async function sendTextMessage(text) {
-
-  const {
-    error
-  } =
-    await supabaseClient
-      .from("chat_messages")
-      .insert({
-
-        room_id: "tattoo",
-
-        sender_id: myId,
-
-        sender_name: myName,
-
-        content: text,
-
-        message_type: "text"
-
-      });
-
-  if (error) {
-
-    console.error(error);
-
-    alert(
-      "Message could not be sent."
-    );
-
-  }
-
+const currentUser =
+  identity === "mela"
+    ? "mela"
+    : "you";
+
+const currentName =
+  identity === "mela"
+    ? "Mela"
+    : "You";
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function escapeHTML(value) {
+
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 
-/* ================================
-   SEND MEDIA
-   ================================ */
+function formatTime(date) {
 
-async function sendMediaMessage(file) {
-
-  try {
-
-    const extension =
-      file.name
-        .split(".")
-        .pop();
-
-    const path =
-      "tattoo/" +
-      myId +
-      "/" +
-      crypto.randomUUID() +
-      "." +
-      extension;
-
-
-    const {
-      error: uploadError
-    } =
-      await supabaseClient
-        .storage
-        .from("tattoo-chat-media")
-        .upload(
-          path,
-          file
-        );
-
-
-    if (uploadError) {
-      throw uploadError;
-    }
-
-
-    const {
-      data
-    } =
-      supabaseClient
-        .storage
-        .from(
-          "tattoo-chat-media"
-        )
-        .getPublicUrl(path);
-
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("chat_messages")
-        .insert({
-
-          room_id: "tattoo",
-
-          sender_id: myId,
-
-          sender_name: myName,
-
-          message_type:
-            file.type.startsWith(
-              "image/"
-            )
-              ? "image"
-              : "video",
-
-          media_path:
-            data.publicUrl
-
-        });
-
-
-    if (error) {
-      throw error;
-    }
-
-  } catch (error) {
-
-    console.error(error);
-
-    alert(
-      "Media could not be sent."
-    );
-
-  }
-
-}
-
-
-/* ================================
-   LOAD CHAT HISTORY
-   ================================ */
-
-async function loadMessages() {
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("chat_messages")
-      .select("*")
-      .eq(
-        "room_id",
-        "tattoo"
-      )
-      .order(
-        "created_at",
-        {
-          ascending: true
-        }
-      );
-
-  if (error) {
-
-    console.error(error);
-
-    return;
-
-  }
-
-
-  /* Remove sample messages */
-
-  document
-    .querySelectorAll(
-      ".row:not(.typing-row)"
-    )
-    .forEach(row => {
-      row.remove();
-    });
-
-
-  data.forEach(message => {
-
-    renderMessage(
-      message,
-      false
-    );
-
-  });
-
-
-  scrollBottom();
-
-}
-
-
-/* ================================
-   RENDER MESSAGE
-   ================================ */
-
-function renderMessage(
-  message,
-  scroll = true
-) {
-
-  const isMe =
-    message.sender_id === myId;
-
-  const row =
-    document.createElement("div");
-
-  row.className =
-    "row " +
-    (isMe
-      ? "me"
-      : "them");
-
-
-  const bubble =
-    document.createElement("div");
-
-
-  if (
-    message.message_type ===
-    "image"
-  ) {
-
-    bubble.className =
-      "bubble media-bubble";
-
-
-    const img =
-      document.createElement("img");
-
-    img.src =
-      message.media_path;
-
-    img.alt =
-      "Shared photo";
-
-    bubble.appendChild(img);
-
-
-  } else if (
-    message.message_type ===
-    "video"
-  ) {
-
-    bubble.className =
-      "bubble media-bubble";
-
-
-    const video =
-      document.createElement(
-        "video"
-      );
-
-    video.src =
-      message.media_path;
-
-    video.controls = true;
-
-    bubble.appendChild(
-      video
-    );
-
-
-  } else {
-
-    bubble.className =
-      "bubble";
-
-
-    const content =
-      document.createElement(
-        "div"
-      );
-
-    content.textContent =
-      message.content || "";
-
-    bubble.appendChild(
-      content
-    );
-
-  }
-
-
-  const meta =
-    document.createElement(
-      "div"
-    );
-
-  meta.className =
-    "message-meta";
-
-
-  const time =
-    new Date(
-      message.created_at
-    ).toLocaleTimeString(
+  return new Date(date)
+    .toLocaleTimeString(
       [],
       {
         hour: "numeric",
         minute: "2-digit"
       }
     );
+}
 
 
-  meta.textContent =
-    time;
+function scrollToBottom() {
+
+  setTimeout(() => {
+
+    messageList.scrollTop =
+      messageList.scrollHeight;
+
+  }, 50);
+}
 
 
-  if (isMe) {
+function updateEmptyState() {
 
-    const checks =
-      document.createElement(
-        "span"
-      );
+  const messages =
+    messageList.querySelectorAll(".row");
 
-    checks.className =
-      "checks";
+  emptyState.style.display =
+    messages.length === 0
+      ? "block"
+      : "none";
+}
 
-    checks.textContent =
-      message.read_at
-        ? " ✓✓"
-        : " ✓";
 
-    meta.appendChild(
-      checks
+/* =====================================================
+   RENDER TEXT MESSAGE
+===================================================== */
+
+function renderMessage(message) {
+
+  const row =
+    document.createElement("div");
+
+  const isMine =
+    message.sender_id === currentUser;
+
+  row.className =
+    "row " +
+    (isMine ? "me" : "them");
+
+  row.dataset.messageId =
+    message.id;
+
+  const bubble =
+    document.createElement("div");
+
+  bubble.className =
+    "bubble";
+
+  if (
+    message.message_type === "image" &&
+    message.media_path
+  ) {
+
+    bubble.classList.add(
+      "media-bubble"
     );
 
+    bubble.innerHTML = `
+      <img
+        src="${escapeHTML(message.media_path)}"
+        alt="Photo"
+      >
+
+      <div class="message-meta">
+        ${formatTime(message.created_at)}
+        ${isMine ? '<span class="checks">✓✓</span>' : ""}
+      </div>
+    `;
+
+  } else if (
+    message.message_type === "video" &&
+    message.media_path
+  ) {
+
+    bubble.classList.add(
+      "media-bubble"
+    );
+
+    bubble.innerHTML = `
+      <video
+        src="${escapeHTML(message.media_path)}"
+        controls
+        playsinline
+      ></video>
+
+      <div class="message-meta">
+        ${formatTime(message.created_at)}
+        ${isMine ? '<span class="checks">✓✓</span>' : ""}
+      </div>
+    `;
+
+  } else {
+
+    bubble.innerHTML = `
+      <div>
+        ${escapeHTML(message.content)}
+      </div>
+
+      <div class="message-meta">
+        ${formatTime(message.created_at)}
+        ${
+          isMine
+            ? '<span class="checks">✓✓</span>'
+            : ""
+        }
+      </div>
+    `;
   }
 
-
-  bubble.appendChild(
-    meta
-  );
-
-
-  row.appendChild(
-    bubble
-  );
-
+  row.appendChild(bubble);
 
   messageList.insertBefore(
     row,
     typingRow
   );
 
-
-  if (scroll) {
-    scrollBottom();
-  }
-
+  updateEmptyState();
 }
 
 
-/* ================================
-   REAL-TIME MESSAGES
-   ================================ */
+/* =====================================================
+   LOAD OLD MESSAGES
+===================================================== */
 
-const chatChannel =
-  supabaseClient
-    .channel(
-      "tattoo-chat"
+async function loadMessages() {
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("chat_messages")
+    .select("*")
+    .eq("room_id", ROOM_ID)
+    .order(
+      "created_at",
+      {
+        ascending: true
+      }
     );
 
+  if (error) {
 
-chatChannel
+    console.error(
+      "Message loading error:",
+      error
+    );
+
+    statusText.textContent =
+      "Connection problem";
+
+    return;
+  }
+
+  messageList
+    .querySelectorAll(".row")
+    .forEach(
+      row => row.remove()
+    );
+
+  data.forEach(
+    renderMessage
+  );
+
+  updateEmptyState();
+
+  scrollToBottom();
+
+  markMessagesRead();
+}
+
+
+/* =====================================================
+   SEND TEXT
+===================================================== */
+
+async function sendText() {
+
+  const content =
+    messageInput.value.trim();
+
+  if (!content) {
+    return;
+  }
+
+  sendButton.disabled = true;
+
+  const {
+    error
+  } = await supabaseClient
+    .from("chat_messages")
+    .insert({
+      room_id: ROOM_ID,
+      sender_id: currentUser,
+      sender_name: currentName,
+      content: content,
+      message_type: "text"
+    });
+
+  sendButton.disabled = false;
+
+  if (error) {
+
+    console.error(
+      "Send error:",
+      error
+    );
+
+    alert(
+      "The message could not be sent."
+    );
+
+    return;
+  }
+
+  messageInput.value = "";
+
+  emojiPanel.classList.remove(
+    "show"
+  );
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+messageForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+    await sendText();
+  }
+);
+
+
+/* =====================================================
+   REALTIME MESSAGES
+===================================================== */
+
+supabaseClient
+  .channel(
+    "tattoo-chat-room"
+  )
   .on(
     "postgres_changes",
     {
@@ -2588,11 +1418,27 @@ chatChannel
     },
     payload => {
 
-      renderMessage(
-        payload.new,
-        true
-      );
+      const message =
+        payload.new;
 
+      if (
+        document.querySelector(
+          `[data-message-id="${message.id}"]`
+        )
+      ) {
+        return;
+      }
+
+      renderMessage(message);
+
+      scrollToBottom();
+
+      if (
+        message.sender_id !== currentUser
+      ) {
+
+        markMessagesRead();
+      }
     }
   )
   .on(
@@ -2604,178 +1450,774 @@ chatChannel
       filter:
         "room_id=eq.tattoo"
     },
-    payload => {
+    () => {
 
       loadMessages();
-
     }
   )
-  .subscribe();
+  .subscribe(
+    status => {
+
+      if (status === "SUBSCRIBED") {
+
+        statusText.textContent =
+          "Connected";
+
+      } else {
+
+        statusText.textContent =
+          "Connecting...";
+      }
+    }
+  );
 
 
-/* ================================
+/* =====================================================
    READ RECEIPTS
-   ================================ */
+===================================================== */
 
 async function markMessagesRead() {
 
-  await supabaseClient
+  const {
+    data
+  } = await supabaseClient
     .from("chat_messages")
-    .update({
-      read_at:
-        new Date().toISOString()
-    })
-    .eq(
-      "room_id",
-      "tattoo"
-    )
-    .neq(
-      "sender_id",
-      myId
-    )
-    .is(
-      "read_at",
-      null
-    );
+    .select("id")
+    .eq("room_id", ROOM_ID)
+    .neq("sender_id", currentUser)
+    .is("read_at", null);
 
+  if (!data || !data.length) {
+    return;
+  }
+
+  for (
+    const message
+    of data
+  ) {
+
+    await supabaseClient
+      .from("chat_messages")
+      .update({
+        read_at:
+          new Date().toISOString()
+      })
+      .eq(
+        "id",
+        message.id
+      );
+  }
 }
 
 
-/* ================================
-   SCROLL
-   ================================ */
+/* =====================================================
+   EMOJI
+===================================================== */
 
-function scrollBottom() {
+emojiButton.addEventListener(
+  "click",
+  function() {
 
-  setTimeout(() => {
-
-    messageList.scrollTo({
-      top:
-        messageList.scrollHeight,
-      behavior: "smooth"
-    });
-
-  }, 100);
-
-}
-
-
-/* ================================
-   OVERLAYS
-   ================================ */
-
-function openOverlay(id) {
-
-  document
-    .getElementById(id)
-    .classList.add(
+    emojiPanel.classList.toggle(
       "show"
     );
-
-}
-
-
-function closeOverlays() {
-
-  document
-    .querySelectorAll(
-      ".overlay"
-    )
-    .forEach(overlay => {
-
-      overlay.classList.remove(
-        "show"
-      );
-
-    });
-
-}
+  }
+);
 
 
 document
-  .querySelectorAll(
-    "[data-close]"
-  )
+  .querySelectorAll(".emoji")
   .forEach(button => {
 
     button.addEventListener(
       "click",
-      () => {
+      function() {
 
-        const id =
-          button.dataset.close;
+        messageInput.value +=
+          button.textContent;
 
-        document
-          .getElementById(id)
-          .classList.remove(
-            "show"
-          );
-
+        messageInput.focus();
       }
     );
 
   });
 
 
+/* =====================================================
+   ATTACHMENTS
+===================================================== */
+
+let selectedFile = null;
+
+
+attachmentButton.addEventListener(
+  "click",
+  function() {
+
+    fileInput.click();
+  }
+);
+
+
+fileInput.addEventListener(
+  "change",
+  function() {
+
+    const file =
+      fileInput.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    selectedFile = file;
+
+    attachmentPreview
+      .classList.add("show");
+
+    if (
+      file.type.startsWith("image/")
+    ) {
+
+      const url =
+        URL.createObjectURL(file);
+
+      attachmentContent.innerHTML = `
+        <img
+          src="${url}"
+          alt="Selected photo"
+        >
+      `;
+
+    } else {
+
+      const url =
+        URL.createObjectURL(file);
+
+      attachmentContent.innerHTML = `
+        <video
+          src="${url}"
+          muted
+        ></video>
+      `;
+    }
+  }
+);
+
+
+removeFileButton.addEventListener(
+  "click",
+  function() {
+
+    selectedFile = null;
+
+    fileInput.value = "";
+
+    attachmentPreview
+      .classList.remove("show");
+
+    attachmentContent.innerHTML = "";
+  }
+);
+
+
+/* =====================================================
+   UPLOAD MEDIA
+===================================================== */
+
+async function uploadMedia() {
+
+  if (!selectedFile) {
+    return;
+  }
+
+  const extension =
+    selectedFile.name
+      .split(".")
+      .pop();
+
+  const filePath =
+    `${currentUser}/${Date.now()}-${Math.random()
+      .toString(36)
+      .slice(2)}.${extension}`;
+
+  const {
+    error: uploadError
+  } = await supabaseClient
+    .storage
+    .from("tattoo-chat-media")
+    .upload(
+      filePath,
+      selectedFile,
+      {
+        upsert: false
+      }
+    );
+
+  if (uploadError) {
+
+    console.error(
+      "Upload error:",
+      uploadError
+    );
+
+    alert(
+      "The photo/video could not be uploaded."
+    );
+
+    return;
+  }
+
+  const {
+    data
+  } = supabaseClient
+    .storage
+    .from("tattoo-chat-media")
+    .getPublicUrl(
+      filePath
+    );
+
+  const messageType =
+    selectedFile.type.startsWith("image/")
+      ? "image"
+      : "video";
+
+  const {
+    error
+  } = await supabaseClient
+    .from("chat_messages")
+    .insert({
+
+      room_id: ROOM_ID,
+
+      sender_id: currentUser,
+
+      sender_name: currentName,
+
+      content:
+        messageType === "image"
+          ? "Photo"
+          : "Video",
+
+      message_type:
+        messageType,
+
+      media_path:
+        data.publicUrl
+    });
+
+  if (error) {
+
+    console.error(
+      "Media message error:",
+      error
+    );
+
+    alert(
+      "The media message could not be created."
+    );
+
+    return;
+  }
+
+  selectedFile = null;
+
+  fileInput.value = "";
+
+  attachmentPreview
+    .classList.remove("show");
+
+  attachmentContent.innerHTML = "";
+}
+
+
+/* =====================================================
+   ATTACHMENT + TEXT
+===================================================== */
+
+messageForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+    if (selectedFile) {
+
+      await uploadMedia();
+
+      return;
+    }
+
+    await sendText();
+  }
+);
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+const searchOverlay =
+  document.getElementById(
+    "searchOverlay"
+  );
+
+const searchInput =
+  document.getElementById(
+    "searchInput"
+  );
+
 document
-  .querySelectorAll(
-    ".overlay"
-  )
+  .getElementById("searchButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      searchOverlay
+        .classList.add("show");
+
+      searchInput.focus();
+    }
+  );
+
+
+document
+  .getElementById("closeSearch")
+  .addEventListener(
+    "click",
+    function() {
+
+      searchOverlay
+        .classList.remove("show");
+    }
+  );
+
+
+document
+  .getElementById("searchSubmit")
+  .addEventListener(
+    "click",
+    function() {
+
+      const query =
+        searchInput.value
+          .trim()
+          .toLowerCase();
+
+      if (!query) {
+        return;
+      }
+
+      const rows =
+        messageList
+          .querySelectorAll(".row");
+
+      let found = false;
+
+      rows.forEach(row => {
+
+        const text =
+          row.textContent
+            .toLowerCase();
+
+        if (
+          text.includes(query)
+        ) {
+
+          row.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+          found = true;
+        }
+      });
+
+      if (!found) {
+
+        alert(
+          "I couldn't find that message."
+        );
+      }
+
+      searchOverlay
+        .classList.remove("show");
+    }
+  );
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+const profileOverlay =
+  document.getElementById(
+    "profileOverlay"
+  );
+
+
+document
+  .getElementById("profileButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      profileOverlay
+        .classList.add("show");
+    }
+  );
+
+
+document
+  .getElementById("closeProfile")
+  .addEventListener(
+    "click",
+    function() {
+
+      profileOverlay
+        .classList.remove("show");
+    }
+  );
+
+
+/* =====================================================
+   MORE
+===================================================== */
+
+const moreOverlay =
+  document.getElementById(
+    "moreOverlay"
+  );
+
+
+document
+  .getElementById("moreButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      moreOverlay
+        .classList.add("show");
+    }
+  );
+
+
+document
+  .getElementById("closeMore")
+  .addEventListener(
+    "click",
+    function() {
+
+      moreOverlay
+        .classList.remove("show");
+    }
+  );
+
+
+/* =====================================================
+   JUMP TO LATEST
+===================================================== */
+
+document
+  .getElementById("jumpLatest")
+  .addEventListener(
+    "click",
+    function() {
+
+      scrollToBottom();
+
+      moreOverlay
+        .classList.remove("show");
+    }
+  );
+
+
+/* =====================================================
+   SAVE CONVERSATION
+===================================================== */
+
+document
+  .getElementById("saveConversation")
+  .addEventListener(
+    "click",
+    async function() {
+
+      const {
+        data
+      } = await supabaseClient
+        .from("chat_messages")
+        .select("*")
+        .eq("room_id", ROOM_ID)
+        .order(
+          "created_at",
+          {
+            ascending: true
+          }
+        );
+
+      if (!data) {
+        return;
+      }
+
+      let text =
+        "TATTOO — OUR CHAT\n\n";
+
+      data.forEach(message => {
+
+        text +=
+          `${message.sender_name} — ` +
+          `${formatTime(message.created_at)}\n`;
+
+        if (
+          message.message_type === "text"
+        ) {
+
+          text +=
+            `${message.content}\n\n`;
+
+        } else {
+
+          text +=
+            `[${message.message_type}]\n\n`;
+        }
+      });
+
+      const blob =
+        new Blob(
+          [text],
+          {
+            type: "text/plain"
+          }
+        );
+
+      const url =
+        URL.createObjectURL(blob);
+
+      const link =
+        document.createElement("a");
+
+      link.href = url;
+
+      link.download =
+        "tattoo-our-chat.txt";
+
+      link.click();
+
+      URL.revokeObjectURL(url);
+
+      moreOverlay
+        .classList.remove("show");
+    }
+  );
+
+
+/* =====================================================
+   CLEAR MY MESSAGES
+===================================================== */
+
+document
+  .getElementById("clearMyMessages")
+  .addEventListener(
+    "click",
+    async function() {
+
+      const confirmed =
+        confirm(
+          "Delete all of your messages from this chat?"
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      const {
+        error
+      } = await supabaseClient
+        .from("chat_messages")
+        .delete()
+        .eq(
+          "room_id",
+          ROOM_ID
+        )
+        .eq(
+          "sender_id",
+          currentUser
+        );
+
+      if (error) {
+
+        console.error(
+          "Delete error:",
+          error
+        );
+
+        alert(
+          "The messages could not be deleted."
+        );
+
+        return;
+      }
+
+      await loadMessages();
+
+      moreOverlay
+        .classList.remove("show");
+    }
+  );
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+document
+  .getElementById("backButton")
+  .addEventListener(
+    "click",
+    function() {
+
+      window.location.href =
+        "index.html";
+    }
+  );
+
+
+/* =====================================================
+   TYPING EFFECT
+===================================================== */
+
+let typingTimer;
+
+messageInput.addEventListener(
+  "input",
+  function() {
+
+    typingRow.classList.add(
+      "show"
+    );
+
+    clearTimeout(
+      typingTimer
+    );
+
+    typingTimer =
+      setTimeout(
+        function() {
+
+          typingRow.classList.remove(
+            "show"
+          );
+
+        },
+        900
+      );
+  }
+);
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+messageInput.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key === "Enter"
+    ) {
+
+      event.preventDefault();
+
+      messageForm.requestSubmit();
+    }
+  }
+);
+
+
+/* =====================================================
+   CLOSE EMOJI WHEN CLICKING OUTSIDE
+===================================================== */
+
+document.addEventListener(
+  "click",
+  function(event) {
+
+    if (
+      !emojiPanel.contains(event.target) &&
+      !emojiButton.contains(event.target)
+    ) {
+
+      emojiPanel.classList.remove(
+        "show"
+      );
+    }
+  }
+);
+
+
+/* =====================================================
+   CLOSE OVERLAYS WHEN CLICKING BACKGROUND
+===================================================== */
+
+document
+  .querySelectorAll(".overlay")
   .forEach(overlay => {
 
     overlay.addEventListener(
       "click",
-      event => {
+      function(event) {
 
         if (
-          event.target ===
-          overlay
+          event.target === overlay
         ) {
 
           overlay.classList.remove(
             "show"
           );
-
         }
-
       }
     );
 
   });
 
 
-/* ================================
-   ESCAPE
-   ================================ */
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
 
 document.addEventListener(
   "keydown",
-  event => {
+  function(event) {
 
     if (
       event.key === "Escape"
     ) {
 
-      closeOverlays();
+      document
+        .querySelectorAll(".overlay")
+        .forEach(
+          overlay =>
+            overlay.classList.remove(
+              "show"
+            )
+        );
 
       emojiPanel.classList.remove(
         "show"
       );
-
     }
+  }
+);
 
-  });
 
-
-/* ================================
+/* =====================================================
    START
-   ================================ */
+===================================================== */
 
 loadMessages();
 
-markMessagesRead();
+</script>
 
-</script>
-</script>
 </body>
 </html>
