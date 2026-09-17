@@ -11,16 +11,12 @@ const next = document.getElementById('nextBtn');
 
 const song = document.getElementById('song');
 const music = document.getElementById('musicBtn');
-
 const home = document.getElementById('homeBtn');
 
 let index = 0;
-let musicStarted = false;
 
 
-/* =========================
-   MUSIC
-========================= */
+/* MUSIC */
 
 song.src = 'audio/v09044g40000cbal4n3c77ufcrd3qlg0.m4a';
 song.loop = true;
@@ -32,23 +28,48 @@ async function startMusic() {
   try {
     song.muted = false;
     song.volume = 1;
-
     await song.play();
 
-    musicStarted = true;
     music.textContent = '♫';
     music.setAttribute('aria-label', 'Pause music');
 
   } catch (error) {
-    console.log('Music waiting for user interaction.');
-    music.textContent = '♫';
+    console.log('Music could not start:', error);
   }
 }
 
 
-/* =========================
-   CHAPTERS
-========================= */
+/* MEDIA AUTOPLAY */
+
+function stopAllVideos() {
+  document.querySelectorAll('.chapter video').forEach(video => {
+    video.pause();
+    video.currentTime = 0;
+  });
+}
+
+
+function playChapterVideos() {
+  const activeChapter = chapters[index];
+
+  if (!activeChapter) return;
+
+  const videos = activeChapter.querySelectorAll('video');
+
+  videos.forEach(video => {
+
+    video.muted = true;
+    video.playsInline = true;
+
+    video.play().catch(() => {
+      console.log('Autoplay was blocked.');
+    });
+
+  });
+}
+
+
+/* CHAPTERS */
 
 const chapterNames = [
   'Chapter 01',
@@ -62,6 +83,8 @@ const chapterNames = [
 
 
 function showChapter(newIndex) {
+
+  stopAllVideos();
 
   index = Math.max(
     0,
@@ -94,12 +117,14 @@ function showChapter(newIndex) {
     top: 0,
     behavior: 'smooth'
   });
+
+  setTimeout(() => {
+    playChapterVideos();
+  }, 150);
 }
 
 
-/* =========================
-   BEGIN
-========================= */
+/* BEGIN */
 
 begin.addEventListener('click', async () => {
 
@@ -114,31 +139,19 @@ begin.addEventListener('click', async () => {
 });
 
 
-/* =========================
-   NEXT
-========================= */
+/* NEXT */
 
 next.addEventListener('click', () => {
 
   if (index === chapters.length - 1) {
-
     showChapter(0);
-
-    story.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-
-    return;
+  } else {
+    showChapter(index + 1);
   }
-
-  showChapter(index + 1);
 });
 
 
-/* =========================
-   BACK
-========================= */
+/* BACK */
 
 prev.addEventListener('click', () => {
 
@@ -148,42 +161,31 @@ prev.addEventListener('click', () => {
 });
 
 
-/* =========================
-   HOME
-========================= */
+/* HOME */
 
 home.addEventListener('click', () => {
 
-  story.classList.remove('visible');
+  stopAllVideos();
 
-  story.setAttribute(
-    'aria-hidden',
-    'true'
-  );
+  story.classList.remove('visible');
+  story.setAttribute('aria-hidden', 'true');
 
   opening.style.display = 'grid';
 
   song.pause();
   song.currentTime = 0;
 
-  musicStarted = false;
-
   showChapter(0);
 });
 
 
-/* =========================
-   MUSIC BUTTON
-========================= */
+/* MUSIC BUTTON */
 
 music.addEventListener('click', async () => {
 
   if (song.paused) {
-
     await startMusic();
-
   } else {
-
     song.pause();
 
     music.textContent = '▶';
@@ -195,15 +197,12 @@ music.addEventListener('click', async () => {
 });
 
 
-/* =========================
-   OPEN WHEN
-========================= */
+/* OPEN WHEN */
 
 const modal = document.getElementById('whenModal');
 const modalTitle = document.getElementById('modalTitle');
 const modalText = document.getElementById('modalText');
 const closeModal = document.getElementById('closeModal');
-
 
 const messages = {
 
@@ -224,8 +223,7 @@ document.querySelectorAll(
 
   button.addEventListener('click', () => {
 
-    const message =
-      button.dataset.message;
+    const message = button.dataset.message;
 
     modalTitle.textContent = message;
 
@@ -243,9 +241,7 @@ document.querySelectorAll(
 });
 
 
-/* =========================
-   CLOSE MODAL
-========================= */
+/* CLOSE MODAL */
 
 function closeWhenModal() {
 
@@ -264,8 +260,6 @@ closeModal.addEventListener(
 );
 
 
-/* Close when tapping outside */
-
 modal.addEventListener('click', event => {
 
   if (event.target === modal) {
@@ -274,29 +268,22 @@ modal.addEventListener('click', event => {
 });
 
 
-/* Close with Escape */
+document.addEventListener('keydown', event => {
 
-document.addEventListener(
-  'keydown',
-  event => {
-
-    if (event.key === 'Escape') {
-      closeWhenModal();
-    }
-
-    if (event.key === 'ArrowRight') {
-      showChapter(index + 1);
-    }
-
-    if (event.key === 'ArrowLeft') {
-      showChapter(index - 1);
-    }
+  if (event.key === 'Escape') {
+    closeWhenModal();
   }
-);
+
+  if (event.key === 'ArrowRight') {
+    showChapter(index + 1);
+  }
+
+  if (event.key === 'ArrowLeft') {
+    showChapter(index - 1);
+  }
+});
 
 
-/* =========================
-   INITIAL STATE
-========================= */
+/* INITIAL STATE */
 
 showChapter(0);
