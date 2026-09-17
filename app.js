@@ -39,7 +39,7 @@ async function startMusic() {
 }
 
 
-/* MEDIA AUTOPLAY */
+/* VIDEO AUTOPLAY */
 
 function stopAllVideos() {
   document.querySelectorAll('.chapter video').forEach(video => {
@@ -54,17 +54,13 @@ function playChapterVideos() {
 
   if (!activeChapter) return;
 
-  const videos = activeChapter.querySelectorAll('video');
-
-  videos.forEach(video => {
-
+  activeChapter.querySelectorAll('video').forEach(video => {
     video.muted = true;
     video.playsInline = true;
 
     video.play().catch(() => {
-      console.log('Autoplay was blocked.');
+      console.log('Video autoplay was blocked.');
     });
-
   });
 }
 
@@ -92,18 +88,13 @@ function showChapter(newIndex) {
   );
 
   chapters.forEach((chapter, i) => {
-    chapter.classList.toggle(
-      'active',
-      i === index
-    );
+    chapter.classList.toggle('active', i === index);
   });
 
   label.textContent = chapterNames[index];
 
-  const progress =
-    ((index + 1) / chapters.length) * 100;
-
-  bar.style.width = progress + '%';
+  bar.style.width =
+    ((index + 1) / chapters.length * 100) + '%';
 
   prev.style.visibility =
     index === 0 ? 'hidden' : 'visible';
@@ -118,9 +109,7 @@ function showChapter(newIndex) {
     behavior: 'smooth'
   });
 
-  setTimeout(() => {
-    playChapterVideos();
-  }, 150);
+  setTimeout(playChapterVideos, 150);
 }
 
 
@@ -148,6 +137,7 @@ next.addEventListener('click', () => {
   } else {
     showChapter(index + 1);
   }
+
 });
 
 
@@ -158,6 +148,7 @@ prev.addEventListener('click', () => {
   if (index > 0) {
     showChapter(index - 1);
   }
+
 });
 
 
@@ -176,6 +167,7 @@ home.addEventListener('click', () => {
   song.currentTime = 0;
 
   showChapter(0);
+
 });
 
 
@@ -184,42 +176,99 @@ home.addEventListener('click', () => {
 music.addEventListener('click', async () => {
 
   if (song.paused) {
+
     await startMusic();
+
   } else {
+
     song.pause();
 
     music.textContent = '▶';
+
     music.setAttribute(
       'aria-label',
       'Play music'
     );
   }
+
 });
 
 
-/* OPEN WHEN */
+/* =========================
+   OPEN WHEN
+========================= */
 
 const modal = document.getElementById('whenModal');
 const modalTitle = document.getElementById('modalTitle');
 const modalText = document.getElementById('modalText');
 const closeModal = document.getElementById('closeModal');
 
+
 const messages = {
 
-  'When you miss me':
-    'If you miss me, close your eyes for a moment and remember that somewhere, someone is thinking about you too.',
+  'When you miss me': `Melaaa ❤️
 
-  "When you're having a hard day":
-    'You do not have to have everything figured out today. Take a breath, take your time, and remember that tomorrow is another page.',
+So you miss me huh? 😂
 
-  'When you need a smile':
-    'Here is your reminder: you are loved, you are special, and there is at least one person who will always want to see you smile.'
+Well, I miss you too. Probably more than I’ll actually admit.
+
+I wish I could just appear beside you right now, annoy you a little, make you laugh, and then just stay there with you.
+
+But since I can't magically teleport 😂, just remember that no matter where we are or what's happening, you're still on my mind.
+
+So when you miss me, come here and read this again.
+
+And don't miss me too much, okay? 😂❤️
+
+I love you, Mela.
+
+— Alfred`,
+
+
+  "When you're having a hard day": `Mela ❤️
+
+Okay, come here for a second.
+
+I know sometimes things just don't go the way you want them to, and some days can just be tiring.
+
+But please don't let one bad day make you forget how amazing you are.
+
+You don't have to have everything figured out right now. Just breathe, relax a little, and take things one step at a time.
+
+And if nobody has told you today, I'm proud of you.
+
+Even if today wasn't your best day, you still made it through.
+
+So rest, smile a little, and remember that I'm always rooting for you.
+
+And yeah… tomorrow better be nicer to you 😂❤️
+
+— Alfred`,
+
+
+  'When you need a smile': `Melaaa 😂❤️
+
+If you’re reading this, then I’m guessing you need a little smile.
+
+So first of all, smile for me. Yes, right now. Don’t pretend you didn’t see this part 😂.
+
+I just want you to remember that there’s someone who genuinely loves you, thinks about you, misses you, and cares about you more than you probably realise.
+
+And yeah, sometimes I might annoy you, stress you, or do something stupid 😂, but at the end of the day, you’re still my person.
+
+So forget whatever is making you sad for a moment.
+
+Smile, pretty girl.
+
+And if you’re still not smiling after this… then I guess I’ll have to come and make you smile myself 😂❤️
+
+— Alfred`
 };
 
 
-document.querySelectorAll(
-  '.when-list button'
-).forEach(button => {
+/* OPEN MESSAGE */
+
+document.querySelectorAll('.when-list button').forEach(button => {
 
   button.addEventListener('click', () => {
 
@@ -228,8 +277,7 @@ document.querySelectorAll(
     modalTitle.textContent = message;
 
     modalText.textContent =
-      messages[message] ||
-      'No matter what happens, remember that you are cared for and deeply appreciated.';
+      messages[message];
 
     modal.classList.add('open');
 
@@ -237,11 +285,13 @@ document.querySelectorAll(
       'aria-hidden',
       'false'
     );
+
   });
+
 });
 
 
-/* CLOSE MODAL */
+/* CLOSE MESSAGE */
 
 function closeWhenModal() {
 
@@ -251,6 +301,7 @@ function closeWhenModal() {
     'aria-hidden',
     'true'
   );
+
 }
 
 
@@ -260,13 +311,18 @@ closeModal.addEventListener(
 );
 
 
+/* TAP OUTSIDE TO CLOSE */
+
 modal.addEventListener('click', event => {
 
   if (event.target === modal) {
     closeWhenModal();
   }
+
 });
 
+
+/* KEYBOARD */
 
 document.addEventListener('keydown', event => {
 
@@ -281,6 +337,7 @@ document.addEventListener('keydown', event => {
   if (event.key === 'ArrowLeft') {
     showChapter(index - 1);
   }
+
 });
 
 
