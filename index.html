@@ -240,44 +240,91 @@
 
 
       <!-- OPEN WHEN -->
-      <section class="chapter open-when" data-index="6">
-        <p class="eyebrow">Open when…</p>
+      i<section class="chapter open-when-chapter">
 
-        <h2>you need a little reminder.</h2>
+  <div class="chapter-intro">
+    <p class="eyebrow">A little something for you</p>
 
-        <div class="when-list">
+    <h2>Open When…</h2>
 
-          <button data-message="When you miss me">
-            Open this one
-          </button>
+    <p class="chapter-description">
+      Little letters for the moments when you need me.
+    </p>
+  </div>
 
-          <button data-message="When you're having a hard day">
-            Open this one
-          </button>
+  <div class="when-list">
 
-          <button data-message="When you need a smile">
-            Open this one
-          </button>
+    <button
+      class="when-card"
+      type="button"
+      data-message="When you miss me"
+    >
+      <span class="envelope-icon" aria-hidden="true">
+        <span class="envelope-flap"></span>
+      </span>
 
-        </div>
+      <span class="when-card-content">
+        <span class="when-card-label">Open when…</span>
 
-        <div class="modal" id="whenModal" aria-hidden="true">
-          <div class="modal-inner">
+        <strong>When you miss me</strong>
 
-            <button class="close" id="closeModal">×</button>
+        <small>
+          Open when you’re missing me.
+        </small>
+      </span>
 
-            <p class="eyebrow" id="modalTitle"></p>
+      <span class="when-card-arrow" aria-hidden="true">→</span>
+    </button>
 
-            <p id="modalText">
-              No matter how far away you feel,
-              remember that there is someone who cares about you,
-              thinks about you, and wants to see you smile.
-            </p>
 
-          </div>
-        </div>
-      </section>
+    <button
+      class="when-card"
+      type="button"
+      data-message="When you're having a hard day"
+    >
+      <span class="envelope-icon" aria-hidden="true">
+        <span class="envelope-flap"></span>
+      </span>
 
+      <span class="when-card-content">
+        <span class="when-card-label">Open when…</span>
+
+        <strong>When you're having a hard day</strong>
+
+        <small>
+          Open when today feels a little too heavy.
+        </small>
+      </span>
+
+      <span class="when-card-arrow" aria-hidden="true">→</span>
+    </button>
+
+
+    <button
+      class="when-card"
+      type="button"
+      data-message="When you need a smile"
+    >
+      <span class="envelope-icon" aria-hidden="true">
+        <span class="envelope-flap"></span>
+      </span>
+
+      <span class="when-card-content">
+        <span class="when-card-label">Open when…</span>
+
+        <strong>When you need a smile</strong>
+
+        <small>
+          Open when you need a little smile.
+        </small>
+      </span>
+
+      <span class="when-card-arrow" aria-hidden="true">→</span>
+    </button>
+
+  </div>
+
+</section>
 
       <!-- NAVIGATION -->
       <nav class="nav-controls">
