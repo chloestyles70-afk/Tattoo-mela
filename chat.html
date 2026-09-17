@@ -2415,28 +2415,58 @@
         )
 
         .on(
-          "postgres_changes",
-          {
-            event:
-              "UPDATE",
+  "postgres_changes",
+  {
+    event:
+      "UPDATE",
 
-            schema:
-              "public",
+    schema:
+      "public",
 
-            table:
-              "chat_messages",
+    table:
+      "chat_messages",
 
-            filter:
-              "room_id=eq.tattoo"
+    filter:
+      "room_id=eq.tattoo"
 
-          },
+  },
 
-          () => {
+  payload => {
 
-            loadMessages();
+    const message =
+      payload.new;
 
-          }
-        )
+    const row =
+      document.querySelector(
+        `[data-message-id="${message.id}"]`
+      );
+
+    if (!row) {
+      return;
+    }
+
+    const checks =
+      row.querySelector(
+        ".checks"
+      );
+
+    if (!checks) {
+      return;
+    }
+
+    if (message.read_at) {
+
+      checks.textContent =
+        "✓✓";
+
+      checks.classList.add(
+        "read"
+      );
+
+    }
+
+  }
+)
 
         .subscribe(
           status => {
