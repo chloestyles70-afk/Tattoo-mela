@@ -893,3 +893,31 @@ h2 {
   overflow: visible;
   padding-bottom: 120px;
 }
+/* CHAT BUTTON */
+
+.chat-next {
+  text-align: center;
+  padding: 60px 20px 80px;
+}
+
+.chat-next p {
+  color: var(--muted);
+  font-size: 16px;
+  margin-bottom: 22px;
+}
+
+.chat-button {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #0d0b10;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.chat-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
