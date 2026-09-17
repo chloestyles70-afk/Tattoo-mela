@@ -1730,14 +1730,1052 @@
   </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = "https://mtlesmajgaxiaebocybz.supabase.co";
+<script>
+/* ================================
+   TATTOO — YOU & MELA CHAT
+   ================================ */
 
-const SUPABASE_KEY = "Uafnj0C-CyB8SCeGggSpyg_bR9VvgQC";
+/* SUPABASE */
+const SUPABASE_URL =
+  "https://mtlesmajgaxiaebocybz.supabase.co";
 
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+const SUPABASE_KEY =
+  "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* ELEMENTS */
+
+const messageList =
+  document.getElementById("messageList");
+
+const messageForm =
+  document.getElementById("messageForm");
+
+const messageInput =
+  document.getElementById("messageInput");
+
+const typingRow =
+  document.getElementById("typingRow");
+
+const emojiBtn =
+  document.getElementById("emojiBtn");
+
+const emojiPanel =
+  document.getElementById("emojiPanel");
+
+const attachmentBtn =
+  document.getElementById("attachmentBtn");
+
+const fileInput =
+  document.getElementById("fileInput");
+
+const attachmentPreview =
+  document.getElementById("attachmentPreview");
+
+const attachmentContent =
+  document.getElementById("attachmentContent");
+
+const removeFile =
+  document.getElementById("removeFile");
+
+
+/* ================================
+   IDENTITY
+   ================================ */
+
+let myId =
+  localStorage.getItem("tattooUserId");
+
+if (!myId) {
+  myId = crypto.randomUUID();
+  localStorage.setItem(
+    "tattooUserId",
+    myId
+  );
+}
+
+let myName =
+  localStorage.getItem("tattooUserName");
+
+if (!myName) {
+
+  const choice =
+    confirm(
+      "Are you Mela?\n\nOK = Mela\nCancel = You"
+    );
+
+  myName = choice ? "Mela" : "You";
+
+  localStorage.setItem(
+    "tattooUserName",
+    myName
+  );
+}
+
+
+/* ================================
+   NAVIGATION
+   ================================ */
+
+document
+  .getElementById("backBtn")
+  .addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+
+
+/* ================================
+   PROFILE
+   ================================ */
+
+document
+  .getElementById("profileBtn")
+  .addEventListener("click", () => {
+    openOverlay("profileOverlay");
+  });
+
+
+/* ================================
+   SEARCH
+   ================================ */
+
+document
+  .getElementById("searchBtn")
+  .addEventListener("click", () => {
+
+    openOverlay("searchOverlay");
+
+    setTimeout(() => {
+      document
+        .getElementById("searchInput")
+        .focus();
+    }, 100);
+
+  });
+
+
+document
+  .getElementById("searchConfirm")
+  .addEventListener("click", () => {
+
+    const query =
+      document
+        .getElementById("searchInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+    if (!query) return;
+
+    const rows =
+      document.querySelectorAll(".row");
+
+    let found = false;
+
+    rows.forEach(row => {
+
+      if (
+        row.innerText
+          .toLowerCase()
+          .includes(query)
+      ) {
+
+        row.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+        row.style.transform =
+          "scale(1.04)";
+
+        setTimeout(() => {
+          row.style.transform = "";
+        }, 700);
+
+        found = true;
+      }
+
+    });
+
+    if (!found) {
+      alert("No message found.");
+    }
+
+  });
+
+
+/* ================================
+   MORE
+   ================================ */
+
+document
+  .getElementById("moreBtn")
+  .addEventListener("click", () => {
+    openOverlay("moreOverlay");
+  });
+
+
+document
+  .getElementById("jumpLatest")
+  .addEventListener("click", () => {
+
+    scrollBottom();
+    closeOverlays();
+
+  });
+
+
+/* ================================
+   SAVE CHAT
+   ================================ */
+
+document
+  .getElementById("saveConversation")
+  .addEventListener("click", () => {
+
+    const rows =
+      document.querySelectorAll(".row");
+
+    let text =
+      "Tattoo — Our Chat\n\n";
+
+    rows.forEach(row => {
+
+      const who =
+        row.classList.contains("me")
+          ? "You"
+          : "Mela";
+
+      text +=
+        who +
+        ": " +
+        row.innerText.trim() +
+        "\n\n";
+
+    });
+
+    const blob =
+      new Blob([text], {
+        type: "text/plain"
+      });
+
+    const url =
+      URL.createObjectURL(blob);
+
+    const a =
+      document.createElement("a");
+
+    a.href = url;
+    a.download = "tattoo-chat.txt";
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+  });
+
+
+/* ================================
+   EMOJI
+   ================================ */
+
+emojiBtn.addEventListener(
+  "click",
+  event => {
+
+    event.stopPropagation();
+
+    emojiPanel.classList.toggle(
+      "show"
+    );
+
+  }
 );
+
+
+document
+  .querySelectorAll(".emoji")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        messageInput.value +=
+          button.textContent;
+
+        messageInput.focus();
+
+      }
+    );
+
+  });
+
+
+document.addEventListener(
+  "click",
+  event => {
+
+    if (
+      !emojiPanel.contains(
+        event.target
+      ) &&
+      event.target !== emojiBtn
+    ) {
+
+      emojiPanel.classList.remove(
+        "show"
+      );
+
+    }
+
+  }
+);
+
+
+/* ================================
+   TYPING
+   ================================ */
+
+let typingTimer;
+
+messageInput.addEventListener(
+  "input",
+  () => {
+
+    typingRow.classList.add(
+      "show"
+    );
+
+    clearTimeout(typingTimer);
+
+    typingTimer =
+      setTimeout(() => {
+
+        typingRow.classList.remove(
+          "show"
+        );
+
+      }, 900);
+
+  }
+);
+
+
+/* ================================
+   ATTACHMENT
+   ================================ */
+
+attachmentBtn.addEventListener(
+  "click",
+  () => {
+    fileInput.click();
+  }
+);
+
+
+fileInput.addEventListener(
+  "change",
+  () => {
+
+    const file =
+      fileInput.files[0];
+
+    if (!file) return;
+
+    attachmentPreview.classList.add(
+      "show"
+    );
+
+    attachmentContent.innerHTML =
+      "";
+
+    const url =
+      URL.createObjectURL(file);
+
+    if (
+      file.type.startsWith("image/")
+    ) {
+
+      const img =
+        document.createElement("img");
+
+      img.src = url;
+
+      attachmentContent.appendChild(
+        img
+      );
+
+    } else if (
+      file.type.startsWith("video/")
+    ) {
+
+      const video =
+        document.createElement(
+          "video"
+        );
+
+      video.src = url;
+      video.controls = true;
+
+      attachmentContent.appendChild(
+        video
+      );
+
+    }
+
+  }
+);
+
+
+removeFile.addEventListener(
+  "click",
+  () => {
+
+    fileInput.value = "";
+
+    attachmentContent.innerHTML =
+      "";
+
+    attachmentPreview.classList.remove(
+      "show"
+    );
+
+  }
+);
+
+
+/* ================================
+   SEND MESSAGE
+   ================================ */
+
+messageForm.addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+    const text =
+      messageInput.value.trim();
+
+    const file =
+      fileInput.files[0];
+
+    if (!text && !file) return;
+
+
+    /* TEXT */
+
+    if (text) {
+
+      await sendTextMessage(text);
+
+    }
+
+
+    /* MEDIA */
+
+    if (file) {
+
+      await sendMediaMessage(file);
+
+    }
+
+
+    messageInput.value = "";
+
+    fileInput.value = "";
+
+    attachmentContent.innerHTML =
+      "";
+
+    attachmentPreview.classList.remove(
+      "show"
+    );
+
+    typingRow.classList.remove(
+      "show"
+    );
+
+    emojiPanel.classList.remove(
+      "show"
+    );
+
+    scrollBottom();
+
+  }
+);
+
+
+/* ================================
+   SEND TEXT TO SUPABASE
+   ================================ */
+
+async function sendTextMessage(text) {
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("chat_messages")
+      .insert({
+
+        room_id: "tattoo",
+
+        sender_id: myId,
+
+        sender_name: myName,
+
+        content: text,
+
+        message_type: "text"
+
+      });
+
+  if (error) {
+
+    console.error(error);
+
+    alert(
+      "Message could not be sent."
+    );
+
+  }
+
+}
+
+
+/* ================================
+   SEND MEDIA
+   ================================ */
+
+async function sendMediaMessage(file) {
+
+  try {
+
+    const extension =
+      file.name
+        .split(".")
+        .pop();
+
+    const path =
+      "tattoo/" +
+      myId +
+      "/" +
+      crypto.randomUUID() +
+      "." +
+      extension;
+
+
+    const {
+      error: uploadError
+    } =
+      await supabaseClient
+        .storage
+        .from("tattoo-chat-media")
+        .upload(
+          path,
+          file
+        );
+
+
+    if (uploadError) {
+      throw uploadError;
+    }
+
+
+    const {
+      data
+    } =
+      supabaseClient
+        .storage
+        .from(
+          "tattoo-chat-media"
+        )
+        .getPublicUrl(path);
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("chat_messages")
+        .insert({
+
+          room_id: "tattoo",
+
+          sender_id: myId,
+
+          sender_name: myName,
+
+          message_type:
+            file.type.startsWith(
+              "image/"
+            )
+              ? "image"
+              : "video",
+
+          media_path:
+            data.publicUrl
+
+        });
+
+
+    if (error) {
+      throw error;
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Media could not be sent."
+    );
+
+  }
+
+}
+
+
+/* ================================
+   LOAD CHAT HISTORY
+   ================================ */
+
+async function loadMessages() {
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("chat_messages")
+      .select("*")
+      .eq(
+        "room_id",
+        "tattoo"
+      )
+      .order(
+        "created_at",
+        {
+          ascending: true
+        }
+      );
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  /* Remove sample messages */
+
+  document
+    .querySelectorAll(
+      ".row:not(.typing-row)"
+    )
+    .forEach(row => {
+      row.remove();
+    });
+
+
+  data.forEach(message => {
+
+    renderMessage(
+      message,
+      false
+    );
+
+  });
+
+
+  scrollBottom();
+
+}
+
+
+/* ================================
+   RENDER MESSAGE
+   ================================ */
+
+function renderMessage(
+  message,
+  scroll = true
+) {
+
+  const isMe =
+    message.sender_id === myId;
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "row " +
+    (isMe
+      ? "me"
+      : "them");
+
+
+  const bubble =
+    document.createElement("div");
+
+
+  if (
+    message.message_type ===
+    "image"
+  ) {
+
+    bubble.className =
+      "bubble media-bubble";
+
+
+    const img =
+      document.createElement("img");
+
+    img.src =
+      message.media_path;
+
+    img.alt =
+      "Shared photo";
+
+    bubble.appendChild(img);
+
+
+  } else if (
+    message.message_type ===
+    "video"
+  ) {
+
+    bubble.className =
+      "bubble media-bubble";
+
+
+    const video =
+      document.createElement(
+        "video"
+      );
+
+    video.src =
+      message.media_path;
+
+    video.controls = true;
+
+    bubble.appendChild(
+      video
+    );
+
+
+  } else {
+
+    bubble.className =
+      "bubble";
+
+
+    const content =
+      document.createElement(
+        "div"
+      );
+
+    content.textContent =
+      message.content || "";
+
+    bubble.appendChild(
+      content
+    );
+
+  }
+
+
+  const meta =
+    document.createElement(
+      "div"
+    );
+
+  meta.className =
+    "message-meta";
+
+
+  const time =
+    new Date(
+      message.created_at
+    ).toLocaleTimeString(
+      [],
+      {
+        hour: "numeric",
+        minute: "2-digit"
+      }
+    );
+
+
+  meta.textContent =
+    time;
+
+
+  if (isMe) {
+
+    const checks =
+      document.createElement(
+        "span"
+      );
+
+    checks.className =
+      "checks";
+
+    checks.textContent =
+      message.read_at
+        ? " ✓✓"
+        : " ✓";
+
+    meta.appendChild(
+      checks
+    );
+
+  }
+
+
+  bubble.appendChild(
+    meta
+  );
+
+
+  row.appendChild(
+    bubble
+  );
+
+
+  messageList.insertBefore(
+    row,
+    typingRow
+  );
+
+
+  if (scroll) {
+    scrollBottom();
+  }
+
+}
+
+
+/* ================================
+   REAL-TIME MESSAGES
+   ================================ */
+
+const chatChannel =
+  supabaseClient
+    .channel(
+      "tattoo-chat"
+    );
+
+
+chatChannel
+  .on(
+    "postgres_changes",
+    {
+      event: "INSERT",
+      schema: "public",
+      table: "chat_messages",
+      filter:
+        "room_id=eq.tattoo"
+    },
+    payload => {
+
+      renderMessage(
+        payload.new,
+        true
+      );
+
+    }
+  )
+  .on(
+    "postgres_changes",
+    {
+      event: "UPDATE",
+      schema: "public",
+      table: "chat_messages",
+      filter:
+        "room_id=eq.tattoo"
+    },
+    payload => {
+
+      loadMessages();
+
+    }
+  )
+  .subscribe();
+
+
+/* ================================
+   READ RECEIPTS
+   ================================ */
+
+async function markMessagesRead() {
+
+  await supabaseClient
+    .from("chat_messages")
+    .update({
+      read_at:
+        new Date().toISOString()
+    })
+    .eq(
+      "room_id",
+      "tattoo"
+    )
+    .neq(
+      "sender_id",
+      myId
+    )
+    .is(
+      "read_at",
+      null
+    );
+
+}
+
+
+/* ================================
+   SCROLL
+   ================================ */
+
+function scrollBottom() {
+
+  setTimeout(() => {
+
+    messageList.scrollTo({
+      top:
+        messageList.scrollHeight,
+      behavior: "smooth"
+    });
+
+  }, 100);
+
+}
+
+
+/* ================================
+   OVERLAYS
+   ================================ */
+
+function openOverlay(id) {
+
+  document
+    .getElementById(id)
+    .classList.add(
+      "show"
+    );
+
+}
+
+
+function closeOverlays() {
+
+  document
+    .querySelectorAll(
+      ".overlay"
+    )
+    .forEach(overlay => {
+
+      overlay.classList.remove(
+        "show"
+      );
+
+    });
+
+}
+
+
+document
+  .querySelectorAll(
+    "[data-close]"
+  )
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        const id =
+          button.dataset.close;
+
+        document
+          .getElementById(id)
+          .classList.remove(
+            "show"
+          );
+
+      }
+    );
+
+  });
+
+
+document
+  .querySelectorAll(
+    ".overlay"
+  )
+  .forEach(overlay => {
+
+    overlay.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          overlay
+        ) {
+
+          overlay.classList.remove(
+            "show"
+          );
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* ================================
+   ESCAPE
+   ================================ */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      closeOverlays();
+
+      emojiPanel.classList.remove(
+        "show"
+      );
+
+    }
+
+  });
+
+
+/* ================================
+   START
+   ================================ */
+
+loadMessages();
+
+markMessagesRead();
+
+</script>
 </script>
 </body>
 </html>
