@@ -1845,11 +1845,16 @@
     .limit(100);
 
   if (error) {
-    console.error("Load messages error:", error);
+    console.error(
+      "Load messages error:",
+      error
+    );
     return;
   }
 
-  messages.innerHTML = "";
+  messages
+    .querySelectorAll(".row")
+    .forEach(row => row.remove());
 
   data.forEach(message => {
     renderMessage(message);
@@ -1858,64 +1863,10 @@
   requestAnimationFrame(() => {
     scrollToBottom();
   });
+
+  markMessagesRead();
+
 }
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-          .from(
-            "chat_messages"
-          )
-          .select("*")
-          .eq(
-            "room_id",
-            ROOM_ID
-          )
-          .order(
-            "created_at",
-            {
-              ascending: true
-            }
-          );
-
-
-      if (error) {
-
-        console.error(
-          "Load messages error:",
-          error
-        );
-
-        return;
-
-      }
-
-
-      messages
-        .querySelectorAll(
-          ".row"
-        )
-        .forEach(
-          row =>
-            row.remove()
-        );
-
-
-      data.forEach(
-        message =>
-          renderMessage(
-            message
-          )
-      );
-
-
-      scrollToBottom();
-
-      markMessagesRead();
-
-    }
 
 
     /*
