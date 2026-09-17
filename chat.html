@@ -1928,7 +1928,6 @@
     return;
   }
 
-  messageInput.value = "";
   stopTyping();
 
   const {
@@ -1944,24 +1943,18 @@
     });
 
   if (error) {
-
-    console.error(
-      "Send error:",
-      error
-    );
+    console.error("Send error:", error);
 
     alert(
       "Send error: " +
       error.message
     );
 
-    messageInput.value = text;
-
     return;
   }
-}
 
-    }
+  messageInput.value = "";
+}
 
 
     /*
