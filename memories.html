@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+
+  <title>Our Memories 💗</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --bg: #0d0b10;
+      --panel: #17131b;
+      --panel-soft: #1d1821;
+      --text: #f8f2f5;
+      --muted: #b9adb5;
+      --accent: #e9a8c4;
+      --line: rgba(255,255,255,.10);
+      --shadow: rgba(0,0,0,.40);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(
+          circle at top,
+          rgba(233,168,196,.10),
+          transparent 35%
+        ),
+        var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      min-height: 100vh;
+      padding-bottom: 90px;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(1100px, 94%);
+      margin: auto;
+    }
+
+    /* HEADER */
+
+    header {
+      padding: 28px 0 20px;
+      text-align: center;
+    }
+
+    .heart {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 7vw, 48px);
+      font-weight: 500;
+    }
+
+    .subtitle {
+      margin: 10px auto 0;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    /* TOP ACTIONS */
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 22px 0 30px;
+    }
+
+    .primary,
+    .secondary {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 12px 18px;
+      color: var(--text);
+      transition: .2s;
+    }
+
+    .primary {
+      background: var(--accent);
+      color: #251821;
+      border-color: transparent;
+    }
+
+    .secondary {
+      background: var(--panel);
+    }
+
+    .primary:hover,
+    .secondary:hover {
+      transform: translateY(-2px);
+    }
+
+    /* STATUS */
+
+    .status {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      min-height: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* EMPTY */
+
+    .empty {
+      text-align: center;
+      background: rgba(23,19,27,.85);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 55px 20px;
+      margin: 20px 0;
+    }
+
+    .empty-icon {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .empty h2 {
+      margin: 0 0 10px;
+      font-weight: 500;
+    }
+
+    .empty p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* MEMORY GRID */
+
+    .memories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .memory {
+      position: relative;
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: 0 12px 30px var(--shadow);
+      animation: appear .35s ease;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .memory-media {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      background: #09080b;
+    }
+
+    video.memory-media {
+      object-fit: cover;
+    }
+
+    .memory-info {
+      padding: 13px 14px 15px;
+    }
+
+    .memory-author {
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 5px;
+    }
+
+    .memory-caption {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .memory-date {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .delete-memory {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(0,0,0,.60);
+      color: white;
+      backdrop-filter: blur(8px);
+    }
+
+    /* VIDEO */
+
+    .video-wrap {
+      position: relative;
+    }
+
+    .video-label {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      background: rgba(0,0,0,.60);
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 11px;
+      color: white;
+    }
+
+    /* MODAL */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.75);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(520px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 25px 70px rgba(0,0,0,.55);
+    }
+
+    .modal-card h2 {
+      margin: 0 0 18px;
+      font-weight: 500;
+    }
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    .field label {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      background: var(--panel-soft);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 13px;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .preview {
+      display: none;
+      margin: 15px 0;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .preview img,
+    .preview video {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 18px;
+    }
+
+    .modal-actions button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 11px 17px;
+    }
+
+    .cancel {
+      background: transparent;
+      color: var(--text);
+    }
+
+    .save {
+      background: var(--accent);
+      color: #251821;
+      border-color: transparent !important;
+    }
+
+    /* LOADING */
+
+    .loading {
+      text-align: center;
+      color: var(--muted);
+      padding: 50px 0;
+    }
+
+    /* NAVIGATION */
+
+    .page-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      width: min(560px, 92%);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: rgba(23,19,27,.92);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 6px;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 15px 45px rgba(0,0,0,.45);
+      z-index: 90;
+    }
+
+    .page-nav a {
+      text-decoration: none;
+      color: var(--muted);
+      text-align: center;
+      padding: 11px 6px;
+      border-radius: 17px;
+      font-size: 13px;
+      transition: .2s;
+    }
+
+    .page-nav a.active {
+      color: var(--text);
+      background: rgba(233,168,196,.14);
+    }
+
+    .page-nav a:hover {
+      color: var(--text);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 750px) {
+      .memories {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .memory {
+        border-radius: 16px;
+      }
+
+      .memory-info {
+        padding: 10px;
+      }
+
+      .memory-caption {
+        font-size: 13px;
+      }
+
+      .page {
+        width: 94%;
+      }
+    }
+
+    @media (max-width: 470px) {
+      .memories {
+        grid-template-columns: 1fr;
+      }
+
+      .memory-media {
+        aspect-ratio: 4 / 5;
+      }
+
+      header {
+        padding-top: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <header>
+      <div class="heart">💗</div>
+      <h1>Our Memories</h1>
+
+      <p class="subtitle">
+        Little moments, pictures, videos, and memories
+        that belong to us.
+      </p>
+    </header>
+
+    <div class="actions">
+      <button class="primary" id="addMemoryBtn">
+        📸 Add a Memory
+      </button>
+
+      <button class="secondary" id="refreshBtn">
+        ↻ Refresh
+      </button>
+    </div>
+
+    <div class="status" id="status">
+      Loading our memories...
+    </div>
+
+    <section id="memories" class="memories"></section>
+
+    <section id="emptyState" class="empty" style="display:none;">
+      <div class="empty-icon">🫶🏽</div>
+
+      <h2>Our story starts here</h2>
+
+      <p>
+        Add your first photo or video and let's start
+        building our little collection of memories.
+      </p>
+    </section>
+
+    <div id="loading" class="loading">
+      Loading...
+    </div>
+
+  </main>
+
+
+  <!-- ADD MEMORY MODAL -->
+
+  <div class="modal" id="memoryModal">
+
+    <div class="modal-card">
+
+      <h2>Add a Memory 📸</h2>
+
+      <div class="field">
+        <label>Photo or video</label>
+
+        <input
+          type="file"
+          id="memoryFile"
+          accept="image/*,video/*"
+        />
+      </div>
+
+      <div class="preview" id="preview"></div>
+
+      <div class="field">
+        <label>Caption</label>
+
+        <textarea
+          id="memoryCaption"
+          placeholder="Write something about this moment..."
+        ></textarea>
+      </div>
+
+      <div class="modal-actions">
+
+        <button
+          class="cancel"
+          id="cancelBtn"
+        >
+          Cancel
+        </button>
+
+        <button
+          class="save"
+          id="saveBtn"
+        >
+          Save Memory
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- NAVIGATION -->
+
+  <nav class="page-nav">
+
+    <a href="index.html">
+      💗 Tattoo
+    </a>
+
+    <a href="chat.html">
+      💬 Chat
+    </a>
+
+    <a href="memories.html" class="active">
+      📸 Memories
+    </a>
+
+  </nav>
+
+
+  <script>
+
+    /* =========================
+       SUPABASE
+    ========================= */
+
+    const SUPABASE_URL =
+      "https://mtlesmajgaxiaebocybz.supabase.co";
+
+    const SUPABASE_KEY =
+      "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+
+    /* =========================
+       SETTINGS
+    ========================= */
+
+    const BUCKET =
+      "tattoo-memories";
+
+    const ROOM =
+      "tattoo";
+
+
+    /* =========================
+       USER IDENTITY
+    ========================= */
+
+    let currentUser =
+      localStorage.getItem("tattooUser");
+
+    if (
+      currentUser !== "you" &&
+      currentUser !== "mela"
+    ) {
+      currentUser = "you";
+
+      localStorage.setItem(
+        "tattooUser",
+        currentUser
+      );
+    }
+
+    const currentName =
+      currentUser === "mela"
+        ? "Mela"
+        : "You";
+
+
+    /* =========================
+       ELEMENTS
+    ========================= */
+
+    const memoriesEl =
+      document.getElementById("memories");
+
+    const loadingEl =
+      document.getElementById("loading");
+
+    const emptyEl =
+      document.getElementById("emptyState");
+
+    const statusEl =
+      document.getElementById("status");
+
+    const modal =
+      document.getElementById("memoryModal");
+
+    const addBtn =
+      document.getElementById("addMemoryBtn");
+
+    const cancelBtn =
+      document.getElementById("cancelBtn");
+
+    const saveBtn =
+      document.getElementById("saveBtn");
+
+    const fileInput =
+      document.getElementById("memoryFile");
+
+    const captionInput =
+      document.getElementById("memoryCaption");
+
+    const preview =
+      document.getElementById("preview");
+
+    const refreshBtn =
+      document.getElementById("refreshBtn");
+
+
+    /* =========================
+       OPEN MODAL
+    ========================= */
+
+    addBtn.addEventListener(
+      "click",
+      () => {
+        modal.classList.add("open");
+      }
+    );
+
+
+    cancelBtn.addEventListener(
+      "click",
+      closeModal
+    );
+
+
+    modal.addEventListener(
+      "click",
+      event => {
+        if (event.target === modal) {
+          closeModal();
+        }
+      }
+    );
+
+
+    function closeModal() {
+
+      modal.classList.remove("open");
+
+      fileInput.value = "";
+
+      captionInput.value = "";
+
+      preview.innerHTML = "";
+
+      preview.style.display = "none";
+
+    }
+
+
+    /* =========================
+       FILE PREVIEW
+    ========================= */
+
+    fileInput.addEventListener(
+      "change",
+      () => {
+
+        const file =
+          fileInput.files[0];
+
+        if (!file) return;
+
+        preview.innerHTML = "";
+
+        const url =
+          URL.createObjectURL(file);
+
+        if (
+          file.type.startsWith("video/")
+        ) {
+
+          const video =
+            document.createElement("video");
+
+          video.src = url;
+
+          video.controls = true;
+
+          preview.appendChild(video);
+
+        } else {
+
+          const img =
+            document.createElement("img");
+
+          img.src = url;
+
+          preview.appendChild(img);
+
+        }
+
+        preview.style.display = "block";
+
+      }
+    );
+
+
+    /* =========================
+       LOAD MEMORIES
+    ========================= */
+
+    async function loadMemories() {
+
+      loadingEl.style.display = "block";
+
+      emptyEl.style.display = "none";
+
+      statusEl.textContent =
+        "Loading our memories...";
+
+      const {
+        data,
+        error
+      } = await supabaseClient
+
+        .from("memories")
+
+        .select("*")
+
+        .eq("room_id", ROOM)
+
+        .order(
+          "created_at",
+          {
+            ascending: false
+          }
+        );
+
+
+      loadingEl.style.display = "none";
+
+
+      if (error) {
+
+        console.error(error);
+
+        statusEl.textContent =
+          "Could not load memories.";
+
+        return;
+
+      }
+
+
+      memoriesEl.innerHTML = "";
+
+
+      if (!data || data.length === 0) {
+
+        emptyEl.style.display = "block";
+
+        statusEl.textContent =
+          "No memories yet.";
+
+        return;
+
+      }
+
+
+      statusEl.textContent =
+        `${data.length} ${
+          data.length === 1
+            ? "memory"
+            : "memories"
+        } together`;
+
+
+      data.forEach(
+        memory => renderMemory(memory)
+      );
+
+    }
+
+
+    /* =========================
+       RENDER MEMORY
+    ========================= */
+
+    function renderMemory(memory) {
+
+      if (
+        document.querySelector(
+          `[data-memory-id="${memory.id}"]`
+        )
+      ) {
+        return;
+      }
+
+
+      const card =
+        document.createElement("article");
+
+      card.className = "memory";
+
+      card.dataset.memoryId =
+        memory.id;
+
+
+      /* MEDIA */
+
+      const publicUrl =
+        supabaseClient
+
+          .storage
+
+          .from(BUCKET)
+
+          .getPublicUrl(
+            memory.media_path
+          )
+          .data
+          .publicUrl;
+
+
+      if (
+        memory.media_type === "video"
+      ) {
+
+        const wrap =
+          document.createElement("div");
+
+        wrap.className =
+          "video-wrap";
+
+
+        const video =
+          document.createElement("video");
+
+        video.className =
+          "memory-media";
+
+        video.src =
+          publicUrl;
+
+        video.controls = true;
+
+        video.preload = "metadata";
+
+
+        const label =
+          document.createElement("span");
+
+        label.className =
+          "video-label";
+
+        label.textContent =
+          "▶ Video";
+
+
+        wrap.appendChild(video);
+
+        wrap.appendChild(label);
+
+        card.appendChild(wrap);
+
+      } else {
+
+        const img =
+          document.createElement("img");
+
+        img.className =
+          "memory-media";
+
+        img.src =
+          publicUrl;
+
+        img.alt =
+          memory.caption ||
+          "Our memory";
+
+        img.loading =
+          "lazy";
+
+        card.appendChild(img);
+
+      }
+
+
+      /* INFO */
+
+      const info =
+        document.createElement("div");
+
+      info.className =
+        "memory-info";
+
+
+      const author =
+        document.createElement("div");
+
+      author.className =
+        "memory-author";
+
+      author.textContent =
+        memory.creator_name ||
+        "Us";
+
+
+      const caption =
+        document.createElement("p");
+
+      caption.className =
+        "memory-caption";
+
+      caption.textContent =
+        memory.caption ||
+        "";
+
+
+      const date =
+        document.createElement("div");
+
+      date.className =
+        "memory-date";
+
+      date.textContent =
+        formatDate(
+          memory.created_at
+        );
+
+
+      info.appendChild(author);
+
+      if (memory.caption) {
+        info.appendChild(caption);
+      }
+
+      info.appendChild(date);
+
+      card.appendChild(info);
+
+
+      /* DELETE */
+
+      const memoryOwner =
+        memory.creator_id;
+
+
+      if (
+        memoryOwner ===
+        getCurrentUserId()
+      ) {
+
+        const deleteBtn =
+          document.createElement("button");
+
+        deleteBtn.className =
+          "delete-memory";
+
+        deleteBtn.textContent =
+          "×";
+
+        deleteBtn.title =
+          "Delete memory";
+
+
+        deleteBtn.addEventListener(
+          "click",
+          () => deleteMemory(memory)
+        );
+
+
+        card.appendChild(
+          deleteBtn
+        );
+
+      }
+
+
+      memoriesEl.appendChild(card);
+
+    }
+
+
+    /* =========================
+       USER ID
+    ========================= */
+
+    function getCurrentUserId() {
+
+      return currentUser;
+
+    }
+
+
+    /* =========================
+       SAVE MEMORY
+    ========================= */
+
+    saveBtn.addEventListener(
+      "click",
+      saveMemory
+    );
+
+
+    async function saveMemory() {
+
+      const file =
+        fileInput.files[0];
+
+
+      if (!file) {
+
+        alert(
+          "Choose a photo or video first."
+        );
+
+        return;
+
+      }
+
+
+      const isVideo =
+        file.type.startsWith("video/");
+
+
+      if (
+        !file.type.startsWith("image/") &&
+        !isVideo
+      ) {
+
+        alert(
+          "Please choose an image or video."
+        );
+
+        return;
+
+      }
+
+
+      if (
+        file.size >
+        100 * 1024 * 1024
+      ) {
+
+        alert(
+          "Please keep the file under 100MB."
+        );
+
+        return;
+
+      }
+
+
+      saveBtn.disabled = true;
+
+      saveBtn.textContent =
+        "Saving...";
+
+
+      try {
+
+        const extension =
+          file.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+        const safeName =
+          `${Date.now()}-${crypto.randomUUID()}.${extension}`;
+
+
+        const path =
+          `${currentUser}/${safeName}`;
+
+
+        /* UPLOAD */
+
+        const {
+          error: uploadError
+        } = await supabaseClient
+
+          .storage
+
+          .from(BUCKET)
+
+          .upload(
+            path,
+            file,
+            {
+              contentType:
+                file.type,
+
+              upsert: false
+            }
+          );
+
+
+        if (uploadError) {
+
+          throw uploadError;
+
+        }
+
+
+        /* DATABASE RECORD */
+
+        const {
+          error: insertError
+        } = await supabaseClient
+
+          .from("memories")
+
+          .insert({
+
+            room_id:
+              ROOM,
+
+            creator_id:
+              currentUser,
+
+            creator_name:
+              currentName,
+
+            media_type:
+              isVideo
+                ? "video"
+                : "image",
+
+            media_path:
+              path,
+
+            caption:
+              captionInput.value.trim()
+
+          });
+
+
+        if (insertError) {
+
+          /* Remove uploaded file
+             if database insert fails */
+
+          await supabaseClient
+
+            .storage
+
+            .from(BUCKET)
+
+            .remove([path]);
+
+
+          throw insertError;
+
+        }
+
+
+        closeModal();
+
+        statusEl.textContent =
+          "Memory added 💗";
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert(
+          "Could not save memory: " +
+          (error?.message ||
+            "Unknown error")
+        );
+
+      } finally {
+
+        saveBtn.disabled = false;
+
+        saveBtn.textContent =
+          "Save Memory";
+
+      }
+
+    }
+
+
+    /* =========================
+       DELETE MEMORY
+    ========================= */
+
+    async function deleteMemory(
+      memory
+    ) {
+
+      const confirmed =
+        confirm(
+          "Delete this memory?"
+        );
+
+
+      if (!confirmed) return;
+
+
+      try {
+
+        const {
+          error: storageError
+        } = await supabaseClient
+
+          .storage
+
+          .from(BUCKET)
+
+          .remove([
+            memory.media_path
+          ]);
+
+
+        if (storageError) {
+
+          console.warn(
+            storageError
+          );
+
+        }
+
+
+        const {
+          error
+        } = await supabaseClient
+
+          .from("memories")
+
+          .delete()
+
+          .eq(
+            "id",
+            memory.id
+          );
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        const card =
+          document.querySelector(
+            `[data-memory-id="${memory.id}"]`
+          );
+
+
+        if (card) {
+
+          card.remove();
+
+        }
+
+
+        if (
+          memoriesEl.children.length === 0
+        ) {
+
+          emptyEl.style.display =
+            "block";
+
+          statusEl.textContent =
+            "No memories yet.";
+
+        }
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert(
+          "Could not delete memory: " +
+          (error?.message ||
+            "Unknown error")
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       DATE
+    ========================= */
+
+    function formatDate(
+      dateString
+    ) {
+
+      const date =
+        new Date(dateString);
+
+
+      return date.toLocaleString(
+        undefined,
+        {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "numeric",
+          minute: "2-digit"
+        }
+      );
+
+    }
+
+
+    /* =========================
+       REALTIME
+    ========================= */
+
+    const memoriesChannel =
+      supabaseClient
+
+        .channel(
+          "tattoo-memories-room"
+        )
+
+        .on(
+          "postgres_changes",
+          {
+            event: "INSERT",
+            schema: "public",
+            table: "memories",
+            filter:
+              "room_id=eq.tattoo"
+          },
+          payload => {
+
+            const memory =
+              payload.new;
+
+
+            if (
+              document.querySelector(
+                `[data-memory-id="${memory.id}"]`
+              )
+            ) {
+              return;
+            }
+
+
+            emptyEl.style.display =
+              "none";
+
+
+            renderMemory(memory);
+
+
+            statusEl.textContent =
+              "New memory added 💗";
+
+          }
+        )
+
+        .on(
+          "postgres_changes",
+          {
+            event: "DELETE",
+            schema: "public",
+            table: "memories"
+          },
+          payload => {
+
+            const id =
+              payload.old.id;
+
+
+            const card =
+              document.querySelector(
+                `[data-memory-id="${id}"]`
+              );
+
+
+            if (card) {
+
+              card.remove();
+
+            }
+
+          }
+        )
+
+        .subscribe();
+
+
+    /* =========================
+       REFRESH
+    ========================= */
+
+    refreshBtn.addEventListener(
+      "click",
+      loadMemories
+    );
+
+
+    /* =========================
+       START
+    ========================= */
+
+    loadMemories();
+
+  </script>
+
+</body>
+</html>
