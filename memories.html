@@ -774,7 +774,9 @@
 
         .from("memories")
 
-        .select("*")
+        .select(
+  "id, room_id, creator_id, creator_name, caption, media_path, media_type, created_at"
+)
 
         .eq("room_id", ROOM)
 
