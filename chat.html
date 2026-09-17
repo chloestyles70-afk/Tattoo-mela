@@ -1370,8 +1370,9 @@ async function sendText() {
     );
 
     alert(
-      "The message could not be sent."
-    );
+  "Send error: " +
+  (error?.message || "Unknown error")
+);
 
     return;
   }
