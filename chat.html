@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
   <title>Tattoo — Chat</title>
 
@@ -111,12 +108,7 @@
       border-radius: 50%;
       display: grid;
       place-items: center;
-      background:
-        linear-gradient(
-          135deg,
-          #e9a8c4,
-          #b87599
-        );
+      background: linear-gradient(135deg,#e9a8c4,#b87599);
       color: #24151e;
       font-weight: bold;
       font-size: 19px;
@@ -147,7 +139,7 @@
       gap: 7px;
     }
 
-    /* CHAT */
+    /* MESSAGES */
 
     .messages {
       flex: 1;
@@ -412,7 +404,7 @@
 
     .emoji-grid {
       display: grid;
-      grid-template-columns: repeat(8, 1fr);
+      grid-template-columns: repeat(8,1fr);
       gap: 5px;
     }
 
@@ -446,7 +438,7 @@
     }
 
     .popup {
-      width: min(430px, 100%);
+      width: min(430px,100%);
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 22px;
@@ -555,7 +547,7 @@
       place-items: center;
     }
 
-    /* ATTACHMENT PREVIEW */
+    /* ATTACHMENT */
 
     .attachment-preview {
       display: none;
@@ -591,9 +583,8 @@
       color: white;
     }
 
-    /* MOBILE */
+    @media (max-width:600px) {
 
-    @media (max-width: 600px) {
       .header {
         height: 68px;
         padding: 8px 10px;
@@ -623,7 +614,7 @@
       }
 
       .emoji-grid {
-        grid-template-columns: repeat(7, 1fr);
+        grid-template-columns: repeat(7,1fr);
       }
     }
   </style>
@@ -633,14 +624,11 @@
 
 <div class="app">
 
-  <!-- HEADER -->
-
   <header class="header">
 
     <button
       class="back-btn"
       id="backBtn"
-      aria-label="Back"
     >
       ←
     </button>
@@ -649,18 +637,26 @@
       class="profile"
       id="profileBtn"
     >
-      <div class="avatar">M</div>
+
+      <div class="avatar">
+        M
+      </div>
 
       <div class="profile-info">
-        <div class="profile-name">Mela</div>
+
+        <div class="profile-name">
+          Mela
+        </div>
 
         <div
           class="status"
           id="statusText"
         >
-          Offline
+          Connecting...
         </div>
+
       </div>
+
     </div>
 
     <div class="header-actions">
@@ -668,7 +664,6 @@
       <button
         class="header-btn"
         id="searchBtn"
-        aria-label="Search"
       >
         🔍
       </button>
@@ -676,7 +671,6 @@
       <button
         class="header-btn"
         id="moreBtn"
-        aria-label="More"
       >
         ⋯
       </button>
@@ -685,18 +679,16 @@
 
   </header>
 
-  <!-- MESSAGES -->
-
   <main
     class="messages"
     id="messages"
   >
+
     <div class="date-divider">
       TODAY
     </div>
-  </main>
 
-  <!-- TYPING -->
+  </main>
 
   <div
     class="typing"
@@ -712,8 +704,6 @@
 
 </div>
 
-<!-- JUMP TO LATEST -->
-
 <button
   class="jump-btn"
   id="jumpBtn"
@@ -721,12 +711,13 @@
   ↓
 </button>
 
-<!-- EMOJI PANEL -->
+<!-- EMOJI -->
 
 <div
   class="emoji-panel"
   id="emojiPanel"
 >
+
   <div class="emoji-grid">
 
     <button class="emoji">❤️</button>
@@ -747,7 +738,6 @@
     <button class="emoji">😚</button>
     <button class="emoji">🫶</button>
 
-    <button class="emoji">😘</button>
     <button class="emoji">🤭</button>
     <button class="emoji">😏</button>
     <button class="emoji">🙈</button>
@@ -755,8 +745,10 @@
     <button class="emoji">🤍</button>
     <button class="emoji">🩷</button>
     <button class="emoji">🫂</button>
+    <button class="emoji">✨</button>
 
   </div>
+
 </div>
 
 <!-- COMPOSER -->
@@ -767,6 +759,7 @@
     class="attachment-preview"
     id="attachmentPreview"
   >
+
     <span
       class="attachment-name"
       id="attachmentName"
@@ -778,6 +771,7 @@
     >
       ×
     </button>
+
   </div>
 
   <form
@@ -789,7 +783,6 @@
       type="button"
       class="composer-btn"
       id="attachmentBtn"
-      aria-label="Attach"
     >
       ＋
     </button>
@@ -805,7 +798,6 @@
       type="button"
       class="composer-btn"
       id="emojiBtn"
-      aria-label="Emoji"
     >
       ☺
     </button>
@@ -813,7 +805,6 @@
     <button
       type="submit"
       class="send-btn"
-      aria-label="Send"
     >
       ➤
     </button>
@@ -822,8 +813,6 @@
 
 </div>
 
-<!-- FILE INPUT -->
-
 <input
   type="file"
   id="fileInput"
@@ -831,19 +820,21 @@
   hidden
 >
 
-<!-- IDENTITY POPUP -->
+<!-- IDENTITY -->
 
 <div
   class="overlay"
   id="identityOverlay"
 >
+
   <div class="popup">
 
-    <h2>Who are you?</h2>
+    <h2>
+      Who are you?
+    </h2>
 
     <p>
       Choose your side of the conversation.
-      This is only for this device.
     </p>
 
     <div class="identity-options">
@@ -871,17 +862,21 @@
     </div>
 
   </div>
+
 </div>
 
-<!-- PROFILE POPUP -->
+<!-- PROFILE -->
 
 <div
   class="overlay"
   id="profileOverlay"
 >
+
   <div class="popup">
 
-    <h2>Mela</h2>
+    <h2>
+      Mela
+    </h2>
 
     <p>
       Your little corner of the world.
@@ -899,17 +894,21 @@
     </div>
 
   </div>
+
 </div>
 
-<!-- SEARCH POPUP -->
+<!-- SEARCH -->
 
 <div
   class="overlay"
   id="searchOverlay"
 >
+
   <div class="popup">
 
-    <h2>Search conversation</h2>
+    <h2>
+      Search conversation
+    </h2>
 
     <input
       id="searchInput"
@@ -935,17 +934,21 @@
     </div>
 
   </div>
+
 </div>
 
-<!-- MORE POPUP -->
+<!-- MORE -->
 
 <div
   class="overlay"
   id="moreOverlay"
 >
+
   <div class="popup">
 
-    <h2>Chat options</h2>
+    <h2>
+      Chat options
+    </h2>
 
     <div class="menu-list">
 
@@ -980,30 +983,20 @@
     </div>
 
   </div>
+
 </div>
 
 <script>
 
-  /* =========================================================
+  /* =====================================================
      SUPABASE
-  ========================================================= */
+  ===================================================== */
 
   const SUPABASE_URL =
     "https://mtlesmajgaxiaebocybz.supabase.co";
 
-  /*
-    IMPORTANT:
-    Paste your Supabase PUBLISHABLE key here.
-
-    It should start with:
-
-    sb_publishable_
-
-    NEVER put a service_role or sb_secret key here.
-  */
-
   const SUPABASE_KEY =
-    "sb_publishable_Uafnj0C-CyB8SCeGggSpyg_bR9VvgQC";
+    "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
 
   const supabaseClient =
     window.supabase.createClient(
@@ -1012,29 +1005,36 @@
     );
 
 
-  /* =========================================================
+  /* =====================================================
      SETTINGS
-  ========================================================= */
+  ===================================================== */
 
-  const ROOM_ID = "tattoo";
+  const ROOM_ID =
+    "tattoo";
 
   const BUCKET =
     "tattoo-chat-media";
 
 
-  /* =========================================================
-     USER IDENTITY
-  ========================================================= */
+  /* =====================================================
+     IDENTITY
+  ===================================================== */
 
   let currentUser =
-    localStorage.getItem("tattoo_user");
+    localStorage.getItem(
+      "tattoo_user"
+    );
 
   if (!currentUser) {
-    currentUser = "you";
+
+    currentUser =
+      "you";
+
     localStorage.setItem(
       "tattoo_user",
       currentUser
     );
+
   }
 
   const USER_NAMES = {
@@ -1048,85 +1048,98 @@
       : "you";
 
 
-  /* =========================================================
+  /* =====================================================
      ELEMENTS
-  ========================================================= */
+  ===================================================== */
 
   const messages =
-    document.getElementById("messages");
+    document.getElementById(
+      "messages"
+    );
 
   const composer =
-    document.getElementById("composer");
+    document.getElementById(
+      "composer"
+    );
 
   const messageInput =
-    document.getElementById("messageInput");
+    document.getElementById(
+      "messageInput"
+    );
 
   const emojiPanel =
-    document.getElementById("emojiPanel");
-
-  const attachmentBtn =
-    document.getElementById("attachmentBtn");
+    document.getElementById(
+      "emojiPanel"
+    );
 
   const fileInput =
-    document.getElementById("fileInput");
+    document.getElementById(
+      "fileInput"
+    );
 
   const attachmentPreview =
-    document.getElementById("attachmentPreview");
+    document.getElementById(
+      "attachmentPreview"
+    );
 
   const attachmentName =
-    document.getElementById("attachmentName");
-
-  const removeAttachment =
-    document.getElementById("removeAttachment");
+    document.getElementById(
+      "attachmentName"
+    );
 
   const typingIndicator =
-    document.getElementById("typingIndicator");
+    document.getElementById(
+      "typingIndicator"
+    );
 
   const statusText =
-    document.getElementById("statusText");
+    document.getElementById(
+      "statusText"
+    );
 
   const jumpBtn =
-    document.getElementById("jumpBtn");
+    document.getElementById(
+      "jumpBtn"
+    );
 
 
-  /* =========================================================
+  /* =====================================================
      STATE
-  ========================================================= */
+  ===================================================== */
 
   let selectedFile = null;
 
   let typingTimer = null;
 
-  let presenceTimer = null;
 
-
-  /* =========================================================
+  /* =====================================================
      HELPERS
-  ========================================================= */
+  ===================================================== */
 
   function escapeHTML(value) {
 
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+    return String(value || "")
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+
   }
 
 
   function formatTime(dateString) {
 
-    const date =
-      new Date(dateString);
-
-    return date.toLocaleTimeString(
+    return new Date(
+      dateString
+    ).toLocaleTimeString(
       [],
       {
         hour: "numeric",
         minute: "2-digit"
       }
     );
+
   }
 
 
@@ -1153,9 +1166,9 @@
   }
 
 
-  /* =========================================================
-     RENDER MESSAGE
-  ========================================================= */
+  /* =====================================================
+     RENDER
+  ===================================================== */
 
   function renderMessage(message) {
 
@@ -1170,10 +1183,13 @@
     }
 
     const row =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     const mine =
-      message.sender_id === currentUser;
+      message.sender_id ===
+      currentUser;
 
     row.className =
       mine
@@ -1184,30 +1200,31 @@
       message.id;
 
     const wrap =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     wrap.className =
       "message-wrap";
 
-
     const bubble =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     bubble.className =
       "bubble";
 
 
-    /* TEXT */
-
     if (
-      message.message_type === "text"
+      message.message_type ===
+      "text"
     ) {
 
       bubble.innerHTML =
         escapeHTML(
           message.content
-        )
-        .replaceAll(
+        ).replaceAll(
           "\n",
           "<br>"
         );
@@ -1215,16 +1232,17 @@
     }
 
 
-    /* IMAGE */
-
     else if (
-      message.message_type === "image"
+      message.message_type ===
+      "image"
     ) {
 
       if (message.media_path) {
 
         const img =
-          document.createElement("img");
+          document.createElement(
+            "img"
+          );
 
         img.className =
           "media";
@@ -1235,26 +1253,8 @@
         img.alt =
           "Photo";
 
-        img.loading =
-          "lazy";
-
-        bubble.appendChild(img);
-
-      }
-
-      if (message.content) {
-
-        const caption =
-          document.createElement("div");
-
-        caption.className =
-          "file-caption";
-
-        caption.textContent =
-          message.content;
-
         bubble.appendChild(
-          caption
+          img
         );
 
       }
@@ -1262,16 +1262,17 @@
     }
 
 
-    /* VIDEO */
-
     else if (
-      message.message_type === "video"
+      message.message_type ===
+      "video"
     ) {
 
       if (message.media_path) {
 
         const video =
-          document.createElement("video");
+          document.createElement(
+            "video"
+          );
 
         video.className =
           "media";
@@ -1285,23 +1286,8 @@
         video.playsInline =
           true;
 
-        bubble.appendChild(video);
-
-      }
-
-      if (message.content) {
-
-        const caption =
-          document.createElement("div");
-
-        caption.className =
-          "file-caption";
-
-        caption.textContent =
-          message.content;
-
         bubble.appendChild(
-          caption
+          video
         );
 
       }
@@ -1309,46 +1295,49 @@
     }
 
 
-    /* META */
-
     const meta =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     meta.className =
       "message-meta";
 
     const time =
-      document.createElement("span");
+      document.createElement(
+        "span"
+      );
 
     time.textContent =
       formatTime(
         message.created_at
       );
 
-    meta.appendChild(time);
+    meta.appendChild(
+      time
+    );
 
 
     if (mine) {
 
       const checks =
-        document.createElement("span");
+        document.createElement(
+          "span"
+        );
 
       checks.className =
         "checks";
+
+      checks.textContent =
+        message.read_at
+          ? "✓✓"
+          : "✓";
 
       if (message.read_at) {
 
         checks.classList.add(
           "read"
         );
-
-        checks.textContent =
-          "✓✓";
-
-      } else {
-
-        checks.textContent =
-          "✓";
 
       }
 
@@ -1378,9 +1367,9 @@
   }
 
 
-  /* =========================================================
+  /* =====================================================
      LOAD MESSAGES
-  ========================================================= */
+  ===================================================== */
 
   async function loadMessages() {
 
@@ -1391,7 +1380,10 @@
       await supabaseClient
         .from("chat_messages")
         .select("*")
-        .eq("room_id", ROOM_ID)
+        .eq(
+          "room_id",
+          ROOM_ID
+        )
         .order(
           "created_at",
           {
@@ -1399,10 +1391,11 @@
           }
         );
 
+
     if (error) {
 
       console.error(
-        "Load messages error:",
+        "Load messages:",
         error
       );
 
@@ -1410,39 +1403,15 @@
 
     }
 
-    const divider =
-      messages.querySelector(
-        ".date-divider"
-      );
 
-    messages.innerHTML = "";
+    messages.innerHTML =
+      '<div class="date-divider">TODAY</div>';
 
-    if (divider) {
-
-      messages.appendChild(
-        divider
-      );
-
-    } else {
-
-      const newDivider =
-        document.createElement("div");
-
-      newDivider.className =
-        "date-divider";
-
-      newDivider.textContent =
-        "TODAY";
-
-      messages.appendChild(
-        newDivider
-      );
-
-    }
 
     (data || []).forEach(
       renderMessage
     );
+
 
     scrollToBottom();
 
@@ -1451,9 +1420,9 @@
   }
 
 
-  /* =========================================================
+  /* =====================================================
      SEND TEXT
-  ========================================================= */
+  ===================================================== */
 
   async function sendText() {
 
@@ -1462,21 +1431,11 @@
 
     if (!text) return;
 
-    messageInput.value = "";
+    messageInput.value =
+      "";
 
     stopTyping();
 
-
-    /*
-      Insert only.
-
-      We DO NOT render the message here.
-
-      The Realtime INSERT listener below
-      will receive it and render it once.
-
-      This prevents double messages.
-    */
 
     const {
       error
@@ -1502,6 +1461,7 @@
 
         });
 
+
     if (error) {
 
       console.error(
@@ -1511,10 +1471,7 @@
 
       alert(
         "Send error: " +
-        (
-          error.message ||
-          "Unknown error"
-        )
+        error.message
       );
 
       messageInput.value =
@@ -1525,16 +1482,16 @@
   }
 
 
-  /* =========================================================
-     UPLOAD MEDIA
-  ========================================================= */
+  /* =====================================================
+     SEND FILE
+  ===================================================== */
 
   async function sendAttachment(file) {
 
     if (!file) return;
 
 
-    const fileExtension =
+    const extension =
       file.name.includes(".")
         ? file.name
             .split(".")
@@ -1543,20 +1500,21 @@
         : "bin";
 
 
-    const safeName =
-      `${Date.now()}-${Math.random()
+    const fileName =
+      Date.now() +
+      "-" +
+      Math.random()
         .toString(36)
-        .slice(2)}.${fileExtension}`;
+        .slice(2) +
+      "." +
+      extension;
 
 
     const path =
-      `${currentUser}/${safeName}`;
+      currentUser +
+      "/" +
+      fileName;
 
-
-    /*
-      Supabase recommends the standard
-      upload method for smaller files.
-    */
 
     const {
       data,
@@ -1569,10 +1527,12 @@
           path,
           file,
           {
-            cacheControl: "3600",
-            upsert: false,
+            cacheControl:
+              "3600",
+            upsert:
+              false,
             contentType:
-              file.type || undefined
+              file.type
           }
         );
 
@@ -1586,10 +1546,7 @@
 
       alert(
         "Upload error: " +
-        (
-          error.message ||
-          "Could not upload file."
-        )
+        error.message
       );
 
       return;
@@ -1608,20 +1565,16 @@
         );
 
 
-    const messageType =
-      file.type.startsWith("video/")
+    const type =
+      file.type.startsWith(
+        "video/"
+      )
         ? "video"
         : "image";
 
 
-    /*
-      Again, we only insert.
-
-      Realtime renders it once.
-    */
-
     const {
-      error: insertError
+      error: messageError
     } =
       await supabaseClient
         .from("chat_messages")
@@ -1640,7 +1593,7 @@
             "",
 
           message_type:
-            messageType,
+            type,
 
           media_path:
             publicData.publicUrl
@@ -1648,19 +1601,11 @@
         });
 
 
-    if (insertError) {
-
-      console.error(
-        "Media message error:",
-        insertError
-      );
+    if (messageError) {
 
       alert(
         "Message error: " +
-        (
-          insertError.message ||
-          "Could not send media."
-        )
+        messageError.message
       );
 
     }
@@ -1668,9 +1613,9 @@
   }
 
 
-  /* =========================================================
+  /* =====================================================
      REALTIME CHAT
-  ========================================================= */
+  ===================================================== */
 
   const chatChannel =
     supabaseClient
@@ -1694,32 +1639,14 @@
 
 
           /*
-            CRITICAL DOUBLE-SEND FIX
+            DOUBLE-SEND FIX
 
-            Our own message is already delivered
-            through Realtime.
+            Every message is rendered
+            through this Realtime event.
 
-            We do NOT render it twice.
-          */
-
-          if (
-            message.sender_id ===
-            currentUser
-          ) {
-
-            renderMessage(
-              message
-            );
-
-            scrollToBottom();
-
-            return;
-
-          }
-
-
-          /*
-            Render Mela's message.
+            The duplicate check inside
+            renderMessage() prevents
+            accidental second rendering.
           */
 
           renderMessage(
@@ -1728,7 +1655,15 @@
 
           scrollToBottom();
 
-          markMessagesRead();
+
+          if (
+            message.sender_id !==
+            currentUser
+          ) {
+
+            markMessagesRead();
+
+          }
 
         }
       )
@@ -1744,13 +1679,6 @@
         },
         () => {
 
-          /*
-            Updates include read receipts.
-
-            Reloading keeps the check marks
-            accurate.
-          */
-
           loadMessages();
 
         }
@@ -1760,7 +1688,7 @@
         status => {
 
           console.log(
-            "Realtime status:",
+            "Chat realtime:",
             status
           );
 
@@ -1768,17 +1696,19 @@
       );
 
 
-  /* =========================================================
+  /* =====================================================
      READ RECEIPTS
-  ========================================================= */
+  ===================================================== */
 
   async function markMessagesRead() {
 
     await supabaseClient
       .from("chat_messages")
       .update({
+
         read_at:
           new Date().toISOString()
+
       })
       .eq(
         "room_id",
@@ -1796,15 +1726,21 @@
   }
 
 
-  /* =========================================================
+  /* =====================================================
      PRESENCE
-  ========================================================= */
+  ===================================================== */
 
   const presenceChannel =
-    supabaseClient
-      .channel(
-        "tattoo-presence"
-      );
+    supabaseClient.channel(
+      "tattoo-presence",
+      {
+        config: {
+          presence: {
+            key: currentUser
+          }
+        }
+      }
+    );
 
 
   presenceChannel
@@ -1817,8 +1753,11 @@
 
         updatePresence();
 
+        updateTyping();
+
       }
     )
+
     .on(
       "presence",
       {
@@ -1828,8 +1767,11 @@
 
         updatePresence();
 
+        updateTyping();
+
       }
     )
+
     .on(
       "presence",
       {
@@ -1839,16 +1781,28 @@
 
         updatePresence();
 
+        updateTyping();
+
       }
     )
+
     .subscribe(
       async status => {
 
+        console.log(
+          "Presence:",
+          status
+        );
+
+
         if (
-          status === "SUBSCRIBED"
+          status ===
+          "SUBSCRIBED"
         ) {
 
           await trackPresence();
+
+          updatePresence();
 
         }
 
@@ -1856,108 +1810,8 @@
     );
 
 
-  async function trackPresence() {
-
-    await presenceChannel.track({
-
-      user_id:
-        currentUser,
-
-      display_name:
-        USER_NAMES[currentUser],
-
-      online:
-        true,
-
-      typing:
-        false,
-
-      last_seen:
-        new Date().toISOString()
-
-    });
-
-  }
-
-
-  function updatePresence() {
-
-    const state =
-      presenceChannel.presenceState();
-
-    let otherOnline =
-      false;
-
-    Object.values(state)
-      .flat()
-      .forEach(item => {
-
-        if (
-          item.user_id ===
-          OTHER_USER
-        ) {
-
-          otherOnline =
-            true;
-
-        }
-
-      });
-
-
-    if (otherOnline) {
-
-      statusText.textContent =
-        "Online";
-
-      statusText.classList.add(
-        "online"
-      );
-
-    } else {
-
-      statusText.textContent =
-        "Offline";
-
-      statusText.classList.remove(
-        "online"
-      );
-
-    }
-
-  }
-
-
-  /* =========================================================
-     TYPING
-  ========================================================= */
-
-  messageInput.addEventListener(
-    "input",
-    async () => {
-
-      await updateTyping(
-        true
-      );
-
-      clearTimeout(
-        typingTimer
-      );
-
-      typingTimer =
-        setTimeout(
-          () => {
-            stopTyping();
-          },
-          1200
-        );
-
-    }
-  );
-
-
-  async function updateTyping(
-    typing
+  async function trackPresence(
+    typing = false
   ) {
 
     try {
@@ -1984,7 +1838,7 @@
     } catch (error) {
 
       console.error(
-        "Typing presence error:",
+        "Presence error:",
         error
       );
 
@@ -1993,72 +1847,151 @@
   }
 
 
-  async function stopTyping() {
+  function updatePresence() {
 
-    clearTimeout(
-      typingTimer
-    );
+    const state =
+      presenceChannel
+        .presenceState();
 
-    await updateTyping(
-      false
+
+    let online =
+      false;
+
+
+    Object.values(state)
+      .flat()
+      .forEach(item => {
+
+        if (
+          item.user_id ===
+          OTHER_USER &&
+          item.online === true
+        ) {
+
+          online =
+            true;
+
+        }
+
+      });
+
+
+    if (online) {
+
+      statusText.textContent =
+        "Online";
+
+      statusText.classList.add(
+        "online"
+      );
+
+    } else {
+
+      statusText.textContent =
+        "Offline";
+
+      statusText.classList.remove(
+        "online"
+      );
+
+    }
+
+  }
+
+
+  /* =====================================================
+     TYPING
+  ===================================================== */
+
+  async function setTyping(
+    value
+  ) {
+
+    await trackPresence(
+      value
     );
 
   }
 
 
-  /* =========================================================
-     LISTEN FOR MELA TYPING
-  ========================================================= */
+  function updateTyping() {
 
-  presenceChannel.on(
-    "presence",
-    {
-      event: "sync"
-    },
+    const state =
+      presenceChannel
+        .presenceState();
+
+
+    let typing =
+      false;
+
+
+    Object.values(state)
+      .flat()
+      .forEach(item => {
+
+        if (
+          item.user_id ===
+          OTHER_USER &&
+          item.typing === true
+        ) {
+
+          typing =
+            true;
+
+        }
+
+      });
+
+
+    typingIndicator.classList.toggle(
+      "show",
+      typing
+    );
+
+  }
+
+
+  function stopTyping() {
+
+    clearTimeout(
+      typingTimer
+    );
+
+    setTyping(false);
+
+  }
+
+
+  messageInput.addEventListener(
+    "input",
     () => {
 
-      const state =
-        presenceChannel.presenceState();
+      setTyping(true);
 
-      let otherTyping =
-        false;
-
-      Object.values(state)
-        .flat()
-        .forEach(item => {
-
-          if (
-            item.user_id ===
-            OTHER_USER &&
-            item.typing === true
-          ) {
-
-            otherTyping =
-              true;
-
-          }
-
-        });
-
-
-      typingIndicator.classList.toggle(
-        "show",
-        otherTyping
+      clearTimeout(
+        typingTimer
       );
+
+      typingTimer =
+        setTimeout(
+          stopTyping,
+          1200
+        );
 
     }
   );
 
 
-  /* =========================================================
+  /* =====================================================
      COMPOSER
-  ========================================================= */
+  ===================================================== */
 
   composer.addEventListener(
     "submit",
     async event => {
 
       event.preventDefault();
+
 
       if (selectedFile) {
 
@@ -2075,6 +2008,7 @@
 
       }
 
+
       await sendText();
 
     }
@@ -2086,8 +2020,7 @@
     event => {
 
       if (
-        event.key === "Enter" &&
-        !event.shiftKey
+        event.key === "Enter"
       ) {
 
         event.preventDefault();
@@ -2100,9 +2033,9 @@
   );
 
 
-  /* =========================================================
-     EMOJIS
-  ========================================================= */
+  /* =====================================================
+     EMOJI
+  ===================================================== */
 
   document
     .getElementById("emojiBtn")
@@ -2141,18 +2074,20 @@
     );
 
 
-  /* =========================================================
+  /* =====================================================
      ATTACHMENTS
-  ========================================================= */
+  ===================================================== */
 
-  attachmentBtn.addEventListener(
-    "click",
-    () => {
+  document
+    .getElementById("attachmentBtn")
+    .addEventListener(
+      "click",
+      () => {
 
-      fileInput.click();
+        fileInput.click();
 
-    }
-  );
+      }
+    );
 
 
   fileInput.addEventListener(
@@ -2196,15 +2131,19 @@
   }
 
 
-  removeAttachment.addEventListener(
-    "click",
-    clearAttachment
-  );
+  document
+    .getElementById(
+      "removeAttachment"
+    )
+    .addEventListener(
+      "click",
+      clearAttachment
+    );
 
 
-  /* =========================================================
+  /* =====================================================
      BACK
-  ========================================================= */
+  ===================================================== */
 
   document
     .getElementById("backBtn")
@@ -2219,14 +2158,15 @@
     );
 
 
-  /* =========================================================
+  /* =====================================================
      PROFILE
-  ========================================================= */
+  ===================================================== */
 
   const profileOverlay =
     document.getElementById(
       "profileOverlay"
     );
+
 
   document
     .getElementById("profileBtn")
@@ -2256,9 +2196,9 @@
     );
 
 
-  /* =========================================================
+  /* =====================================================
      SEARCH
-  ========================================================= */
+  ===================================================== */
 
   const searchOverlay =
     document.getElementById(
@@ -2317,48 +2257,57 @@
             .trim()
             .toLowerCase();
 
+
         searchOverlay.classList.remove(
           "show"
         );
 
+
         if (!term) return;
 
-        const allRows =
+
+        const rows =
           document.querySelectorAll(
             ".row"
           );
 
+
         let found =
           false;
 
-        allRows.forEach(
+
+        rows.forEach(
           row => {
 
-            const text =
+            const match =
               row.textContent
-                .toLowerCase();
+                .toLowerCase()
+                .includes(term);
+
 
             row.style.outline =
-              text.includes(term)
+              match
                 ? "2px solid rgba(233,168,196,.7)"
                 : "";
 
-            if (
-              text.includes(term)
-            ) {
+
+            if (match && !found) {
 
               found =
                 true;
 
               row.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
+                behavior:
+                  "smooth",
+                block:
+                  "center"
               });
 
             }
 
           }
         );
+
 
         if (!found) {
 
@@ -2372,9 +2321,9 @@
     );
 
 
-  /* =========================================================
-     MORE
-  ========================================================= */
+  /* =====================================================
+     MORE MENU
+  ===================================================== */
 
   const moreOverlay =
     document.getElementById(
@@ -2410,9 +2359,9 @@
     );
 
 
-  /* =========================================================
-     SAVE CONVERSATION
-  ========================================================= */
+  /* =====================================================
+     SAVE CHAT
+  ===================================================== */
 
   document
     .getElementById("saveConversation")
@@ -2434,7 +2383,8 @@
             .order(
               "created_at",
               {
-                ascending: true
+                ascending:
+                  true
               }
             );
 
@@ -2452,9 +2402,8 @@
 
         const text =
           (data || [])
-            .map(message => {
-
-              return (
+            .map(
+              message =>
                 `[${formatTime(
                   message.created_at
                 )}] ` +
@@ -2463,9 +2412,7 @@
                   message.content ||
                   `[${message.message_type}]`
                 )
-              );
-
-            })
+            )
             .join("\n");
 
 
@@ -2484,6 +2431,7 @@
             blob
           );
 
+
         const link =
           document.createElement(
             "a"
@@ -2497,9 +2445,11 @@
 
         link.click();
 
+
         URL.revokeObjectURL(
           url
         );
+
 
         moreOverlay.classList.remove(
           "show"
@@ -2509,12 +2459,14 @@
     );
 
 
-  /* =========================================================
+  /* =====================================================
      CLEAR MY MESSAGES
-  ========================================================= */
+  ===================================================== */
 
   document
-    .getElementById("clearMyMessages")
+    .getElementById(
+      "clearMyMessages"
+    )
     .addEventListener(
       "click",
       async () => {
@@ -2523,6 +2475,7 @@
           confirm(
             "Delete all your messages from this chat?"
           );
+
 
         if (!confirmed) return;
 
@@ -2559,15 +2512,15 @@
           "show"
         );
 
-        await loadMessages();
+        loadMessages();
 
       }
     );
 
 
-  /* =========================================================
+  /* =====================================================
      CHANGE IDENTITY
-  ========================================================= */
+  ===================================================== */
 
   const identityOverlay =
     document.getElementById(
@@ -2576,7 +2529,9 @@
 
 
   document
-    .getElementById("changeIdentity")
+    .getElementById(
+      "changeIdentity"
+    )
     .addEventListener(
       "click",
       () => {
@@ -2604,12 +2559,9 @@
           "click",
           () => {
 
-            const selected =
-              button.dataset.user;
-
             localStorage.setItem(
               "tattoo_user",
-              selected
+              button.dataset.user
             );
 
             location.reload();
@@ -2621,9 +2573,9 @@
     );
 
 
-  /* =========================================================
-     JUMP BUTTON
-  ========================================================= */
+  /* =====================================================
+     JUMP
+  ===================================================== */
 
   messages.addEventListener(
     "scroll",
@@ -2644,12 +2596,14 @@
   );
 
 
-  /* =========================================================
-     CLOSE POPUPS WHEN CLICKING OUTSIDE
-  ========================================================= */
+  /* =====================================================
+     CLOSE POPUPS
+  ===================================================== */
 
   document
-    .querySelectorAll(".overlay")
+    .querySelectorAll(
+      ".overlay"
+    )
     .forEach(
       overlay => {
 
@@ -2675,9 +2629,9 @@
     );
 
 
-  /* =========================================================
-     ESCAPE KEY
-  ========================================================= */
+  /* =====================================================
+     ESCAPE
+  ===================================================== */
 
   document.addEventListener(
     "keydown",
@@ -2697,9 +2651,11 @@
           )
           .forEach(
             overlay => {
+
               overlay.classList.remove(
                 "show"
               );
+
             }
           );
 
@@ -2709,42 +2665,13 @@
   );
 
 
-  /* =========================================================
-     CLOSE EMOJI WHEN CLICKING OUTSIDE
-  ========================================================= */
-
-  document.addEventListener(
-    "click",
-    event => {
-
-      if (
-        !emojiPanel.contains(
-          event.target
-        ) &&
-        event.target !==
-          document.getElementById(
-            "emojiBtn"
-          )
-      ) {
-
-        emojiPanel.classList.remove(
-          "show"
-        );
-
-      }
-
-    }
-  );
-
-
-  /* =========================================================
-     INITIAL LOAD
-  ========================================================= */
+  /* =====================================================
+     START
+  ===================================================== */
 
   loadMessages();
 
   messageInput.focus();
-
 
 </script>
 
