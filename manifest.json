@@ -1,1 +1,19 @@
-
+{
+  "name": "TATTOO — for Mela",
+  "short_name": "TATTOO ❤️",
+  "description": "A little world made especially for Mela.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d0b10",
+  "theme_color": "#0d0b10",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
