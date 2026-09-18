@@ -8,7 +8,7 @@
 
   const style = document.createElement("style");
   style.textContent = `
-    #tattooNotificationBell{position:fixed;right:14px;top:82px;z-index:9998;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(23,19,27,.94);color:#f8f2f5;box-shadow:0 8px 24px rgba(0,0,0,.35);backdrop-filter:blur(12px);cursor:pointer;font-size:18px}
+    #tattooNotificationBell{position:fixed;right:16px;top:16px;z-index:9998;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(23,19,27,.94);color:#f8f2f5;box-shadow:0 8px 24px rgba(0,0,0,.35);backdrop-filter:blur(12px);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;pointer-events:auto}
     #tattooNotificationPanel{position:fixed;right:14px;top:132px;z-index:9999;width:min(340px,calc(100vw - 28px));padding:16px;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(23,19,27,.98);color:#f8f2f5;box-shadow:0 18px 50px rgba(0,0,0,.5);font-family:system-ui,-apple-system,sans-serif;display:none}
     #tattooNotificationPanel.show{display:block}
     #tattooNotificationPanel h3{margin:0 0 5px;font-size:17px}
@@ -28,13 +28,13 @@
   bell.id = "tattooNotificationBell";
   bell.type = "button";
   bell.setAttribute("aria-label", "Notifications");
-  bell.textContent = "ð";
+  bell.textContent = "🔔";
   document.body.appendChild(bell);
 
   const panel = document.createElement("section");
   panel.id = "tattooNotificationPanel";
   panel.innerHTML = `
-    <h3>ð Tattoo notifications</h3>
+    <h3>💗 Tattoo notifications</h3>
     <div class="tattoo-note">Choose what Tattoo can notify you about, including messages while the app is closed.</div>
     <button class="tattoo-push-enable" id="tattooPushEnable">Enable background notifications</button>
     <div id="tattooPrefs"></div>
@@ -46,11 +46,11 @@
   const statusEl = panel.querySelector("#tattooPushStatus");
   const enableBtn = panel.querySelector("#tattooPushEnable");
   const labels = {
-    messages: "ð¬ New messages",
-    memories: "ð¸ New memories",
-    reactions: "â¤ï¸ Memory reactions",
-    updates: "ð Important app updates",
-    general: "ð General Tattoo notifications"
+    messages: "💬 New messages",
+    memories: "📸 New memories",
+    reactions: "❤️ Memory reactions",
+    updates: "🔔 Important app updates",
+    general: "💗 General Tattoo notifications"
   };
 
   function renderPreferences() {
@@ -106,6 +106,11 @@
   }
 
   async function enablePush() {
+    const isStandalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
+    if (/iPhone|iPad|iPod/i.test(navigator.userAgent) && !isStandalone) {
+      statusEl.textContent = "On iPhone, add Tattoo to your Home Screen and open it there before enabling notifications.";
+      return;
+    }
     if (!("Notification" in window)) { statusEl.textContent = "This browser does not support web notifications."; return; }
     if (Notification.permission === "denied") { statusEl.textContent = "Notifications are blocked. Allow them in your browser settings."; return; }
     const permission = Notification.permission === "granted" ? "granted" : await Notification.requestPermission();
@@ -130,7 +135,7 @@
     if (!card || card.querySelector(".tattoo-reaction-row") || !card.dataset.memoryId) return;
     const row = document.createElement("div");
     row.className = "tattoo-reaction-row";
-    ["â¤ï¸","ð","ð","ð","ð¥°","ð","ð","ð¥"].forEach(reaction => {
+    ["❤️","💕","💗","💖","🥰","😍","😂","🔥"].forEach(reaction => {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "tattoo-reaction-btn";
@@ -164,7 +169,7 @@
   });
   enableBtn.addEventListener("click", enablePush);
 
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js").catch(error => console.warn("Tattoo service worker:", error));
   renderPreferences();
   loadPreferences();
   watchMemoryCards();
