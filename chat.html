@@ -158,10 +158,28 @@
       color: var(--muted);
       font-size: 12px;
       margin-top: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 16px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #7d737b;
+      box-shadow: 0 0 0 2px rgba(255,255,255,.04);
+      flex-shrink: 0;
     }
 
     .status.online {
       color: #b8e6c8;
+    }
+
+    .status.online .status-dot {
+      background: #65d391;
+      box-shadow: 0 0 0 2px rgba(101,211,145,.12), 0 0 8px rgba(101,211,145,.55);
     }
 
     .header-actions {
@@ -996,7 +1014,8 @@
             class="status"
             id="statusText"
           >
-            Connecting...
+            <span class="status-dot" id="statusDot" aria-hidden="true"></span>
+            <span id="statusLabel">Connecting...</span>
           </div>
 
         </div>
@@ -1491,6 +1510,16 @@
     const statusText =
       document.getElementById(
         "statusText"
+      );
+
+    const statusLabel =
+      document.getElementById(
+        "statusLabel"
+      );
+
+    const statusDot =
+      document.getElementById(
+        "statusDot"
       );
 
     const emojiPanel =
@@ -2289,8 +2318,8 @@
 
       if (online) {
 
-        statusText.textContent =
-          "Online";
+        statusLabel.textContent =
+          USER_NAMES[OTHER_USER] + " is online";
 
         statusText.classList.add(
           "online"
@@ -2298,8 +2327,8 @@
 
       } else {
 
-        statusText.textContent =
-          "Offline";
+        statusLabel.textContent =
+          USER_NAMES[OTHER_USER] + " is offline";
 
         statusText.classList.remove(
           "online"
