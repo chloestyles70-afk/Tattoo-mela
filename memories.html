@@ -1207,6 +1207,23 @@
         }
 
 
+        // Notify the other partner after the memory is stored.
+        try {
+          const notificationUrl = "https://mtlesmajgaxiaebocybz.supabase.co/functions/v1/tattoo-push-v2";
+          await fetch(notificationUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "notify",
+              target_user: currentUser === "mela" ? "you" : "mela",
+              event: "memory",
+              record: { creator_name: currentName, caption: captionInput.value.trim() }
+            })
+          });
+        } catch (notificationError) {
+          console.warn("Memory notification failed:", notificationError);
+        }
+
         closeModal();
 
         statusEl.textContent =
