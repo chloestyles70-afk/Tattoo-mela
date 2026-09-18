@@ -1909,6 +1909,23 @@
     return;
   }
 
+  // Notify the other partner after the message is stored.
+  try {
+    const notificationUrl = "https://mtlesmajgaxiaebocybz.supabase.co/functions/v1/tattoo-push-v2";
+    await fetch(notificationUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "notify",
+        target_user: currentUser === "mela" ? "you" : "mela",
+        event: "message",
+        record: { sender_name: USER_NAMES[currentUser], content: text }
+      })
+    });
+  } catch (notificationError) {
+    console.warn("Message notification failed:", notificationError);
+  }
+
   // Only clear after successful send
   messageInput.value = "";
 
