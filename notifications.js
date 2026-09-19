@@ -29,12 +29,15 @@
   `;
   document.head.appendChild(style);
 
-  const bell = document.createElement("button");
-  bell.id = "tattooNotificationBell";
-  bell.type = "button";
-  bell.setAttribute("aria-label", "Notifications");
-  bell.textContent = "🔔";
-  document.body.appendChild(bell);
+  let bell = document.getElementById("tattooNotificationBell");
+  if (!bell) {
+    bell = document.createElement("button");
+    bell.id = "tattooNotificationBell";
+    bell.type = "button";
+    bell.setAttribute("aria-label", "Notifications");
+    bell.textContent = "🔔";
+    document.body.appendChild(bell);
+  }
 
   const panel = document.createElement("section");
   panel.id = "tattooNotificationPanel";
