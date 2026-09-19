@@ -1,4 +1,4 @@
-const CACHE_NAME = "tattoo-v2";
+const CACHE_NAME = "tattoo-v3";
 const APP_SHELL = ["./","./index.html","./chat.html","./memories.html","./style.css","./app.js","./manifest.json","./icon.svg","./notifications.js"];
 
 self.addEventListener("install", event => {
