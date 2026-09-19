@@ -47,7 +47,7 @@
     <div class="tattoo-identity">
       <div class="tattoo-identity-label">This device is using:</div>
       <div class="tattoo-identity-buttons">
-        <button type="button" class="tattoo-identity-btn" data-notification-identity="you">You</button>
+        <button type="button" class="tattoo-identity-btn" data-notification-identity="you">Alfred</button>
         <button type="button" class="tattoo-identity-btn" data-notification-identity="mela">Mela</button>
       </div>
     </div>
@@ -73,7 +73,7 @@
       button.classList.toggle("active", button.dataset.notificationIdentity === userId);
     });
     if (!userId) {
-      statusEl.textContent = "Choose whether this device belongs to You or Mela before enabling notifications.";
+      statusEl.textContent = "Choose whether this device belongs to Alfred or Mela before enabling notifications.";
       enableBtn.textContent = "Choose identity first";
       enableBtn.disabled = true;
     } else {
@@ -137,7 +137,7 @@
   async function enablePush() {
     const isStandalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
     if (!userId) {
-      statusEl.textContent = "Choose whether this device belongs to You or Mela first.";
+      statusEl.textContent = "Choose whether this device belongs to Alfred or Mela first.";
       return;
     }
     if (/iPhone|iPad|iPod/i.test(navigator.userAgent) && !isStandalone) {
@@ -207,7 +207,7 @@
       localStorage.setItem("tattoo_user", userId);
       localStorage.setItem("tattooUser", userId);
       renderIdentity();
-      statusEl.textContent = (userId === "mela" ? "Mela" : "You") + " is selected for this device. Tap Enable to register this device.";
+      statusEl.textContent = (userId === "mela" ? "Mela" : "Alfred") + " is selected for this device. Tap Enable to register this device.";
       loadPreferences();
     });
   });
