@@ -921,3 +921,267 @@ h2 {
   transform: translateY(-2px);
   opacity: 0.9;
 }
+
+
+/* =========================
+   RESPONSIVE LAYOUT
+   Phone • tablet • laptop • desktop • landscape
+========================= */
+
+html {
+  width: 100%;
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  overflow-x: clip;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+button,
+a {
+  touch-action: manipulation;
+}
+
+.opening {
+  min-height: 100vh;
+  min-height: 100svh;
+  padding:
+    max(24px, env(safe-area-inset-top))
+    clamp(18px, 5vw, 42px)
+    max(24px, env(safe-area-inset-bottom));
+}
+
+.opening-content {
+  width: min(100%, 620px);
+}
+
+.sweet {
+  font-size: clamp(16px, 2.2vw, 20px);
+}
+
+.story {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  padding-left: clamp(14px, 4vw, 35px);
+  padding-right: clamp(14px, 4vw, 35px);
+  padding-bottom: calc(110px + env(safe-area-inset-bottom));
+  overscroll-behavior-y: contain;
+}
+
+.topbar,
+.progress,
+.chapter {
+  width: min(100%, 720px);
+}
+
+.topbar {
+  height: clamp(58px, 8vh, 68px);
+}
+
+.chapter {
+  padding-top: clamp(42px, 9vh, 110px);
+  padding-bottom: calc(120px + env(safe-area-inset-bottom));
+}
+
+.chapter h2 {
+  font-size: clamp(34px, 7vw, 68px);
+  overflow-wrap: anywhere;
+}
+
+.chapter > p:not(.eyebrow):not(.media-caption) {
+  font-size: clamp(16px, 2.1vw, 20px);
+  line-height: 1.7;
+}
+
+.media-card {
+  width: 100%;
+  border-radius: clamp(16px, 3vw, 28px);
+}
+
+.media-card img,
+.video-card video {
+  width: 100%;
+  max-height: min(72dvh, 760px);
+}
+
+.when-list,
+.chat-next {
+  width: min(100%, 560px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.when-list button,
+.when-card {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.when-card-content {
+  min-width: 0;
+}
+
+.nav-controls {
+  padding-left: max(14px, env(safe-area-inset-left));
+  padding-right: max(14px, env(safe-area-inset-right));
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+
+.primary,
+.secondary,
+.icon-btn,
+.close,
+.when-list button,
+.chat-button {
+  min-height: 44px;
+}
+
+.modal {
+  padding:
+    max(14px, env(safe-area-inset-top))
+    max(14px, env(safe-area-inset-right))
+    max(14px, env(safe-area-inset-bottom))
+    max(14px, env(safe-area-inset-left));
+}
+
+.modal-inner {
+  width: min(520px, 100%);
+  max-height: min(82dvh, 760px);
+  overflow-y: auto;
+  padding: clamp(28px, 6vw, 42px) clamp(18px, 5vw, 30px);
+}
+
+@media (max-width: 600px) {
+  .story {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .chapter {
+    padding-top: clamp(34px, 7vh, 64px);
+  }
+
+  .chapter > p:not(.eyebrow):not(.media-caption) {
+    line-height: 1.65;
+  }
+
+  .media-card {
+    margin-top: 24px;
+  }
+
+  .media-stack {
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .when-list {
+    margin-top: 26px;
+    gap: 12px;
+  }
+
+  .when-card {
+    padding: 15px 42px 15px 14px;
+  }
+
+  .chat-next {
+    padding: 42px 8px 56px;
+  }
+
+  .nav-controls {
+    padding-top: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .story {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .topbar {
+    letter-spacing: .1em;
+  }
+
+  .chapter h2 {
+    font-size: clamp(32px, 9vw, 42px);
+  }
+
+  .eyebrow {
+    letter-spacing: .14em;
+    font-size: 10px;
+  }
+
+  .modal-inner p:not(.eyebrow) {
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  .nav-controls {
+    gap: 8px;
+  }
+
+  .nav-controls button {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media (max-height: 560px) and (orientation: landscape) {
+  .opening {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  h1 {
+    font-size: clamp(48px, 11vh, 76px);
+    margin: 10px 0 14px;
+  }
+
+  .sweet {
+    margin: 8px 0;
+    line-height: 1.45;
+  }
+
+  .signature {
+    margin: 10px 0;
+  }
+
+  .chapter {
+    padding-top: 24px;
+    padding-bottom: 100px;
+  }
+
+  .chapter h2 {
+    margin-bottom: 14px;
+  }
+
+  .media-card img,
+  .video-card video {
+    max-height: 58dvh;
+  }
+
+  .nav-controls {
+    padding-top: 6px;
+    padding-bottom: max(6px, env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
